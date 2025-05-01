@@ -283,7 +283,7 @@
           price: 2500, 
           duration: 30,
           description: 'Thorough cleansing and conditioning with premium products tailored to your hair type for a fresh, clean start.',
-          image: '/images/washing.jpg',
+          image: '/images/washing.jpeg',
           popular: true
         },
         { 
@@ -292,7 +292,7 @@
           price: 3500, 
           duration: 60,
           description: 'Professional blow-drying and straightening for sleek, smooth hair with minimal heat damage.',
-          image: '/images/blowdry.jpg',
+          image: '/images/blowdry.jpeg',
           popular: false
         },
         { 
@@ -301,7 +301,7 @@
           price: 4500, 
           duration: 90,
           description: 'Transformative straightening technique that leaves natural hair silky-smooth with incredible shine and movement.',
-          image: '/images/silk-press.jpg',
+          image: '/images/silk.jpeg',
           popular: true
         },
         { 
@@ -310,7 +310,7 @@
           price: 52000, 
           duration: 240,
           description: 'Premium quality extensions using ethically-sourced hair for added length and volume with a natural look.',
-          image: '/images/extensions.jpg',
+          image: '/images/extension.jpeg',
           popular: false,
           consultation: true
         },
@@ -320,7 +320,7 @@
           price: 12000, 
           duration: 180,
           description: 'Expert installation or maintenance of dreadlocks, ensuring clean, neat locks with proper tension and care.',
-          image: '/images/dreadlocks.jpg',
+          image: '/images/dreadlocks.jpeg',
           popular: false
         }
       ]
@@ -438,11 +438,11 @@
           {#each category.services as service}
             <div class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-all">
               <!-- Service Image -->
-              <div class="relative h-48 overflow-hidden">
+              <div class="relative aspect-[3/4] overflow-hidden">
                 <img 
                   src={service.image} 
                   alt={service.name} 
-                  class="w-full h-full object-cover"
+                  class="w-full h-full object-contain bg-gray-50"
                   loading="lazy"
                   on:error={handleImageError}
                 />
