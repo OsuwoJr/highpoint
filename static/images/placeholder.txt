@@ -1,0 +1,13 @@
+This directory should contain the following image files:
+- stylist-alex.jpg
+- stylist-taylor.jpg
+- stylist-jordan.jpg
+- stylist-casey.jpg
+- balayage.jpg
+- eco-color.jpg
+- precision-cut.jpg
+- bridal.jpg
+- keratin.jpg
+- extensions.jpg
+
+Please add these image files for production use. 

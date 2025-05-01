@@ -4,6 +4,20 @@
 		<meta charset="utf-8" />
 		<link rel="icon" href="%sveltekit.assets%/favicon.png" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		
+		<!-- Performance Optimization -->
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link rel="preload" href="/videos/salon-ambiance.mp4" as="video" type="video/mp4" fetchpriority="high">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="description" content="Luxury sustainable hair salon offering premium services with eco-friendly products">
+		
+		<!-- Fonts -->
+		<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+		
+		<!-- Accessibility -->
+		<meta name="theme-color" content="#000000">
+		
 		%sveltekit.head%
 	</head>
 	<body data-sveltekit-preload-data="hover">

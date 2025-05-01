@@ -1,2 +1,69 @@
 @import 'tailwindcss';
 @plugin '@tailwindcss/typography';
+
+/* Global Color Variables */
+:root {
+  --color-gold: #D4AF37;
+  --color-gold-dark: #B79526;
+  --color-black: #000000;
+  --color-eco-green: #81C14B;
+  --color-light-gray: #F5F5F5;
+}
+
+/* Base Styles */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Lato', sans-serif;
+  color: #333;
+  line-height: 1.6;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Accessibility */
+:focus {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 2px;
+}
+
+/* Skip link for keyboard users */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: var(--color-black);
+  color: white;
+  padding: 8px;
+  z-index: 100;
+}
+
+.skip-link:focus {
+  top: 0;
+}
+
+/* Performance optimizations */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* High contrast mode support */
+@media (forced-colors: active) {
+  .text-gold {
+    color: CanvasText;
+  }
+  .bg-gold {
+    background-color: ButtonFace;
+    color: ButtonText;
+  }
+}
