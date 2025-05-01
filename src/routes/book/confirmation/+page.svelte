@@ -5,16 +5,18 @@
   // Booking details will come from URL params
   interface BookingDetails {
     service: string;
-    stylist: string;
+    category: string;
     date: string;
     time: string;
+    price: string;
   }
   
   let bookingDetails: BookingDetails = {
     service: '',
-    stylist: '',
+    category: '',
     date: '',
-    time: ''
+    time: '',
+    price: ''
   };
   
   onMount(() => {
@@ -23,9 +25,10 @@
     
     bookingDetails = {
       service: urlParams.get('service') || '',
-      stylist: urlParams.get('stylist') || '',
+      category: urlParams.get('category') || '',
       date: urlParams.get('date') || '',
-      time: urlParams.get('time') || ''
+      time: urlParams.get('time') || '',
+      price: urlParams.get('price') || ''
     };
   });
   
@@ -65,10 +68,17 @@
           <p class="font-bold text-lg">{bookingDetails.service || 'N/A'}</p>
         </div>
         
-        {#if bookingDetails.stylist}
+        <div class="border-b pb-4 mb-4">
+          <p class="text-gray-600 mb-1 text-sm">Category</p>
+          <p class="font-bold text-lg">{bookingDetails.category || 'N/A'}</p>
+        </div>
+        
+        {#if bookingDetails.price}
           <div class="border-b pb-4 mb-4">
-            <p class="text-gray-600 mb-1 text-sm">Stylist</p>
-            <p class="font-bold text-lg">{bookingDetails.stylist}</p>
+            <p class="text-gray-600 mb-1 text-sm">Price</p>
+            <p class="font-bold text-lg">
+              {bookingDetails.price.startsWith('KSh') ? bookingDetails.price : `KSh ${bookingDetails.price}`}
+            </p>
           </div>
         {/if}
         
@@ -112,8 +122,8 @@
           Return to Home
         </a>
         
-        <a href="/gallery" class="bg-gold hover:bg-gold-dark text-black px-6 py-3 rounded-full font-bold flex items-center justify-center transition-colors">
-          Browse Gallery
+        <a href="/services" class="bg-gold hover:bg-gold-dark text-black px-6 py-3 rounded-full font-bold flex items-center justify-center transition-colors">
+          Browse Services
         </a>
       </div>
     </div>
@@ -135,6 +145,22 @@
   
   .bg-light {
     background-color: var(--color-light);
+  }
+  
+  .text-primary {
+    color: var(--color-primary);
+  }
+  
+  .border-primary {
+    border-color: var(--color-primary);
+  }
+  
+  .hover\:bg-primary:hover {
+    background-color: var(--color-primary);
+  }
+  
+  .hover\:text-light:hover {
+    color: var(--color-light);
   }
   
   .font-playfair {

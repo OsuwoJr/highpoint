@@ -16,12 +16,12 @@
     on:blur={() => isHovered = false}
     tabindex="0"
   >
-    <div class="relative h-52 overflow-hidden">
+    <div class="relative aspect-[3/4] overflow-hidden bg-gray-50">
       {#if !imageError}
         <img 
           src={service.image} 
           alt={service.name} 
-          class="w-full h-full object-cover transition-transform duration-500 {isHovered ? 'scale-110' : ''}"
+          class="w-full h-full object-contain transition-transform duration-500 {isHovered ? 'scale-105' : ''}"
           loading="lazy"
           width="400"
           height="300"
@@ -34,7 +34,7 @@
         </div>
       {/if}
       <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
-      <span class="absolute bottom-2 right-2 bg-gold text-black px-3 py-1 rounded-full text-sm font-bold">${service.price}+</span>
+      <span class="absolute bottom-3 right-3 bg-gold text-black px-3 py-1 rounded-full text-sm font-bold">KSh {service.price}</span>
     </div>
     
     <div class="p-6">
@@ -71,7 +71,7 @@
   .-translate-y-2 {
     transform: translateY(-0.5rem);
   }
-  .scale-110 {
-    transform: scale(1.1);
+  .scale-105 {
+    transform: scale(1.05);
   }
 </style>

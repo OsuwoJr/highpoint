@@ -1,53 +1,36 @@
-<script>
+<script lang="ts">
   import { onMount } from 'svelte';
   import Header from '$lib/components/Header.svelte';
   
+  interface Service {
+    id: string;
+    name: string;
+    price: number | string;
+    duration: number | string;
+    description: string;
+    image: string;
+    popular?: boolean;
+    consultation?: boolean;
+  }
+  
+  interface ServiceCategory {
+    id: string;
+    name: string;
+    description: string;
+    services: Service[];
+  }
+  
   // Define service categories and services
-  const serviceCategories = [
-    {
-      id: 'color',
-      name: 'Color Services',
-      description: 'Transform your look with our premium, eco-friendly color services',
-      services: [
-        { 
-          id: 'balayage',
-          name: 'Balayage', 
-          price: 200, 
-          duration: 120,
-          description: 'Hand-painted highlights that create a naturally sun-kissed look with less maintenance than traditional foils.',
-          image: '/images/balayage.jpg',
-          popular: true
-        },
-        { 
-          id: 'eco-color',
-          name: 'Eco Color', 
-          price: 150, 
-          duration: 90,
-          description: 'Organic, plant-based hair color using sustainable ingredients that are gentle on hair while providing vibrant, long-lasting results.',
-          image: '/images/eco-color.jpg',
-          popular: false
-        },
-        { 
-          id: 'color-correction',
-          name: 'Color Correction', 
-          price: '250+', 
-          duration: '180+',
-          description: 'Expert color correction to fix uneven tones, brassy shades, or botched home coloring jobs. Price varies based on complexity.',
-          image: '/images/color-correction.jpg',
-          popular: false,
-          consultation: true
-        }
-      ]
-    },
+  const serviceCategories: ServiceCategory[] = [
     {
       id: 'cuts',
-      name: 'Haircuts & Styling',
+      name: 'Cuts & Styling',
       description: 'Precision cuts and styling tailored to enhance your natural features',
       services: [
         { 
           id: 'precision-cut',
           name: 'Precision Cut', 
-          price: 95, 
+          price: 12350, 
           duration: 60,
           description: 'Expert haircut personalized to your face shape, hair texture, and lifestyle needs.',
           image: '/images/precision-cut.jpg',
@@ -56,7 +39,7 @@
         { 
           id: 'bridal-style',
           name: 'Bridal Style', 
-          price: 250, 
+          price: 32500, 
           duration: 150,
           description: 'Complete bridal hair styling including consultation, trial run, and day-of styling for your special day.',
           image: '/images/bridal.jpg',
@@ -65,11 +48,140 @@
         { 
           id: 'blowout',
           name: 'Luxury Blowout', 
-          price: 75, 
+          price: 9750, 
           duration: 45,
           description: 'Professional blow dry styling with premium products for smooth, voluminous hair that lasts for days.',
           image: '/images/blowout.jpg',
           popular: true
+        }
+      ]
+    },
+    {
+      id: 'braiding',
+      name: 'Braiding',
+      description: 'Expert braiding services for all hair types and styles',
+      services: [
+        { 
+          id: 'normal-braids',
+          name: 'Normal Braids', 
+          price: 1200, 
+          duration: 180,
+          description: 'Classic three-strand braids that are neat, durable, and perfect for everyday wear. Ideal for a clean and protective look.',
+          image: '/images/normalbraids.jpg',
+          popular: true
+        },
+        { 
+          id: 'knotless-braids',
+          name: 'Knotless Braids', 
+          price: 1500, 
+          duration: 240,
+          description: 'Pain-free, natural-looking braids that start with your own hair, reducing tension on the scalp and offering a lightweight feel.',
+          image: '/images/knotlessbraids.jpg',
+          popular: true
+        },
+        { 
+          id: 'goddess-braids',
+          name: 'Goddess Braids', 
+          price: 2000, 
+          duration: 180,
+          description: 'Thick, elegant cornrow-style braids that are styled close to the scalp. Perfect for a regal and stylish appearance.',
+          image: '/images/goddessbraids.jpg',
+          popular: false
+        },
+        { 
+          id: 'boho-braids',
+          name: 'Boho Braids', 
+          price: 1700, 
+          duration: 210,
+          description: 'Bohemian-inspired braids with curly strands left out for a soft, carefree vibe that blends neatness with natural flow.',
+          image: '/images/boho.jpg',
+          popular: false
+        },
+        { 
+          id: 'loose-braids',
+          name: 'Loose Braids', 
+          price: 1500, 
+          duration: 150,
+          description: 'Single or multiple loosely done braids for a laid-back, voluminous style that frames the face beautifully.',
+          image: '/images/loosebraids.jpg',
+          popular: false
+        }
+      ]
+    },
+    {
+      id: 'twists',
+      name: 'Twists & Coils',
+      description: 'Beautiful twist styles for texture, volume, and protection',
+      services: [
+        { 
+          id: 'marley-twist',
+          name: 'Marley Twist', 
+          price: 15000, 
+          duration: 240,
+          description: 'Thick, textured twists using Marley hair extensions, giving a bold, afro-inspired look full of volume and length.',
+          image: '/images/marleytwist.jpg',
+          popular: true
+        },
+        { 
+          id: 'coco-twists',
+          name: 'Coco Twists', 
+          price: 25000, 
+          duration: 300,
+          description: 'Luxurious twists with a smooth, rope-like finish. Perfect for those who love a clean, defined protective style.',
+          image: '/images/coco.jpg',
+          popular: false
+        },
+        { 
+          id: 'spring-twist',
+          name: 'Spring Twist', 
+          price: 2500, 
+          duration: 210,
+          description: 'Lightweight, springy twists with a coily texture. This low-maintenance style gives a fun and youthful look.',
+          image: '/images/springtwist.jpg',
+          popular: false
+        },
+        { 
+          id: 'passion-twist',
+          name: 'Passion Twist', 
+          price: 2500, 
+          duration: 210,
+          description: 'Soft, shiny twists with a wavy texture. A trendy and romantic look ideal for any season.',
+          image: '/images/passiontwist.jpg',
+          popular: true
+        },
+        { 
+          id: 'twist-outs',
+          name: 'Twist Outs', 
+          price: 600, 
+          duration: 60,
+          description: 'Two-strand twists undone to create defined, bouncy curls for a natural, soft afro-textured look.',
+          image: '/images/twistouts.jpg',
+          popular: false
+        }
+      ]
+    },
+    {
+      id: 'cornrows',
+      name: 'Cornrows & Lines',
+      description: 'Sleek cornrow styles with intricate designs and patterns',
+      services: [
+        { 
+          id: 'ghanaians',
+          name: 'Ghanaians', 
+          price: 1500, 
+          duration: 120,
+          description: 'Feed-in cornrows with intricate designs inspired by Ghanaian culture. Neat, sleek, and perfect for all occasions.',
+          image: '/images/ghanaians.jpg',
+          popular: true
+        },
+        { 
+          id: 'half-liners',
+          name: 'Half Liners', 
+          price: 2000, 
+          duration: 150,
+          description: 'A stylish combination of cornrows at the front and free-flowing braids at the back, blending structure with freedom.',
+          image: '/images/halfliners.jpg',
+          popular: false
         }
       ]
     },
@@ -79,18 +191,123 @@
       description: 'Rejuvenate and transform your hair with our specialized treatments',
       services: [
         { 
+          id: 'deep-conditioning',
+          name: 'Deep Conditioning', 
+          price: 11050, 
+          duration: 60,
+          description: 'Intensive hydrating treatment that repairs damaged hair and restores moisture using premium organic products.',
+          image: '/images/deep-conditioning.jpg',
+          popular: true
+        },
+        { 
+          id: 'hair-treatment',
+          name: 'Hair Treatment', 
+          price: 15000, 
+          duration: 90,
+          description: 'Specialized protein, hot oil, or custom treatment formulated to address your specific hair concerns and restore health.',
+          image: '/images/hair-treatment.jpg',
+          popular: false
+        },
+        { 
           id: 'keratin',
-          name: 'Keratin Treatment', 
-          price: 300, 
+          name: 'Keratin/Botox Treatment', 
+          price: 39000, 
           duration: 180,
           description: 'Smoothing treatment that eliminates frizz, reduces curl, and adds incredible shine that lasts for months.',
           image: '/images/keratin.jpg',
           popular: true
         },
         { 
+          id: 'scalp-treatment',
+          name: 'Scalp Treatment', 
+          price: 8000, 
+          duration: 45,
+          description: 'Targeted treatment to address scalp issues like dryness, flaking, or irritation while promoting hair growth and health.',
+          image: '/images/scalp-treatment.jpg',
+          popular: false
+        }
+      ]
+    },
+    {
+      id: 'color',
+      name: 'Coloring Services',
+      description: 'Transform your look with our premium, eco-friendly color services',
+      services: [
+        { 
+          id: 'balayage',
+          name: 'Balayage', 
+          price: 26000, 
+          duration: 120,
+          description: 'Hand-painted highlights that create a naturally sun-kissed look with less maintenance than traditional foils.',
+          image: '/images/balayage.jpg',
+          popular: true
+        },
+        { 
+          id: 'eco-color',
+          name: 'Eco Color', 
+          price: 19500, 
+          duration: 90,
+          description: 'Organic, plant-based hair color using sustainable ingredients that are gentle on hair while providing vibrant, long-lasting results.',
+          image: '/images/eco-color.jpg',
+          popular: false
+        },
+        { 
+          id: 'color-correction',
+          name: 'Color Correction', 
+          price: 'KSh 32500+', 
+          duration: '180+',
+          description: 'Expert color correction to fix uneven tones, brassy shades, or botched home coloring jobs. Price varies based on complexity.',
+          image: '/images/color-correction.jpg',
+          popular: false,
+          consultation: true
+        },
+        { 
+          id: 'hair-dyeing',
+          name: 'Hair Coloring/Dyeing', 
+          price: 18000, 
+          duration: 120,
+          description: 'Full or partial hair coloring to achieve your desired shade and look, using quality products for optimal results.',
+          image: '/images/hair-dyeing.jpg',
+          popular: true
+        }
+      ]
+    },
+    {
+      id: 'styling',
+      name: 'Styling Tools & Enhancements',
+      description: 'Professional styling services to perfect your look',
+      services: [
+        { 
+          id: 'washing',
+          name: 'Hair Washing & Conditioning', 
+          price: 2500, 
+          duration: 30,
+          description: 'Thorough cleansing and conditioning with premium products tailored to your hair type for a fresh, clean start.',
+          image: '/images/washing.jpg',
+          popular: true
+        },
+        { 
+          id: 'blowdry-iron',
+          name: 'Blow-Dry & Flat Ironing', 
+          price: 3500, 
+          duration: 60,
+          description: 'Professional blow-drying and straightening for sleek, smooth hair with minimal heat damage.',
+          image: '/images/blowdry.jpg',
+          popular: false
+        },
+        { 
+          id: 'silk-press',
+          name: 'Silk Press', 
+          price: 4500, 
+          duration: 90,
+          description: 'Transformative straightening technique that leaves natural hair silky-smooth with incredible shine and movement.',
+          image: '/images/silk-press.jpg',
+          popular: true
+        },
+        { 
           id: 'extensions',
-          name: 'Hair Extensions', 
-          price: 400, 
+          name: 'Hair Extensions/Weaves', 
+          price: 52000, 
           duration: 240,
           description: 'Premium quality extensions using ethically-sourced hair for added length and volume with a natural look.',
           image: '/images/extensions.jpg',
@@ -98,12 +315,12 @@
           consultation: true
         },
         { 
-          id: 'deep-conditioning',
-          name: 'Deep Conditioning', 
-          price: 85, 
-          duration: 60,
-          description: 'Intensive hydrating treatment that repairs damaged hair and restores moisture using premium organic products.',
-          image: '/images/deep-conditioning.jpg',
+          id: 'dreadlocks',
+          name: 'Dreadlocks/Retwisting', 
+          price: 12000, 
+          duration: 180,
+          description: 'Expert installation or maintenance of dreadlocks, ensuring clean, neat locks with proper tension and care.',
+          image: '/images/dreadlocks.jpg',
           popular: false
         }
       ]
@@ -111,34 +328,36 @@
   ];
   
   // Track which service is expanded for mobile view
-  let expandedServiceId = null;
+  let expandedServiceId: string | null = null;
   
   // Toggle expanded service on mobile
-  function toggleService(serviceId) {
+  function toggleService(serviceId: string): void {
     expandedServiceId = expandedServiceId === serviceId ? null : serviceId;
   }
   
   // Handle image loading errors
-  function handleImageError(event) {
-    const imgElement = event.target;
+  function handleImageError(event: Event): void {
+    const imgElement = event.target as HTMLImageElement;
     imgElement.style.display = 'none';
     const parent = imgElement.parentElement;
     
-    // Create fallback element
-    const fallback = document.createElement('div');
-    fallback.className = 'w-full h-full bg-gold/20 flex items-center justify-center';
-    
-    const text = document.createElement('span');
-    text.className = 'text-xl font-bold text-black';
-    text.textContent = imgElement.alt || 'Service';
-    
-    fallback.appendChild(text);
-    parent.appendChild(fallback);
+    if (parent) {
+      // Create fallback element
+      const fallback = document.createElement('div');
+      fallback.className = 'w-full h-full bg-gold/20 flex items-center justify-center';
+      
+      const text = document.createElement('span');
+      text.className = 'text-xl font-bold text-black';
+      text.textContent = imgElement.alt || 'Service';
+      
+      fallback.appendChild(text);
+      parent.appendChild(fallback);
+    }
   }
 </script>
 
 <svelte:head>
-  <title>Services | LUXE Hair</title>
+  <title>Services | Belle Royale</title>
   <meta name="description" content="Explore our complete range of luxury, sustainable hair services including eco-friendly color, precision cuts, and premium treatments.">
 </svelte:head>
 
@@ -237,11 +456,17 @@
               
               <!-- Service Details -->
               <div class="p-6">
-                <div class="flex justify-between items-start mb-2">
-                  <h3 class="text-xl font-bold font-playfair">{service.name}</h3>
+                <div class="flex items-center justify-between mb-3">
+                  <h4 class="text-xl font-bold font-playfair">{service.name}</h4>
                   <div class="text-right">
-                    <span class="text-gold font-bold">${service.price}</span>
-                    <p class="text-gray-500 text-sm">{typeof service.duration === 'string' ? service.duration : `${Math.floor(service.duration / 60)}h ${service.duration % 60 ? `${service.duration % 60}min` : ''}`}</p>
+                    <div class="text-gold font-bold">
+                      {#if typeof service.price === 'number'}
+                      KSh {service.price}
+                      {:else}
+                      {service.price}
+                      {/if}
+                    </div>
+                    <p class="text-gray-500 text-sm">{typeof service.duration === 'string' ? service.duration : `${Math.floor(Number(service.duration) / 60)}h ${Number(service.duration) % 60 ? `${Number(service.duration) % 60}min` : ''}`}</p>
                   </div>
                 </div>
                 

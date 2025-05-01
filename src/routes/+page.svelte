@@ -31,41 +31,78 @@
   
   const services = [
     {
-      name: "Balayage",
-      price: 200,
-      description: "Hand-painted highlights for natural dimension",
-      image: "/images/balayage.jpg"
+      name: "Normal Braids",
+      price: 1200,
+      description: "Classic three-strand braids that are neat, durable, and perfect for everyday wear. Ideal for a clean and protective look.",
+      image: "/images/normal.jpeg"
     },
     {
-      name: "Eco Color",
-      price: 150,
-      description: "Organic, plant-based hair color that's gentle on hair",
-      image: "/images/eco-color.jpg"
+      name: "Knotless Braids",
+      price: 1500,
+      description: "Pain-free, natural-looking braids that start with your own hair, reducing tension on the scalp and offering a lightweight feel.",
+      image: "/images/knotless.jpeg"
     },
     {
-      name: "Precision Cut",
-      price: 95,
-      description: "Tailored haircut to enhance your natural features",
-      image: "/images/precision-cut.jpg"
+      name: "Goddess Braids",
+      price: 2000,
+      description: "Thick, elegant cornrow-style braids that are styled close to the scalp. Perfect for a regal and stylish appearance.",
+      image: "/images/goddess.jpeg"
     },
     {
-      name: "Bridal Style",
-      price: 250,
-      description: "Complete bridal hair styling for your special day",
-      image: "/images/bridal.jpg"
+      name: "Boho Braids",
+      price: 1700,
+      description: "Bohemian-inspired braids with curly strands left out for a soft, carefree vibe that blends neatness with natural flow.",
+      image: "/images/boho.jpeg"
     },
     {
-      name: "Keratin Treatment",
-      price: 300,
-      description: "Smooth, frizz-free hair that lasts for months",
-      image: "/images/keratin.jpg"
+      name: "Loose Braids",
+      price: 1500,
+      description: "Single or multiple loosely done braids for a laid-back, voluminous style that frames the face beautifully.",
+      image: "/images/loose.jpeg"
     },
     {
-      name: "Hair Extensions",
-      price: 400,
-      description: "Premium quality extensions for added length and volume",
-      image: "/images/extensions.jpg"
-    }
+      name: "Twist Outs",
+      price: 600,
+      description: "Two-strand twists undone to create defined, bouncy curls for a natural, soft afro-textured look",
+      image: "/images/twistouts.jpeg"
+    },
+    {
+      name: "Marley Twist",
+      price: 15000,
+      description: "Thick, textured twists using Marley hair extensions, giving a bold, afro-inspired look full of volume and length.",
+      image: "/images/marley.jpeg"
+    },
+    {
+      name: "Coco Twists",
+      price: 25000,
+      description: "Luxurious twists with a smooth, rope-like finish. Perfect for those who love a clean, defined protective style.",
+      image: "/images/coco.jpeg"
+    },
+    {
+      name: "Spring Twist",
+      price: 2500,
+      description: "Lightweight, springy twists with a coily texture. This low-maintenance style gives a fun and youthful look",
+      image: "/images/spring.jpeg"
+    },
+    {
+      name: "Passion Twist",
+      price: 2500,
+      description: "Soft, shiny twists with a wavy texture. A trendy and romantic look ideal for any season.",
+      image: "/images/passion.jpeg"
+    },
+    {
+      name: "Ghanaians",
+      price: 1500,
+      description: "Feed-in cornrows with intricate designs inspired by Ghanaian culture. Neat, sleek, and perfect for all occasions.",
+      image: "/images/ghanaians.jpeg"
+    },
+    {
+      name: "Half Lines",
+      price: 2000,
+      description: "A stylish combination of cornrows at the front and free-flowing braids at the back, blending structure with freedom.",
+      image: "/images/halflines.jpeg"
+    },
+    
   ];
 </script>
 
@@ -94,42 +131,7 @@
     </div>
   </section>
 
-  <!-- AR Try-On Section -->
-  <section class="bg-black text-white py-24 relative overflow-hidden" id="ar-tryon">
-    <!-- Background pattern -->
-    <div class="absolute inset-0 opacity-10">
-      <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
-            <path d="M 0 20 L 40 20 M 20 0 L 20 40" stroke="white" stroke-width="1"/>
-          </pattern>
-        </defs>
-        <rect width="100%" height="100%" fill="url(#grid)" />
-      </svg>
-    </div>
-    
-    <div class="max-w-4xl mx-auto text-center px-4 relative z-10">
-      <span class="text-gold uppercase tracking-wider font-lato text-sm font-bold">Virtual Experience</span>
-      <h2 class="text-4xl font-bold mt-2 mb-6 font-playfair">Try Before You Dye</h2>
-      <div class="w-24 h-1 bg-gold mx-auto mb-8"></div>
-      
-      <p class="mb-10 font-lato font-light text-lg max-w-2xl mx-auto">
-        Our augmented reality technology lets you see how different hair colors will look on you before making a commitment. Find your perfect match with zero risk.
-      </p>
-      
-      <button class="bg-gold hover:bg-gold-dark text-black px-8 py-4 rounded-full font-bold transition-all transform hover:scale-105 focus:ring-2 focus:ring-gold focus:ring-opacity-50 focus:outline-none inline-flex items-center">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-        </svg>
-        Launch AR Color Try-On
-      </button>
-      
-      <div class="mt-8 text-sm text-gray-400">
-        Works with your device's camera. No app download required.
-      </div>
-    </div>
-  </section>
+  
 </main>
 
 <style>

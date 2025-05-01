@@ -1,146 +1,152 @@
-<script>
+<script lang="ts">
   import { onMount } from 'svelte';
   import Header from '$lib/components/Header.svelte';
   
+  // Define types
+  interface Category {
+    id: string;
+    name: string;
+  }
+  
+  interface GalleryItem {
+    id: number;
+    image: string;
+    title: string;
+    description: string;
+    category: string;
+    featured: boolean;
+  }
+  
   // Gallery categories
-  const categories = [
+  const categories: Category[] = [
     { id: 'all', name: 'All' },
-    { id: 'color', name: 'Color Transformations' },
-    { id: 'cuts', name: 'Haircuts' },
+    { id: 'braiding', name: 'Braiding' },
+    { id: 'twists', name: 'Twists & Coils' },
+    { id: 'cornrows', name: 'Cornrows & Lines' },
     { id: 'styling', name: 'Styling' },
-    { id: 'bridal', name: 'Bridal' }
+    { id: 'color', name: 'Color Services' }
   ];
   
   // Gallery items
-  const galleryItems = [
+  const galleryItems: GalleryItem[] = [
     {
       id: 1,
-      image: '/images/gallery/color1.jpg',
-      title: 'Blonde Transformation',
-      description: 'From dark brown to honey blonde balayage',
-      category: 'color',
-      featured: true,
-      stylist: 'Alex Morgan'
+      image: '/images/normal.jpeg',
+      title: 'Normal Braids',
+      description: 'Classic three-strand braids that are neat, durable, and perfect for everyday wear',
+      category: 'braiding',
+      featured: true
     },
     {
       id: 2,
-      image: '/images/gallery/color2.jpg',
-      title: 'Rose Gold',
-      description: 'Subtle rose gold highlights on natural brunette',
-      category: 'color',
-      featured: false,
-      stylist: 'Taylor Kim'
+      image: '/images/knotless.jpeg',
+      title: 'Knotless Braids',
+      description: 'Pain-free, natural-looking braids that reduce tension on the scalp',
+      category: 'braiding',
+      featured: true
     },
     {
       id: 3,
-      image: '/images/gallery/cut1.jpg',
-      title: 'Textured Bob',
-      description: 'Modern textured bob with face-framing layers',
-      category: 'cuts',
-      featured: true,
-      stylist: 'Casey Brown'
+      image: '/images/goddess.jpeg',
+      title: 'Goddess Braids',
+      description: 'Thick, elegant cornrow-style braids styled close to the scalp',
+      category: 'braiding',
+      featured: false
     },
     {
       id: 4,
-      image: '/images/gallery/cut2.jpg',
-      title: 'Pixie Cut',
-      description: 'Bold pixie cut with textured top',
-      category: 'cuts',
-      featured: false,
-      stylist: 'Casey Brown'
+      image: '/images/boho.jpeg',
+      title: 'Boho Braids',
+      description: 'Bohemian-inspired braids with curly strands left out for a soft, carefree vibe',
+      category: 'braiding',
+      featured: false
     },
     {
       id: 5,
-      image: '/images/gallery/style1.jpg',
-      title: 'Beach Waves',
-      description: 'Effortless beach waves for medium to long hair',
-      category: 'styling',
-      featured: true,
-      stylist: 'Jordan Smith'
+      image: '/images/marley.jpeg',
+      title: 'Marley Twist',
+      description: 'Thick, textured twists using Marley hair extensions with volume and length',
+      category: 'twists',
+      featured: true
     },
     {
       id: 6,
-      image: '/images/gallery/style2.jpg',
-      title: 'Sleek Blowout',
-      description: 'Polished straight blowout with added volume',
-      category: 'styling',
-      featured: false,
-      stylist: 'Alex Morgan'
+      image: '/images/coco.jpeg',
+      title: 'Coco Twists',
+      description: 'Luxurious twists with a smooth, rope-like finish for a clean, defined look',
+      category: 'twists',
+      featured: false
     },
     {
       id: 7,
-      image: '/images/gallery/bridal1.jpg',
-      title: 'Romantic Updo',
-      description: 'Soft romantic updo with loose tendrils',
-      category: 'bridal',
-      featured: true,
-      stylist: 'Taylor Kim'
+      image: '/images/spring.jpeg',
+      title: 'Spring Twist',
+      description: 'Lightweight, springy twists with a coily texture for a fun and youthful look',
+      category: 'twists',
+      featured: false
     },
     {
       id: 8,
-      image: '/images/gallery/bridal2.jpg',
-      title: 'Modern Bridal',
-      description: 'Contemporary half-up style with braided details',
-      category: 'bridal',
-      featured: false,
-      stylist: 'Jordan Smith'
+      image: '/images/passion.jpeg',
+      title: 'Passion Twist',
+      description: 'Soft, shiny twists with a wavy texture for a trendy and romantic look',
+      category: 'twists',
+      featured: true
     },
     {
       id: 9,
-      image: '/images/gallery/color3.jpg',
-      title: 'Caramel Highlights',
-      description: 'Sun-kissed caramel highlights on dark hair',
-      category: 'color',
-      featured: false,
-      stylist: 'Alex Morgan'
+      image: '/images/twistouts.jpeg',
+      title: 'Twist Outs',
+      description: 'Two-strand twists undone to create defined, bouncy curls for a natural look',
+      category: 'twists',
+      featured: false
     },
     {
       id: 10,
-      image: '/images/gallery/cut3.jpg',
-      title: 'Long Layers',
-      description: 'Face-framing layers with added volume',
-      category: 'cuts',
-      featured: false,
-      stylist: 'Casey Brown'
+      image: '/images/ghanaians.jpeg',
+      title: 'Ghanaians',
+      description: 'Feed-in cornrows with intricate designs inspired by Ghanaian culture',
+      category: 'cornrows',
+      featured: true
     },
     {
       id: 11,
-      image: '/images/gallery/style3.jpg',
-      title: 'Vintage Waves',
-      description: 'Classic Hollywood-inspired waves',
-      category: 'styling',
-      featured: false,
-      stylist: 'Jordan Smith'
+      image: '/images/halflines.jpeg',
+      title: 'Half Lines',
+      description: 'Stylish combination of cornrows at the front and free-flowing braids at the back',
+      category: 'cornrows',
+      featured: false
     },
     {
       id: 12,
-      image: '/images/gallery/bridal3.jpg',
-      title: 'Boho Bridal',
-      description: 'Bohemian-inspired bridal style with floral accents',
-      category: 'bridal',
-      featured: true,
-      stylist: 'Taylor Kim'
+      image: '/images/loose.jpeg',
+      title: 'Loose Braids',
+      description: 'Single or multiple loosely done braids for a laid-back, voluminous style',
+      category: 'styling',
+      featured: true
     },
   ];
   
   // State
   let activeCategory = 'all';
-  let filteredItems = [...galleryItems];
-  let expandedItem = null;
+  let filteredItems: GalleryItem[] = [...galleryItems];
+  let expandedItem: GalleryItem | null = null;
   
   // Functions
-  function filterGallery(category) {
+  function filterGallery(category: string): void {
     activeCategory = category;
     filteredItems = category === 'all' 
       ? [...galleryItems]
       : galleryItems.filter(item => item.category === category);
   }
   
-  function handleImageError(event) {
-    const img = event.target;
+  function handleImageError(event: Event): void {
+    const img = event.target as HTMLImageElement;
     img.style.display = 'none';
     
     const parent = img.parentElement;
+    if (!parent) return;
+    
     const placeholder = document.createElement('div');
     placeholder.className = 'w-full h-full bg-gold/20 flex flex-col items-center justify-center p-4 text-center';
     
@@ -192,7 +198,7 @@ Please add high-quality images with the following specifications:
 </script>
 
 <svelte:head>
-  <title>Gallery | LUXE Hair</title>
+  <title>Gallery | Belle Royale</title>
   <meta name="description" content="Browse our gallery of stunning hair transformations, cuts, colors, and styles created by our expert stylists.">
 </svelte:head>
 
@@ -204,7 +210,7 @@ Please add high-quality images with the following specifications:
     <div class="max-w-4xl mx-auto text-center">
       <h1 class="text-4xl md:text-5xl font-bold font-playfair mb-4">Our <span class="text-gold">Gallery</span></h1>
       <p class="text-lg font-lato font-light max-w-2xl mx-auto">
-        Browse our collection of stunning transformations created by our talented team of stylists.
+        Browse our collection of stunning transformations and unique hairstyles for inspiration.
       </p>
     </div>
   </div>
@@ -234,7 +240,7 @@ Please add high-quality images with the following specifications:
         <p class="text-gray-500 text-lg">No images found in this category.</p>
       </div>
     {:else}
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
         {#each filteredItems as item (item.id)}
           <div 
             class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-all duration-300 cursor-pointer group"
@@ -243,11 +249,11 @@ Please add high-quality images with the following specifications:
             role="button"
             tabindex="0"
           >
-            <div class="relative h-80 overflow-hidden">
+            <div class="relative aspect-[3/4] overflow-hidden">
               <img
                 src={item.image}
                 alt={item.title}
-                class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                class="w-full h-full object-contain bg-gray-50"
                 loading="lazy"
                 on:error={handleImageError}
               />
@@ -258,10 +264,9 @@ Please add high-quality images with the following specifications:
                 </div>
               {/if}
               
-              <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent pt-8 pb-4 px-4 transform translate-y-2 group-hover:translate-y-0 opacity-90 group-hover:opacity-100 transition-all duration-300">
+              <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent pt-8 pb-4 px-4 transform group-hover:translate-y-0 opacity-95 group-hover:opacity-100 transition-all duration-300">
                 <h3 class="text-white font-bold text-lg">{item.title}</h3>
-                <p class="text-white/80 text-sm mt-1">{item.description}</p>
-                <p class="text-gold text-xs mt-2">By {item.stylist}</p>
+                <p class="text-white/90 text-sm mt-1">{item.description}</p>
               </div>
             </div>
           </div>
@@ -285,7 +290,7 @@ Please add high-quality images with the following specifications:
       </p>
       
       <a href="https://instagram.com/" target="_blank" rel="noopener noreferrer" class="bg-white text-black px-8 py-3 rounded-full font-bold inline-flex items-center hover:bg-gray-200 transition-colors">
-        @luxehairsalon
+        @belleroyalesalon
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
         </svg>
@@ -324,7 +329,7 @@ Please add high-quality images with the following specifications:
       aria-modal="true"
       tabindex="0"
     >
-      <div class="max-w-4xl w-full max-h-[90vh] relative" on:click|stopPropagation>
+      <div class="max-w-5xl w-full max-h-[90vh] relative" on:click|stopPropagation>
         <button
           class="absolute -top-12 right-0 text-white hover:text-gold"
           on:click={() => expandedItem = null}
@@ -336,39 +341,34 @@ Please add high-quality images with the following specifications:
         </button>
         
         <div class="bg-white rounded-lg overflow-hidden shadow-2xl flex flex-col md:flex-row">
-          <div class="md:w-2/3 relative">
+          <div class="md:w-3/5 bg-gray-50 flex items-center justify-center">
             <img
-              src={expandedItem.image}
-              alt={expandedItem.title}
-              class="w-full h-full object-cover"
+              src={expandedItem?.image}
+              alt={expandedItem?.title || 'Gallery image'}
+              class="max-h-[70vh] w-auto object-contain"
               on:error={handleImageError}
             />
           </div>
           
-          <div class="p-6 md:p-8 md:w-1/3 flex flex-col">
+          <div class="p-6 md:p-8 md:w-2/5 flex flex-col">
             <div>
-              <h2 class="text-2xl font-bold font-playfair mb-2">{expandedItem.title}</h2>
-              <p class="text-gray-600 mb-4">{expandedItem.description}</p>
-              
-              <div class="mb-6">
-                <h3 class="text-sm uppercase tracking-wider text-gray-500 mb-2">Stylist</h3>
-                <p class="font-medium">{expandedItem.stylist}</p>
-              </div>
+              <h2 class="text-2xl font-bold font-playfair mb-2">{expandedItem?.title}</h2>
+              <p class="text-gray-600 mb-6">{expandedItem?.description}</p>
               
               <div class="mb-6">
                 <h3 class="text-sm uppercase tracking-wider text-gray-500 mb-2">Service Type</h3>
                 <p class="inline-block bg-gray-100 px-3 py-1 rounded-full text-sm">
-                  {categories.find(c => c.id === expandedItem.category)?.name || expandedItem.category}
+                  {categories.find(c => c.id === expandedItem?.category)?.name || expandedItem?.category || 'General'}
                 </p>
               </div>
             </div>
             
             <div class="mt-auto">
               <a
-                href={`/book?service=${encodeURIComponent(expandedItem.title.split(' ')[0])}`}
+                href={`/book?service=${encodeURIComponent(expandedItem?.title || '')}`}
                 class="w-full bg-black text-white py-3 rounded-full font-bold flex items-center justify-center hover:bg-gray-800 transition-colors"
               >
-                Book This Look
+                Book This Style
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                 </svg>
