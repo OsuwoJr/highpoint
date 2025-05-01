@@ -1,8 +1,16 @@
-<script>
+<script lang="ts">
   import { onMount } from 'svelte';
+  import Header from '$lib/components/Header.svelte';
   
   // Booking details will come from URL params
-  let bookingDetails = {
+  interface BookingDetails {
+    service: string;
+    stylist: string;
+    date: string;
+    time: string;
+  }
+  
+  let bookingDetails: BookingDetails = {
     service: '',
     stylist: '',
     date: '',
@@ -22,7 +30,7 @@
   });
   
   // Format date for display
-  const formatDate = (dateString) => {
+  const formatDate = (dateString: string): string => {
     if (!dateString) return '';
     const date = new Date(dateString);
     return date.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
@@ -30,11 +38,13 @@
 </script>
 
 <svelte:head>
-  <title>Booking Confirmed | LUXE Hair</title>
-  <meta name="description" content="Your appointment at LUXE Hair has been confirmed.">
+  <title>Booking Confirmed | Belle Royale</title>
+  <meta name="description" content="Your appointment at Belle Royale has been confirmed.">
 </svelte:head>
 
-<div class="bg-light-gray min-h-screen py-20 px-4">
+<Header />
+
+<div class="bg-light min-h-screen pt-24 px-4">
   <div class="max-w-2xl mx-auto bg-white rounded-xl shadow-lg overflow-hidden">
     <div class="bg-gold text-black py-8 px-6 text-center">
       <div class="flex justify-center mb-4">
@@ -43,7 +53,7 @@
         </svg>
       </div>
       <h1 class="text-3xl font-bold font-playfair mb-2">Booking Confirmed!</h1>
-      <p class="font-lato">Thank you for choosing LUXE Hair</p>
+      <p class="font-lato">Thank you for choosing Belle Royale</p>
     </div>
     
     <div class="p-6 md:p-10">
@@ -98,7 +108,7 @@
       </div>
       
       <div class="flex flex-col sm:flex-row gap-4 justify-between">
-        <a href="/" class="border border-black hover:bg-black hover:text-white px-6 py-3 rounded-full font-bold flex items-center justify-center transition-colors">
+        <a href="/" class="border border-primary hover:bg-primary hover:text-light px-6 py-3 rounded-full font-bold flex items-center justify-center transition-colors">
           Return to Home
         </a>
         
@@ -120,11 +130,11 @@
   }
   
   .hover\:bg-gold-dark:hover {
-    background-color: var(--color-gold-dark);
+    background-color: #B79526;
   }
   
-  .bg-light-gray {
-    background-color: var(--color-light-gray);
+  .bg-light {
+    background-color: var(--color-light);
   }
   
   .font-playfair {

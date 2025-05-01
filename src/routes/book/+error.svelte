@@ -1,4 +1,10 @@
-<div class="min-h-screen bg-light-gray flex flex-col items-center justify-center p-4">
+<script>
+  import Header from '$lib/components/Header.svelte';
+</script>
+
+<Header />
+
+<div class="min-h-screen bg-light pt-24 flex flex-col items-center justify-center p-4">
   <div class="max-w-md w-full bg-white rounded-xl shadow-lg overflow-hidden">
     <div class="bg-gold text-black py-6 px-6 text-center">
       <h1 class="text-3xl font-bold font-playfair mb-2">Booking Error</h1>
@@ -24,13 +30,13 @@
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gold mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
             </svg>
-            <a href="mailto:bookings@luxehair.com" class="hover:underline">bookings@luxehair.com</a>
+            <a href="mailto:bookings@belleroyal.com" class="hover:underline">bookings@belleroyal.com</a>
           </li>
         </ul>
       </div>
       
       <div class="flex flex-col gap-4 mt-8">
-        <a href="/" class="bg-black hover:bg-gray-800 text-white px-6 py-3 rounded-full font-bold flex items-center justify-center transition-colors">
+        <a href="/" class="bg-primary hover:bg-primary/80 text-light px-6 py-3 rounded-full font-bold flex items-center justify-center transition-colors">
           Return to Home
         </a>
         
@@ -44,11 +50,11 @@
 
 <style>
   .text-gold {
-    color: var(--color-gold, #D4AF37);
+    color: var(--color-gold);
   }
   
   .bg-gold {
-    background-color: var(--color-gold, #D4AF37);
+    background-color: var(--color-gold);
   }
   
   .hover\:bg-gold\/10:hover {
@@ -56,11 +62,23 @@
   }
   
   .border-gold {
-    border-color: var(--color-gold, #D4AF37);
+    border-color: var(--color-gold);
   }
   
-  .bg-light-gray {
-    background-color: var(--color-light-gray, #F5F5F5);
+  .bg-light {
+    background-color: var(--color-light);
+  }
+  
+  .text-light {
+    color: var(--color-light);
+  }
+  
+  .bg-primary {
+    background-color: var(--color-primary);
+  }
+  
+  .hover\:bg-primary\/80:hover {
+    background-color: rgba(42, 45, 124, 0.8);
   }
   
   .font-playfair {

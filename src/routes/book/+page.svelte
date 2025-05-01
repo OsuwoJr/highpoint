@@ -1,5 +1,6 @@
-<script>
+<script lang="ts">
   import { onMount } from 'svelte';
+  import Header from '$lib/components/Header.svelte';
   // The page store is no longer needed for this functionality
   
   // Get the service from URL query params if available
@@ -10,8 +11,22 @@
   let currentStep = 1;
   let whatsappNumber = "+12125551234";
   
+  interface Service {
+    id: string;
+    name: string;
+    price: number;
+    duration: number;
+  }
+  
+  interface Stylist {
+    id: string;
+    name: string;
+    specialties: string[];
+    image: string;
+  }
+  
   // Services offered
-  const services = [
+  const services: Service[] = [
     { id: 'balayage', name: 'Balayage', price: 200, duration: 120 },
     { id: 'eco-color', name: 'Eco Color', price: 150, duration: 90 },
     { id: 'precision-cut', name: 'Precision Cut', price: 95, duration: 60 },
@@ -21,7 +36,7 @@
   ];
   
   // Stylists
-  const stylists = [
+  const stylists: Stylist[] = [
     { id: 'alex', name: 'Alex Morgan', specialties: ['balayage', 'eco-color'], image: '/images/stylist-alex.jpg' },
     { id: 'taylor', name: 'Taylor Kim', specialties: ['precision-cut', 'bridal-style'], image: '/images/stylist-taylor.jpg' },
     { id: 'jordan', name: 'Jordan Smith', specialties: ['keratin', 'extensions'], image: '/images/stylist-jordan.jpg' },
@@ -29,8 +44,8 @@
   ];
   
   // Available time slots
-  const generateTimeSlots = () => {
-    const slots = [];
+  const generateTimeSlots = (): string[] => {
+    const slots: string[] = [];
     for (let hour = 9; hour <= 19; hour++) {
       if (hour !== 12) { // Exclude lunch hour
         slots.push(`${hour % 12 || 12}:00 ${hour < 12 ? 'AM' : 'PM'}`);
@@ -58,14 +73,14 @@
     : 0;
   
   // Function to format date
-  const formatDate = (dateString) => {
+  const formatDate = (dateString: string): string => {
     if (!dateString) return '';
     const date = new Date(dateString);
     return date.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
   };
   
   // Function to create Google Calendar link
-  const createGoogleCalendarLink = () => {
+  const createGoogleCalendarLink = (): string => {
     if (!selectedService || !selectedDate || !selectedTime) return '';
     
     const service = services.find(s => s.id === selectedService);
@@ -77,17 +92,18 @@
     const startDate = dateTime.toISOString().replace(/-|:|\.\d+/g, '');
     const endDate = endDateTime.toISOString().replace(/-|:|\.\d+/g, '');
     
-    return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(`LUXE Hair - ${service.name} Appointment`)}&dates=${startDate}/${endDate}&details=${encodeURIComponent(`Your ${service.name} appointment with ${selectedStylist ? stylists.find(s => s.id === selectedStylist).name : 'our stylist'}. Price: $${service.price}`)}&location=${encodeURIComponent('123 Beauty Lane, New York, NY 10001')}`;
+    return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(`Belle Royale - ${service.name} Appointment`)}&dates=${startDate}/${endDate}&details=${encodeURIComponent(`Your ${service.name} appointment with ${selectedStylist ? stylists.find(s => s.id === selectedStylist)?.name : 'our stylist'}. Price: $${service.price}`)}&location=${encodeURIComponent('123 Beauty Lane, New York, NY 10001')}`;
   };
   
   // Function to create WhatsApp booking message
-  const createWhatsAppLink = () => {
+  const createWhatsAppLink = (): string => {
     if (!selectedService) return '';
     
     let message = `Hello, I'd like to book a ${serviceName} appointment`;
     
     if (selectedStylist) {
-      message += ` with ${stylists.find(s => s.id === selectedStylist).name}`;
+      const stylist = stylists.find(s => s.id === selectedStylist);
+      message += ` with ${stylist ? stylist.name : ''}`;
     }
     
     if (selectedDate) {
@@ -102,14 +118,17 @@
   };
   
   // Create confirmation page link
-  const createConfirmationLink = () => {
+  const createConfirmationLink = (): string => {
     if (!selectedService) return '';
     
     let params = new URLSearchParams();
-    params.set('service', serviceName);
+    params.set('service', serviceName || '');
     
     if (selectedStylist) {
-      params.set('stylist', stylists.find(s => s.id === selectedStylist).name);
+      const stylist = stylists.find(s => s.id === selectedStylist);
+      if (stylist) {
+        params.set('stylist', stylist.name);
+      }
     }
     
     if (selectedDate) {
@@ -124,14 +143,14 @@
   };
   
   // Next step in booking flow
-  const nextStep = () => {
+  const nextStep = (): void => {
     if (currentStep < 3) {
       currentStep++;
     }
   };
   
   // Previous step in booking flow
-  const prevStep = () => {
+  const prevStep = (): void => {
     if (currentStep > 1) {
       currentStep--;
     }
@@ -161,14 +180,16 @@
 </script>
 
 <svelte:head>
-  <title>Book Your Appointment | LUXE Hair</title>
-  <meta name="description" content="Book your hair appointment at LUXE Hair salon. Choose your service, stylist, and preferred time.">
+  <title>Book Your Appointment | Belle Royale</title>
+  <meta name="description" content="Book your hair appointment at Belle Royale salon. Choose your service, stylist, and preferred time.">
 </svelte:head>
 
-<div class="bg-light-gray min-h-screen py-20 px-4">
+<Header />
+
+<div class="bg-light min-h-screen pt-24 px-4">
   <div class="max-w-4xl mx-auto bg-white rounded-xl shadow-lg overflow-hidden">
     <!-- Header -->
-    <div class="bg-black text-white py-8 px-6">
+    <div class="bg-primary text-light py-8 px-6">
       <h1 class="text-3xl font-bold font-playfair mb-2">Book Your Appointment</h1>
       <p class="font-lato font-light">Complete the steps below to schedule your visit</p>
       
@@ -260,7 +281,7 @@
         
         <div class="mt-8 flex justify-between">
           <button 
-            class="border border-black hover:bg-black hover:text-white px-6 py-3 rounded-full font-bold flex items-center transition-colors"
+            class="border border-primary hover:bg-primary hover:text-light px-6 py-3 rounded-full font-bold flex items-center transition-colors"
             on:click={prevStep}
           >
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
@@ -343,7 +364,7 @@
             <!-- Direct Booking -->
             <a 
               href={createConfirmationLink()}
-              class="bg-black hover:bg-gray-800 text-white px-4 py-3 rounded-lg font-bold transition-all disabled:opacity-50 flex items-center justify-center"
+              class="bg-primary hover:bg-primary/80 text-light px-4 py-3 rounded-lg font-bold transition-all disabled:opacity-50 flex items-center justify-center"
               class:pointer-events-none={!selectedService || !selectedDate || !selectedTime}
               aria-disabled={!selectedService || !selectedDate || !selectedTime}
             >
@@ -388,7 +409,7 @@
         
         <div class="mt-8 flex justify-start">
           <button 
-            class="border border-black hover:bg-black hover:text-white px-6 py-3 rounded-full font-bold flex items-center transition-colors"
+            class="border border-primary hover:bg-primary hover:text-light px-6 py-3 rounded-full font-bold flex items-center transition-colors"
             on:click={prevStep}
           >
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
@@ -412,15 +433,39 @@
   }
   
   .hover\:bg-gold-dark:hover {
-    background-color: var(--color-gold-dark);
+    background-color: #B79526;
   }
   
   .border-gold {
     border-color: var(--color-gold);
   }
   
-  .bg-light-gray {
-    background-color: var(--color-light-gray);
+  .bg-light {
+    background-color: var(--color-light);
+  }
+  
+  .text-light {
+    color: var(--color-light);
+  }
+  
+  .bg-primary {
+    background-color: var(--color-primary);
+  }
+  
+  .text-primary {
+    color: var(--color-primary);
+  }
+  
+  .border-primary {
+    border-color: var(--color-primary);
+  }
+  
+  .hover\:bg-primary:hover {
+    background-color: var(--color-primary);
+  }
+  
+  .hover\:text-light:hover {
+    color: var(--color-light);
   }
   
   .font-playfair {
