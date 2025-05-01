@@ -30,28 +30,28 @@
         { 
           id: 'precision-cut',
           name: 'Precision Cut', 
-          price: 12350, 
+          price: 4350, 
           duration: 60,
           description: 'Expert haircut personalized to your face shape, hair texture, and lifestyle needs.',
-          image: '/images/precision-cut.jpg',
+          image: '/images/precisionhaircut.jpeg',
           popular: true
         },
         { 
           id: 'bridal-style',
           name: 'Bridal Style', 
-          price: 32500, 
+          price: 12500, 
           duration: 150,
           description: 'Complete bridal hair styling including consultation, trial run, and day-of styling for your special day.',
-          image: '/images/bridal.jpg',
+          image: '/images/bridal.jpeg',
           popular: false
         },
         { 
           id: 'blowout',
           name: 'Luxury Blowout', 
-          price: 9750, 
+          price: 2750, 
           duration: 45,
           description: 'Professional blow dry styling with premium products for smooth, voluminous hair that lasts for days.',
-          image: '/images/blowout.jpg',
+          image: '/images/luxuryblowout.jpeg',
           popular: true
         }
       ]
@@ -67,7 +67,7 @@
           price: 1200, 
           duration: 180,
           description: 'Classic three-strand braids that are neat, durable, and perfect for everyday wear. Ideal for a clean and protective look.',
-          image: '/images/normalbraids.jpg',
+          image: '/images/normal.jpeg',
           popular: true
         },
         { 
@@ -76,7 +76,7 @@
           price: 1500, 
           duration: 240,
           description: 'Pain-free, natural-looking braids that start with your own hair, reducing tension on the scalp and offering a lightweight feel.',
-          image: '/images/knotlessbraids.jpg',
+          image: '/images/knotless.jpeg',
           popular: true
         },
         { 
@@ -85,7 +85,7 @@
           price: 2000, 
           duration: 180,
           description: 'Thick, elegant cornrow-style braids that are styled close to the scalp. Perfect for a regal and stylish appearance.',
-          image: '/images/goddessbraids.jpg',
+          image: '/images/goddess.jpeg',
           popular: false
         },
         { 
@@ -94,7 +94,7 @@
           price: 1700, 
           duration: 210,
           description: 'Bohemian-inspired braids with curly strands left out for a soft, carefree vibe that blends neatness with natural flow.',
-          image: '/images/boho.jpg',
+          image: '/images/boho.jpeg',
           popular: false
         },
         { 
@@ -103,7 +103,7 @@
           price: 1500, 
           duration: 150,
           description: 'Single or multiple loosely done braids for a laid-back, voluminous style that frames the face beautifully.',
-          image: '/images/loosebraids.jpg',
+          image: '/images/loose.jpeg',
           popular: false
         }
       ]
@@ -119,7 +119,7 @@
           price: 15000, 
           duration: 240,
           description: 'Thick, textured twists using Marley hair extensions, giving a bold, afro-inspired look full of volume and length.',
-          image: '/images/marleytwist.jpg',
+          image: '/images/marley.jpeg',
           popular: true
         },
         { 
@@ -128,7 +128,7 @@
           price: 25000, 
           duration: 300,
           description: 'Luxurious twists with a smooth, rope-like finish. Perfect for those who love a clean, defined protective style.',
-          image: '/images/coco.jpg',
+          image: '/images/coco.jpeg',
           popular: false
         },
         { 
@@ -137,7 +137,7 @@
           price: 2500, 
           duration: 210,
           description: 'Lightweight, springy twists with a coily texture. This low-maintenance style gives a fun and youthful look.',
-          image: '/images/springtwist.jpg',
+          image: '/images/spring.jpeg',
           popular: false
         },
         { 
@@ -146,7 +146,7 @@
           price: 2500, 
           duration: 210,
           description: 'Soft, shiny twists with a wavy texture. A trendy and romantic look ideal for any season.',
-          image: '/images/passiontwist.jpg',
+          image: '/images/passion.jpeg',
           popular: true
         },
         { 
@@ -155,7 +155,7 @@
           price: 600, 
           duration: 60,
           description: 'Two-strand twists undone to create defined, bouncy curls for a natural, soft afro-textured look.',
-          image: '/images/twistouts.jpg',
+          image: '/images/twistouts.jpeg',
           popular: false
         }
       ]
@@ -171,16 +171,16 @@
           price: 1500, 
           duration: 120,
           description: 'Feed-in cornrows with intricate designs inspired by Ghanaian culture. Neat, sleek, and perfect for all occasions.',
-          image: '/images/ghanaians.jpg',
+          image: '/images/ghanaians.jpeg',
           popular: true
         },
         { 
-          id: 'half-liners',
-          name: 'Half Liners', 
+          id: 'half-lines',
+          name: 'Half Lines', 
           price: 2000, 
           duration: 150,
           description: 'A stylish combination of cornrows at the front and free-flowing braids at the back, blending structure with freedom.',
-          image: '/images/halfliners.jpg',
+          image: '/images/halflines.jpeg',
           popular: false
         }
       ]
@@ -196,7 +196,7 @@
           price: 11050, 
           duration: 60,
           description: 'Intensive hydrating treatment that repairs damaged hair and restores moisture using premium organic products.',
-          image: '/images/deep-conditioning.jpg',
+          image: '/images/deepconditioning.jpeg',
           popular: true
         },
         { 
@@ -205,7 +205,7 @@
           price: 15000, 
           duration: 90,
           description: 'Specialized protein, hot oil, or custom treatment formulated to address your specific hair concerns and restore health.',
-          image: '/images/hair-treatment.jpg',
+          image: '/images/hairtreatment1.jpeg',
           popular: false
         },
         { 
@@ -214,7 +214,7 @@
           price: 39000, 
           duration: 180,
           description: 'Smoothing treatment that eliminates frizz, reduces curl, and adds incredible shine that lasts for months.',
-          image: '/images/keratin.jpg',
+          image: '/images/keratin.jpeg',
           popular: true
         },
         { 
@@ -223,7 +223,7 @@
           price: 8000, 
           duration: 45,
           description: 'Targeted treatment to address scalp issues like dryness, flaking, or irritation while promoting hair growth and health.',
-          image: '/images/scalp-treatment.jpg',
+          image: '/images/scalp.jpeg',
           popular: false
         }
       ]
@@ -248,7 +248,7 @@
           price: 19500, 
           duration: 90,
           description: 'Organic, plant-based hair color using sustainable ingredients that are gentle on hair while providing vibrant, long-lasting results.',
-          image: '/images/eco-color.jpg',
+          image: '/images/eco.jpeg',
           popular: false
         },
         { 
@@ -257,7 +257,7 @@
           price: 'KSh 32500+', 
           duration: '180+',
           description: 'Expert color correction to fix uneven tones, brassy shades, or botched home coloring jobs. Price varies based on complexity.',
-          image: '/images/color-correction.jpg',
+          image: '/images/correction.jpeg',
           popular: false,
           consultation: true
         },
@@ -267,7 +267,7 @@
           price: 18000, 
           duration: 120,
           description: 'Full or partial hair coloring to achieve your desired shade and look, using quality products for optimal results.',
-          image: '/images/hair-dyeing.jpg',
+          image: '/images/dye.jpeg',
           popular: true
         }
       ]
