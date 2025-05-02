@@ -9,7 +9,7 @@
   let selectedDate = '';
   let selectedTime = '';
   let currentStep = 1;
-  let whatsappNumber = "+12125551234";
+  let whatsappNumber = "+254704800614";
   
   interface Service {
     id: string;
