@@ -366,35 +366,8 @@
   
   // Function to format date
   const formatDate = (dateString: string): string => {
-    if (!dateString) return '';
     const date = new Date(dateString);
     return date.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
-  };
-  
-  // Function to create Google Calendar link
-  const createGoogleCalendarLink = (): string => {
-    if (!selectedService || !selectedDate || !selectedTime) return '';
-    
-    const service = selectedServiceDetails;
-    if (!service) return '';
-    
-    // Convert time string to 24-hour format for date creation
-    let timeValue = selectedTime.split(' ')[0];
-    const isPM = selectedTime.includes('PM');
-    const [hours, minutes] = timeValue.split(':').map(Number);
-    let hour24 = hours;
-    
-    if (isPM && hours < 12) hour24 += 12;
-    if (!isPM && hours === 12) hour24 = 0;
-    
-    const dateTime = new Date(`${selectedDate}T${hour24.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:00`);
-    const serviceDuration = typeof service.duration === 'number' ? service.duration : 60;
-    const endDateTime = new Date(dateTime.getTime() + serviceDuration * 60000);
-    
-    const startDate = dateTime.toISOString().replace(/-|:|\.\d+/g, '');
-    const endDate = endDateTime.toISOString().replace(/-|:|\.\d+/g, '');
-    
-    return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(`Belle Royale - ${service.name} Appointment`)}&dates=${startDate}/${endDate}&details=${encodeURIComponent(`Your ${service.name} appointment. Price: ${typeof service.price === 'number' ? `KSh ${service.price}` : service.price}`)}&location=${encodeURIComponent('123 Beauty Lane, New York, NY 10001')}`;
   };
   
   // Function to create WhatsApp booking message
@@ -683,17 +656,15 @@
             
             <!-- Google Calendar -->
             <a 
-              href={createGoogleCalendarLink()}
+              href="https://calendar.app.google/JZRx3W6uSt2ws8Uc6"
               target="_blank"
               rel="noopener noreferrer"
-              class="bg-white border border-gray-300 hover:bg-gray-50 text-gray-800 px-4 py-3 rounded-lg font-bold transition-all disabled:opacity-50 flex items-center justify-center disabled:pointer-events-none"
-              class:pointer-events-none={!selectedService || !selectedDate || !selectedTime}
-              aria-disabled={!selectedService || !selectedDate || !selectedTime}
+              class="bg-white border border-gold hover:bg-gold/10 text-gray-800 px-4 py-3 rounded-lg font-bold transition-all flex items-center justify-center"
             >
               <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
                 <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd" />
               </svg>
-              Add to Google Calendar
+              Book with Google Calendar
             </a>
             
             <!-- WhatsApp -->
