@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { onMount } from 'svelte';
   import Header from '$lib/components/Header.svelte';
   
@@ -13,25 +13,131 @@
   
   let formSubmitted = false;
   let formError = false;
+  let whatsappNumber = "+254704800614";
+  let formspreeId = "xnndpjbk"; // Replace this with your actual Formspree form ID
+  let currentUrl = '';
   
-  // Available services for dropdown
-  const services = [
-    { id: '', name: 'Select a service (optional)' },
-    { id: 'balayage', name: 'Balayage' },
-    { id: 'eco-color', name: 'Eco Color' },
-    { id: 'precision-cut', name: 'Precision Cut' },
-    { id: 'bridal-style', name: 'Bridal Style' },
-    { id: 'keratin', name: 'Keratin Treatment' },
-    { id: 'extensions', name: 'Hair Extensions' }
+  onMount(() => {
+    // Set current URL for redirect after form submission
+    currentUrl = window.location.href;
+  });
+  
+  // Available services grouped by categories
+  const serviceCategories = [
+    {
+      name: "Cuts & Styling",
+      services: [
+        { id: 'precision-cut', name: 'Precision Cut' },
+        { id: 'bridal-style', name: 'Bridal Style' },
+        { id: 'blowout', name: 'Luxury Blowout' }
+      ]
+    },
+    {
+      name: "Braiding",
+      services: [
+        { id: 'normal-braids', name: 'Normal Braids' },
+        { id: 'knotless-braids', name: 'Knotless Braids' },
+        { id: 'goddess-braids', name: 'Goddess Braids' },
+        { id: 'boho-braids', name: 'Boho Braids' },
+        { id: 'loose-braids', name: 'Loose Braids' }
+      ]
+    },
+    {
+      name: "Twists & Coils",
+      services: [
+        { id: 'marley-twist', name: 'Marley Twist' },
+        { id: 'coco-twists', name: 'Coco Twists' },
+        { id: 'spring-twist', name: 'Spring Twist' },
+        { id: 'passion-twist', name: 'Passion Twist' },
+        { id: 'twist-outs', name: 'Twist Outs' }
+      ]
+    },
+    {
+      name: "Cornrows & Lines",
+      services: [
+        { id: 'ghanaians', name: 'Ghanaians' },
+        { id: 'half-liners', name: 'Half Liners' }
+      ]
+    },
+    {
+      name: "Hair Treatments",
+      services: [
+        { id: 'deep-conditioning', name: 'Deep Conditioning' },
+        { id: 'hair-treatment', name: 'Hair Treatment' },
+        { id: 'keratin', name: 'Keratin/Botox Treatment' },
+        { id: 'scalp-treatment', name: 'Scalp Treatment' }
+      ]
+    },
+    {
+      name: "Coloring Services",
+      services: [
+        { id: 'balayage', name: 'Balayage' },
+        { id: 'eco-color', name: 'Eco Color' },
+        { id: 'color-correction', name: 'Color Correction' },
+        { id: 'hair-dyeing', name: 'Hair Coloring/Dyeing' }
+      ]
+    },
+    {
+      name: "Styling Tools & Enhancements",
+      services: [
+        { id: 'washing', name: 'Hair Washing & Conditioning' },
+        { id: 'blowdry-iron', name: 'Blow-Dry & Flat Ironing' },
+        { id: 'silk-press', name: 'Silk Press' },
+        { id: 'extensions', name: 'Hair Extensions/Weaves' },
+        { id: 'dreadlocks', name: 'Dreadlocks/Retwisting' }
+      ]
+    }
   ];
   
+  // Flat list of all services for WhatsApp link generation
+  const services = [
+    { id: '', name: 'Select a service (optional)' },
+    ...serviceCategories.flatMap(category => category.services)
+  ];
+  
+  // Generate WhatsApp message
+  function createWhatsAppLink() {
+    let message = `Hello Belle Royale, my name is ${formData.name}`;
+    
+    if (formData.service) {
+      const serviceObj = services.find(s => s.id === formData.service);
+      if (serviceObj) {
+        message += ` and I'm interested in ${serviceObj.name}`;
+      }
+    }
+    
+    message += ". Here's my message: " + formData.message;
+    
+    if (formData.email) {
+      message += ` (My email: ${formData.email})`;
+    }
+    
+    if (formData.phone) {
+      message += ` (My phone: ${formData.phone})`;
+    }
+    
+    return `https://wa.me/${whatsappNumber.replace(/\D/g, '')}?text=${encodeURIComponent(message)}`;
+  }
+  
   // Handle form submission
-  function handleSubmit() {
-    // In a real application, you would send this data to your backend
-    // For now, we'll just simulate a successful submission
+  async function handleSubmit(event: Event) {
+    // Prevent default form submission
+    event.preventDefault();
+    
+    // Get form element
+    const form = event.target as HTMLFormElement;
+    
+    // For Formspree, we'll send the form data as FormData
     try {
-      // Simulate API call
-      setTimeout(() => {
+      const response = await fetch(`https://formspree.io/f/${formspreeId}`, {
+        method: "POST",
+        body: new FormData(form),
+        headers: {
+          Accept: "application/json"
+        }
+      });
+      
+      if (response.ok) {
         formSubmitted = true;
         formData = {
           name: '',
@@ -40,7 +146,9 @@
           message: '',
           service: ''
         };
-      }, 1000);
+      } else {
+        formError = true;
+      }
     } catch (error) {
       formError = true;
     }
@@ -48,8 +156,8 @@
 </script>
 
 <svelte:head>
-  <title>Contact Us | LUXE Hair</title>
-  <meta name="description" content="Get in touch with LUXE Hair salon. Contact us for appointments, questions about our services, or to join our team.">
+  <title>Contact Us | Belle Royale</title>
+  <meta name="description" content="Get in touch with Belle Royale salon. Contact us for appointments, questions about our services, or to join our team.">
 </svelte:head>
 
 <Header />
@@ -84,8 +192,9 @@
               <div>
                 <h3 class="text-xl font-bold font-playfair mb-2">Location</h3>
                 <p class="text-gray-600 font-lato">
-                  123 Beauty Lane<br>
-                  New York, NY 10001
+                  Nairobi, Kenya<br>
+                  Khetias Supermarket, Mirema<br>
+                  Zimmerman
                 </p>
               </div>
             </div>
@@ -115,7 +224,7 @@
               <div>
                 <h3 class="text-xl font-bold font-playfair mb-2">Phone</h3>
                 <p class="text-gray-600 font-lato">
-                  <a href="tel:+12125551234" class="hover:text-gold transition-colors">(212) 555-1234</a>
+                  <a href="tel:+254704800614" class="hover:text-gold transition-colors">(254) 704-800-614</a>
                 </p>
               </div>
             </div>
@@ -129,7 +238,7 @@
               <div>
                 <h3 class="text-xl font-bold font-playfair mb-2">Email</h3>
                 <p class="text-gray-600 font-lato">
-                  <a href="mailto:info@luxehair.com" class="hover:text-gold transition-colors">info@luxehair.com</a>
+                  <a href="mailto:info@belleroyale.com" class="hover:text-gold transition-colors">infobelleroyale@gmail.com</a>
                 </p>
               </div>
             </div>
@@ -194,6 +303,7 @@
               <input 
                 type="text" 
                 id="name" 
+                name="name"
                 bind:value={formData.name} 
                 required
                 class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gold"
@@ -205,10 +315,13 @@
               <input 
                 type="email" 
                 id="email" 
+                name="email"
                 bind:value={formData.email} 
                 required
                 class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gold"
               />
+              <!-- Hidden field for Formspree reply-to feature -->
+              <input type="hidden" name="_replyto" value={formData.email} />
             </div>
             
             <div>
@@ -216,6 +329,7 @@
               <input 
                 type="tel" 
                 id="phone" 
+                name="phone"
                 bind:value={formData.phone}
                 class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gold"
               />
@@ -225,11 +339,18 @@
               <label for="service" class="block text-gray-700 font-bold mb-2">Service of Interest</label>
               <select 
                 id="service" 
+                name="service"
                 bind:value={formData.service}
                 class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gold"
               >
-                {#each services as service}
-                  <option value={service.id}>{service.name}</option>
+                <option value="">Select a service (optional)</option>
+                
+                {#each serviceCategories as category}
+                  <optgroup label={category.name}>
+                    {#each category.services as service}
+                      <option value={service.id}>{service.name}</option>
+                    {/each}
+                  </optgroup>
                 {/each}
               </select>
             </div>
@@ -238,6 +359,7 @@
               <label for="message" class="block text-gray-700 font-bold mb-2">Message *</label>
               <textarea 
                 id="message" 
+                name="message"
                 bind:value={formData.message} 
                 required
                 rows="5"
@@ -245,12 +367,37 @@
               ></textarea>
             </div>
             
-            <button 
-              type="submit" 
-              class="bg-gold hover:bg-gold-dark text-black font-bold py-3 px-6 rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-gold focus:ring-opacity-50"
-            >
-              Send Message
-            </button>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <button 
+                type="submit" 
+                class="bg-gold hover:bg-gold-dark text-black font-bold py-3 px-6 rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-gold focus:ring-opacity-50 flex items-center justify-center"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                </svg>
+                Send via Email
+              </button>
+              
+              <a 
+                href={createWhatsAppLink()}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="bg-[#25D366] hover:bg-[#128C7E] text-white font-bold py-3 px-6 rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-[#25D366] focus:ring-opacity-50 flex items-center justify-center disabled:opacity-50 disabled:pointer-events-none"
+                class:pointer-events-none={!formData.name || !formData.message}
+                aria-disabled={!formData.name || !formData.message}
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="mr-2" viewBox="0 0 16 16">
+                  <path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z"/>
+                </svg>
+                Send via WhatsApp
+              </a>
+            </div>
+            
+            <!-- Hidden field to help prevent spam -->
+            <input type="text" name="_gotcha" style="display:none" />
+            
+            <!-- Redirect after form submission -->
+            <input type="hidden" name="_next" value={currentUrl} />
           </form>
         </div>
       </div>
@@ -267,19 +414,18 @@
       </div>
       
       <div class="bg-white p-4 rounded-lg shadow-md">
-        <!-- Map placeholder - In a real application, you would use a Google Maps embed or similar -->
-        <div class="h-[400px] bg-gold/10 flex items-center justify-center">
-          <div class="text-center">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-gold/50 mx-auto mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
-            </svg>
-            <p class="text-gray-600 font-bold">Map loading...</p>
-            <p class="text-gray-500 mt-2">
-              LUXE Hair Salon<br>
-              123 Beauty Lane, New York, NY 10001
-            </p>
-          </div>
-        </div>
+        <!-- Google Maps embed of Khetias Supermarket Mirema -->
+        <iframe 
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3988.9238010317245!2d36.89060977486707!3d-1.2132883987751213!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x182f3f607f74d0f1%3A0xf31b117875d8099e!2sKHETIAS%20SUPERMARKET%20Mirema!5e0!3m2!1sen!2ske!4v1746178665935!5m2!1sen!2ske" 
+          width="100%" 
+          height="400" 
+          style="border:0;" 
+          allowFullScreen={true}
+          loading="lazy" 
+          referrerpolicy="no-referrer-when-downgrade"
+          title="Belle Royale Salon Location"
+          class="rounded-lg"
+        ></iframe>
       </div>
     </div>
   </section>
@@ -308,13 +454,13 @@
           </p>
           
           <a 
-            href="mailto:careers@luxehair.com" 
+            href="mailto:infobelleroyale@gmail.com" 
             class="bg-gold hover:bg-gold-dark text-black font-bold py-3 px-8 rounded-full transition-colors inline-flex items-center"
           >
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
             </svg>
-            careers@luxehair.com
+            infobelleroyale@gmail.com
           </a>
         </div>
       </div>
