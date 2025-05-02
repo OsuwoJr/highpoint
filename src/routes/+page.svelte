@@ -68,13 +68,13 @@
     },
     {
       name: "Marley Twist",
-      price: 15000,
+      price: 1500,
       description: "Thick, textured twists using Marley hair extensions, giving a bold, afro-inspired look full of volume and length.",
       image: "/images/marley.jpeg"
     },
     {
       name: "Coco Twists",
-      price: 25000,
+      price: 2500,
       description: "Luxurious twists with a smooth, rope-like finish. Perfect for those who love a clean, defined protective style.",
       image: "/images/coco.jpeg"
     },

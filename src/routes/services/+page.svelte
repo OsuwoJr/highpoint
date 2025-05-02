@@ -116,7 +116,7 @@
         { 
           id: 'marley-twist',
           name: 'Marley Twist', 
-          price: 15000, 
+          price: 1500, 
           duration: 240,
           description: 'Thick, textured twists using Marley hair extensions, giving a bold, afro-inspired look full of volume and length.',
           image: '/images/marley.jpeg',
@@ -125,7 +125,7 @@
         { 
           id: 'coco-twists',
           name: 'Coco Twists', 
-          price: 25000, 
+          price: 2500, 
           duration: 300,
           description: 'Luxurious twists with a smooth, rope-like finish. Perfect for those who love a clean, defined protective style.',
           image: '/images/coco.jpeg',
@@ -193,7 +193,7 @@
         { 
           id: 'deep-conditioning',
           name: 'Deep Conditioning', 
-          price: 11050, 
+          price: 5000, 
           duration: 60,
           description: 'Intensive hydrating treatment that repairs damaged hair and restores moisture using premium organic products.',
           image: '/images/deepconditioning.jpeg',
@@ -202,7 +202,7 @@
         { 
           id: 'hair-treatment',
           name: 'Hair Treatment', 
-          price: 15000, 
+          price: 3000, 
           duration: 90,
           description: 'Specialized protein, hot oil, or custom treatment formulated to address your specific hair concerns and restore health.',
           image: '/images/hairtreatment1.jpeg',
@@ -211,7 +211,7 @@
         { 
           id: 'keratin',
           name: 'Keratin/Botox Treatment', 
-          price: 39000, 
+          price: 9000, 
           duration: 180,
           description: 'Smoothing treatment that eliminates frizz, reduces curl, and adds incredible shine that lasts for months.',
           image: '/images/keratin.jpeg',
@@ -236,7 +236,7 @@
         { 
           id: 'balayage',
           name: 'Balayage', 
-          price: 26000, 
+          price: 6000, 
           duration: 120,
           description: 'Hand-painted highlights that create a naturally sun-kissed look with less maintenance than traditional foils.',
           image: '/images/balayage.jpg',
@@ -245,7 +245,7 @@
         { 
           id: 'eco-color',
           name: 'Eco Color', 
-          price: 19500, 
+          price: 9500, 
           duration: 90,
           description: 'Organic, plant-based hair color using sustainable ingredients that are gentle on hair while providing vibrant, long-lasting results.',
           image: '/images/eco.jpeg',
@@ -254,7 +254,7 @@
         { 
           id: 'color-correction',
           name: 'Color Correction', 
-          price: 'KSh 32500+', 
+          price: 'KSh 2500+', 
           duration: '180+',
           description: 'Expert color correction to fix uneven tones, brassy shades, or botched home coloring jobs. Price varies based on complexity.',
           image: '/images/correction.jpeg',
@@ -264,7 +264,7 @@
         { 
           id: 'hair-dyeing',
           name: 'Hair Coloring/Dyeing', 
-          price: 18000, 
+          price: 1000, 
           duration: 120,
           description: 'Full or partial hair coloring to achieve your desired shade and look, using quality products for optimal results.',
           image: '/images/dye.jpeg',
@@ -307,7 +307,7 @@
         { 
           id: 'extensions',
           name: 'Hair Extensions/Weaves', 
-          price: 52000, 
+          price: 12000, 
           duration: 240,
           description: 'Premium quality extensions using ethically-sourced hair for added length and volume with a natural look.',
           image: '/images/extension.jpeg',
@@ -317,7 +317,7 @@
         { 
           id: 'dreadlocks',
           name: 'Dreadlocks/Retwisting', 
-          price: 12000, 
+          price: 2000, 
           duration: 180,
           description: 'Expert installation or maintenance of dreadlocks, ensuring clean, neat locks with proper tension and care.',
           image: '/images/dreadlocks.jpeg',
