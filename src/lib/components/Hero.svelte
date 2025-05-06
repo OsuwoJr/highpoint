@@ -8,33 +8,38 @@
     let intervalId: number;
     let isMobile = false;
     
-    // Images array for the slideshow
+    // Images array for the slideshow (fallback if video fails)
     const backgroundImages = [
       '/images/construction1.jpg',
       '/images/construction2.jpg'
     ];
   
     onMount(() => {
-      // Set videoLoaded to true after component mounts to ensure proper rendering
-      videoLoaded = true;
-      
       // Check if mobile device
       checkIfMobile();
       
       // Add resize event listener
       window.addEventListener('resize', checkIfMobile);
       
-      // Start slideshow rotation
-      intervalId = setInterval(() => {
-        currentSlide = (currentSlide + 1) % backgroundImages.length;
-      }, 5000); // Change slide every 5 seconds
+      // Start slideshow rotation only if video has an error
+      if (videoError) {
+        startSlideshow();
+      }
       
-      // Cleanup interval on component destruction
+      // Cleanup on component destruction
       return () => {
         if (intervalId) clearInterval(intervalId);
         window.removeEventListener('resize', checkIfMobile);
       };
     });
+
+    function startSlideshow() {
+      if (intervalId) clearInterval(intervalId);
+      
+      intervalId = setInterval(() => {
+        currentSlide = (currentSlide + 1) % backgroundImages.length;
+      }, 5000); // Change slide every 5 seconds
+    }
 
     function checkIfMobile() {
       isMobile = window.innerWidth < 768;
@@ -43,32 +48,55 @@
     // Handle video loading errors
     function handleVideoError() {
       videoError = true;
+      startSlideshow();
+    }
+    
+    function handleVideoLoaded() {
+      videoLoaded = true;
     }
 </script>
   
 <div class="relative hero-container overflow-hidden">
-  <!-- Background Images Slideshow -->
-  {#each backgroundImages as image, i}
-    <div 
-      class="absolute inset-0 w-full h-full transition-opacity duration-1000 ease-in-out bg-cover bg-center"
-      style="opacity: {currentSlide === i ? '1' : '0'}; z-index: {currentSlide === i ? '1' : '0'}"
+  <!-- Video Background -->
+  <div class="absolute inset-0 w-full h-full z-[1]" style="opacity: {videoError ? '0' : '1'}">
+    <video
+      autoplay
+      muted
+      loop
+      playsinline
+      class="w-full h-full object-cover"
+      on:error={handleVideoError}
+      on:loadeddata={handleVideoLoaded}
     >
-      <img 
-        src={image} 
-        alt="Highpoint Construction Site" 
-        class="w-full h-full object-cover"
-        style="object-position: center center;"
-      />
-    </div>
-  {/each}
+      <source src="/video/hero.mp4" type="video/mp4" />
+      <!-- Video fallback handled by error event -->
+    </video>
+  </div>
+  
+  <!-- Background Images Slideshow (fallback) -->
+  {#if videoError}
+    {#each backgroundImages as image, i}
+      <div 
+        class="absolute inset-0 w-full h-full transition-opacity duration-1000 ease-in-out bg-cover bg-center z-[1]"
+        style="opacity: {currentSlide === i ? '1' : '0'}"
+      >
+        <img 
+          src={image} 
+          alt="Highpoint Construction Site" 
+          class="w-full h-full object-cover"
+          style="object-position: center center;"
+        />
+      </div>
+    {/each}
+  {/if}
   
   <!-- Fallback background if images fail to load -->
-  {#if backgroundImages.length === 0}
-    <div class="absolute inset-0 bg-black"></div>
+  {#if videoError && backgroundImages.length === 0}
+    <div class="absolute inset-0 bg-black z-[1]"></div>
   {/if}
 
   <!-- Construction animated overlay elements -->
-  <div class="construction-overlay z-[1]">
+  <div class="construction-overlay z-[2]">
     <div class="blueprint-grid"></div>
     <div class="beam beam-1"></div>
     <div class="beam beam-2"></div>
@@ -77,18 +105,18 @@
   </div>
 
   <!-- Overlay to enhance text readability -->
-  <div class="absolute inset-0 bg-gradient-to-b from-black/70 via-black/60 to-black/70 z-[2]"></div>
+  <div class="absolute inset-0 bg-gradient-to-b from-black/70 via-black/60 to-black/70 z-[3]"></div>
 
   <!-- Content -->
   <div class="relative z-10 h-full flex flex-col justify-center items-center text-center px-4" in:fade={{ duration: 800 }}>
     <h1 class="text-4xl sm:text-5xl md:text-7xl font-bold text-white mb-4 md:mb-6 font-montserrat leading-tight">
-      <span class="text-gold">Exceptional Homes</span>
+      <span class="text-gold">Building Kenya's Future</span>
     </h1>
     <p class="text-white text-base sm:text-lg md:text-2xl mb-6 md:mb-8 max-w-xl md:max-w-2xl font-raleway font-light">
-      Creating beautiful buildings that stand the test of time.
+      Creating exceptional homes and buildings that stand the test of time.
     </p>
     <p class="text-white text-base sm:text-base md:text-xl mb-10 max-w-xl md:max-w-2xl font-raleway font-light">
-      From architectural design to construction, we help you build a beautiful, affordable home in the Kenyan countryside—stress-free and on time.
+      From architectural design to construction, we're transforming Kenya's urban and rural landscapes with innovative, sustainable, and beautiful buildings built to last.
     </p>
     <div class="flex flex-col sm:flex-row gap-4">
       <a 
@@ -108,16 +136,18 @@
     </div>
   </div>
   
-  <!-- Slideshow Navigation Dots -->
-  <div class="absolute bottom-4 md:bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-2 z-20">
-    {#each backgroundImages as _, i}
-      <button 
-        class="w-2 h-2 md:w-3 md:h-3 rounded-full transition-all {currentSlide === i ? 'bg-gold scale-125' : 'bg-white/50 hover:bg-white'}"
-        aria-label="Go to slide {i+1}"
-        on:click={() => currentSlide = i}
-      ></button>
-    {/each}
-  </div>
+  <!-- Slideshow Navigation Dots (only shown if video fails and we're using the image slideshow) -->
+  {#if videoError}
+    <div class="absolute bottom-4 md:bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-2 z-20">
+      {#each backgroundImages as _, i}
+        <button 
+          class="w-2 h-2 md:w-3 md:h-3 rounded-full transition-all {currentSlide === i ? 'bg-gold scale-125' : 'bg-white/50 hover:bg-white'}"
+          aria-label="Go to slide {i+1}"
+          on:click={() => currentSlide = i}
+        ></button>
+      {/each}
+    </div>
+  {/if}
 </div>
   
 <style>
@@ -133,11 +163,8 @@
     }
   }
   
-  /* Ensure images fill their container */
-  img {
-    position: absolute;
-    top: 0;
-    left: 0;
+  /* Ensure images and video fill their container */
+  img, video {
     width: 100%;
     height: 100%;
     object-fit: cover;

@@ -63,9 +63,9 @@
   ];
 
   const stats = [
-    { number: '50+', label: 'Homes Built Since 2020', description: "We've successfully designed and built over 50 homes across Kenya, helping families achieve their dream of modern, affordable village living." },
+    { number: '150+', label: 'Projects Completed Nationwide', description: "We've successfully designed and built over 150 residential and commercial projects across Kenya, from urban centers to scenic rural locations." },
     { number: '97%', label: 'Client Satisfaction Rate', description: "Our clients love our work. 97% of them rate our services as excellent, highlighting our commitment to quality and transparency." },
-    { number: '4-6 Months', label: 'Average Project Completion', description: "We deliver projects on time. Our streamlined process ensures most homes are completed within 4-6 months." },
+    { number: '4-6 Months', label: 'Average Project Completion', description: "We deliver projects on time. Our streamlined process ensures most residential projects are completed within 4-6 months." },
     { number: '20+', label: 'Years of Combined Team Experience', description: "Our team of architects, engineers, and builders brings over 20 years of combined experience to every project." }
   ];
 
@@ -96,9 +96,9 @@
   <!-- Problem Statement Section -->
   <section class="py-16 px-4 bg-light">
     <div class="max-w-5xl mx-auto text-center">
-      <h2 class="text-3xl md:text-4xl font-bold mb-8 font-montserrat">Building a Village Home Shouldn't Be This Hard.</h2>
+      <h2 class="text-3xl md:text-4xl font-bold mb-8 font-montserrat">Exceptional Construction Shouldn't Be This Complicated.</h2>
       <p class="text-lg mb-10 text-black font-raleway">
-        You want a beautiful home in the village, but the process feels overwhelming. Finding reliable builders, managing costs, and ensuring quality construction can be a nightmare. What if there was a simpler way?
+        You want a beautiful, well-built property in Kenya, but the process feels overwhelming. Finding reliable builders, managing costs, and ensuring quality construction can be challenging. What if there was a simpler way?
       </p>
       <a href="/contact" class="btn-primary inline-block">Talk to an Expert</a>
     </div>
@@ -128,7 +128,7 @@
       <div class="md:w-1/2">
         <h2 class="text-3xl md:text-4xl font-bold mb-6 font-montserrat">We Handle Everything, So You Don't Have To.</h2>
         <p class="mb-6 text-black font-raleway">
-          At Highpoint, we take care of the entire building process—from design to handing you the keys. Our experienced team ensures your home is built to the highest standards, on time, and within budget.
+          At Highpoint, we take care of the entire building process—from design to handing you the keys. Our experienced team ensures your project is built to the highest standards, on time, and within budget, anywhere in Kenya.
         </p>
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
           <div class="flex items-start">
@@ -137,7 +137,7 @@
           </div>
           <div class="flex items-start">
             <span class="text-gold text-2xl mr-2">✓</span>
-            <p class="font-semibold">Affordable Construction</p>
+            <p class="font-semibold">Quality Construction</p>
           </div>
           <div class="flex items-start">
             <span class="text-gold text-2xl mr-2">✓</span>
@@ -195,7 +195,7 @@
         <div class="bg-white p-6 shadow-lg">
           <div class="text-gold text-4xl font-bold mb-4">02</div>
           <h3 class="text-xl font-bold mb-3 font-montserrat">Custom Design</h3>
-          <p class="text-black font-raleway">Our architects create innovative, functional designs tailored to your needs. You'll receive detailed plans and 3D visualizations of your future home.</p>
+          <p class="text-black font-raleway">Our architects create innovative, functional designs tailored to your needs. You'll receive detailed plans and 3D visualizations of your future project.</p>
         </div>
         
         <div class="bg-white p-6 shadow-lg">
@@ -207,7 +207,7 @@
         <div class="bg-white p-6 shadow-lg">
           <div class="text-gold text-4xl font-bold mb-4">04</div>
           <h3 class="text-xl font-bold mb-3 font-montserrat">Handover & Aftercare</h3>
-          <p class="text-black font-raleway">We hand you the keys to your completed home, ensuring every detail meets your expectations with ongoing support afterward.</p>
+          <p class="text-black font-raleway">We hand you the keys to your completed property, ensuring every detail meets your expectations with ongoing support afterward.</p>
         </div>
       </div>
     </div>
@@ -218,7 +218,7 @@
     <div class="max-w-6xl mx-auto">
       <div class="text-center mb-16">
         <span class="text-gold uppercase tracking-wider font-montserrat text-sm font-bold">Testimonials</span>
-        <h2 class="text-4xl font-bold mt-2 mb-4 font-montserrat text-white">Homes Built, Dreams Fulfilled</h2>
+        <h2 class="text-4xl font-bold mt-2 mb-4 font-montserrat text-white">Building Kenya's Future, One Project at a Time</h2>
         <div class="w-24 h-1 bg-gold mx-auto"></div>
         <p class="mt-6 text-light max-w-2xl mx-auto font-raleway">
           Trusted by Kenyans Everywhere Around the World.
@@ -243,9 +243,9 @@
   <!-- CTA Section -->
   <section class="py-16 px-4 bg-light">
     <div class="max-w-4xl mx-auto text-center">
-      <h2 class="text-3xl md:text-4xl font-bold mb-6 font-montserrat">Your Dream Home Is Just a Click Away</h2>
+      <h2 class="text-3xl md:text-4xl font-bold mb-6 font-montserrat">Your Dream Project Is Just a Click Away</h2>
       <p class="mb-8 text-lg text-black font-raleway">
-        Let's make your dream of a beautiful village home a reality. Our team is ready to guide you every step of the way.
+        Let's make your vision of an exceptional building a reality. Our team is ready to guide you every step of the way.
       </p>
       <a href="/quote" class="btn-primary inline-block">Get A Quote</a>
     </div>
