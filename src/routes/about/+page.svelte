@@ -28,25 +28,14 @@
   let imageErrors: Record<string, boolean> = {};
   
   onMount(() => {
-    // Fix: Make all animation elements visible immediately
+    // Make all animation elements visible immediately
     document.querySelectorAll('.animate-on-scroll').forEach(el => {
       el.classList.add('is-visible');
-    });
-    
-    // Also set up the intersection observer for future scrolling
-    if (typeof IntersectionObserver !== 'undefined') {
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('is-visible');
-          }
-        });
-      }, { threshold: 0.1 });
       
-      document.querySelectorAll('.animate-on-scroll').forEach(el => {
-        observer.observe(el);
-      });
-    }
+      // Force visibility with inline styles
+      (el as HTMLElement).style.opacity = '1';
+      (el as HTMLElement).style.transform = 'translateY(0)';
+    });
   });
   
   // Handle image loading errors
@@ -66,10 +55,10 @@
 
 <Header />
 
-<main id="main-content" class="relative z-1">
+<main id="main-content" class="relative z-1" style="isolation: isolate;">
   <!-- Hero Banner -->
   <div class="bg-primary text-light py-16 px-4 hero-section relative">
-    <div class="max-w-6xl mx-auto text-center relative z-2">
+    <div class="max-w-6xl mx-auto text-center relative z-30">
       <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 font-montserrat">Building Kenya's Future</h1>
       <p class="text-xl md:text-2xl max-w-3xl mx-auto font-raleway mb-8">
         Creating exceptional homes and buildings that stand the test of time
@@ -79,10 +68,10 @@
   </div>
   
   <!-- About Us Section -->
-  <section class="py-16 px-4 bg-light relative z-2">
+  <section class="py-16 px-4 bg-light relative z-10" style="isolation: isolate;">
     <div class="max-w-6xl mx-auto">
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center relative z-5">
-        <div class="animate-on-scroll content-section">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center relative z-20">
+        <div class="animate-on-scroll content-section opacity-100" style="transform: translateY(0); opacity: 1;">
           <div class="text-gold uppercase tracking-wider font-montserrat text-sm font-bold mb-3">About Us</div>
           <h2 class="text-3xl md:text-4xl font-bold mb-6 font-montserrat text-primary">Your Trusted Construction Partner in Kenya</h2>
           <p class="text-gray-700 mb-6 font-raleway leading-relaxed">
@@ -96,13 +85,14 @@
           </p>
         </div>
         
-        <div class="animate-on-scroll" style="transition-delay: 200ms">
-          <div class="w-full rounded-lg shadow-xl overflow-hidden image-container" style="height: 400px;">
+        <div class="animate-on-scroll opacity-100" style="transform: translateY(0); opacity: 1; transition-delay: 200ms">
+          <div class="w-full rounded-lg shadow-xl overflow-hidden image-container" style="height: 400px; position: relative; z-index: 15;">
             <img 
               src="/images/projects/project1.jpg" 
               alt="Highpoint Construction Project" 
               class="w-full h-full object-cover"
               on:error={handleImageError}
+              style="position: relative; z-index: 5;"
             />
             
             {#if imageErrors['/images/projects/project1.jpg']}
@@ -122,9 +112,9 @@
   </section>
   
   <!-- Our Mission -->
-  <section class="py-16 px-4 bg-primary text-light relative z-2">
-    <div class="max-w-4xl mx-auto text-center">
-      <div class="animate-on-scroll">
+  <section class="py-16 px-4 bg-primary text-light relative z-10" style="isolation: isolate;">
+    <div class="max-w-4xl mx-auto text-center relative z-20">
+      <div class="animate-on-scroll opacity-100" style="transform: translateY(0); opacity: 1;">
         <span class="text-gold uppercase tracking-wider font-montserrat text-sm font-bold">Our Mission</span>
         <h2 class="text-3xl md:text-4xl font-bold mt-2 mb-6 font-montserrat">Building Dreams, Creating Homes</h2>
         <div class="w-24 h-1 bg-gold mx-auto mb-8"></div>
@@ -139,9 +129,9 @@
   </section>
   
   <!-- Values Section -->
-  <section class="py-16 px-4 bg-light relative z-2">
-    <div class="max-w-6xl mx-auto">
-      <div class="text-center mb-12 animate-on-scroll">
+  <section class="py-16 px-4 bg-light relative z-10" style="isolation: isolate;">
+    <div class="max-w-6xl mx-auto relative z-20">
+      <div class="text-center mb-12 animate-on-scroll opacity-100" style="transform: translateY(0); opacity: 1;">
         <span class="text-gold uppercase tracking-wider font-montserrat text-sm font-bold">Our Principles</span>
         <h2 class="text-3xl md:text-4xl font-bold mt-2 mb-4 font-montserrat text-primary">Core Values</h2>
         <div class="w-24 h-1 bg-gold mx-auto mb-6"></div>
@@ -150,8 +140,8 @@
         </p>
       </div>
       
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 relative z-5">
-        <div class="bg-white p-6 shadow-lg animate-on-scroll value-card" style="transition-delay: 100ms">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 relative z-20">
+        <div class="bg-white p-6 shadow-lg animate-on-scroll value-card opacity-100" style="transform: translateY(0); opacity: 1; transition-delay: 100ms; position: relative; z-index: 15;">
           <div class="text-gold text-4xl font-bold mb-4">01</div>
           <h3 class="text-xl font-bold mb-3 font-montserrat text-primary">Quality</h3>
           <p class="text-gray-700 font-raleway">
@@ -159,7 +149,7 @@
           </p>
         </div>
         
-        <div class="bg-white p-6 shadow-lg animate-on-scroll value-card" style="transition-delay: 200ms">
+        <div class="bg-white p-6 shadow-lg animate-on-scroll value-card opacity-100" style="transform: translateY(0); opacity: 1; transition-delay: 200ms; position: relative; z-index: 15;">
           <div class="text-gold text-4xl font-bold mb-4">02</div>
           <h3 class="text-xl font-bold mb-3 font-montserrat text-primary">Integrity</h3>
           <p class="text-gray-700 font-raleway">
@@ -167,7 +157,7 @@
           </p>
         </div>
         
-        <div class="bg-white p-6 shadow-lg animate-on-scroll value-card" style="transition-delay: 300ms">
+        <div class="bg-white p-6 shadow-lg animate-on-scroll value-card opacity-100" style="transform: translateY(0); opacity: 1; transition-delay: 300ms; position: relative; z-index: 15;">
           <div class="text-gold text-4xl font-bold mb-4">03</div>
           <h3 class="text-xl font-bold mb-3 font-montserrat text-primary">Innovation</h3>
           <p class="text-gray-700 font-raleway">
@@ -175,7 +165,7 @@
           </p>
         </div>
         
-        <div class="bg-white p-6 shadow-lg animate-on-scroll value-card" style="transition-delay: 400ms">
+        <div class="bg-white p-6 shadow-lg animate-on-scroll value-card opacity-100" style="transform: translateY(0); opacity: 1; transition-delay: 400ms; position: relative; z-index: 15;">
           <div class="text-gold text-4xl font-bold mb-4">04</div>
           <h3 class="text-xl font-bold mb-3 font-montserrat text-primary">Client Focus</h3>
           <p class="text-gray-700 font-raleway">
@@ -187,9 +177,9 @@
   </section>
   
   <!-- Team Section -->
-  <section class="py-16 px-4 bg-white relative z-2">
-    <div class="max-w-6xl mx-auto">
-      <div class="text-center mb-12 animate-on-scroll">
+  <section class="py-16 px-4 bg-white relative z-10" style="isolation: isolate;">
+    <div class="max-w-6xl mx-auto relative z-20">
+      <div class="text-center mb-12 animate-on-scroll opacity-100" style="transform: translateY(0); opacity: 1;">
         <span class="text-gold uppercase tracking-wider font-montserrat text-sm font-bold">Meet Our Experts</span>
         <h2 class="text-3xl md:text-4xl font-bold mt-2 mb-4 font-montserrat text-primary">Our Leadership Team</h2>
         <div class="w-24 h-1 bg-gold mx-auto mb-6"></div>
@@ -198,15 +188,16 @@
         </p>
       </div>
       
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 relative z-5">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 relative z-20">
         {#each teamMembers as member, i}
-          <div class="bg-light overflow-hidden shadow-lg animate-on-scroll team-card" style="transition-delay: {i * 100}ms">
+          <div class="bg-light overflow-hidden shadow-lg animate-on-scroll team-card opacity-100" style="transform: translateY(0); opacity: 1; transition-delay: {i * 100}ms; position: relative; z-index: 15;">
             <div class="h-64 overflow-hidden image-container">
               <img 
                 src={member.image} 
                 alt={member.name} 
                 class="w-full h-full object-cover"
                 on:error={handleImageError}
+                style="position: relative; z-index: 5;"
               />
               
               {#if imageErrors[member.image]}
@@ -232,31 +223,31 @@
   </section>
   
   <!-- Stats Section -->
-  <section class="py-16 px-4 bg-primary text-white relative z-2">
-    <div class="max-w-6xl mx-auto">
-      <div class="text-center mb-12 animate-on-scroll">
+  <section class="py-16 px-4 bg-primary text-white relative z-10" style="isolation: isolate;">
+    <div class="max-w-6xl mx-auto relative z-20">
+      <div class="text-center mb-12 animate-on-scroll opacity-100" style="transform: translateY(0); opacity: 1;">
         <span class="text-gold uppercase tracking-wider font-montserrat text-sm font-bold">Our Impact</span>
         <h2 class="text-3xl md:text-4xl font-bold mt-2 mb-6 font-montserrat">By the Numbers</h2>
         <div class="w-24 h-1 bg-gold mx-auto mb-6"></div>
       </div>
-      
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-        <div class="text-center animate-on-scroll" style="transition-delay: 100ms">
+          
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 relative z-20">
+        <div class="text-center animate-on-scroll opacity-100" style="transform: translateY(0); opacity: 1; transition-delay: 100ms">
           <div class="text-gold text-4xl md:text-5xl font-bold mb-2">10+</div>
           <p class="text-lg font-raleway">Years in Business</p>
         </div>
-        
-        <div class="text-center animate-on-scroll" style="transition-delay: 200ms">
+          
+        <div class="text-center animate-on-scroll opacity-100" style="transform: translateY(0); opacity: 1; transition-delay: 200ms">
           <div class="text-gold text-4xl md:text-5xl font-bold mb-2">200+</div>
           <p class="text-lg font-raleway">Projects Completed</p>
         </div>
-        
-        <div class="text-center animate-on-scroll" style="transition-delay: 300ms">
+          
+        <div class="text-center animate-on-scroll opacity-100" style="transform: translateY(0); opacity: 1; transition-delay: 300ms">
           <div class="text-gold text-4xl md:text-5xl font-bold mb-2">150+</div>
           <p class="text-lg font-raleway">Satisfied Clients</p>
         </div>
         
-        <div class="text-center animate-on-scroll" style="transition-delay: 400ms">
+        <div class="text-center animate-on-scroll opacity-100" style="transform: translateY(0); opacity: 1; transition-delay: 400ms">
           <div class="text-gold text-4xl md:text-5xl font-bold mb-2">45+</div>
           <p class="text-lg font-raleway">Skilled Team Members</p>
         </div>
@@ -265,9 +256,9 @@
   </section>
   
   <!-- CTA Section -->
-  <section class="py-16 px-4 bg-light relative z-2">
-    <div class="max-w-4xl mx-auto text-center">
-      <div class="animate-on-scroll">
+  <section class="py-16 px-4 bg-light relative z-10" style="isolation: isolate;">
+    <div class="max-w-4xl mx-auto text-center relative z-20">
+      <div class="animate-on-scroll opacity-100" style="transform: translateY(0); opacity: 1;">
         <h2 class="text-3xl md:text-4xl font-bold mb-6 font-montserrat text-primary">Ready to Build Your Dream?</h2>
         <p class="text-gray-700 mb-8 font-raleway">
           Contact us today to discuss your vision, and let our team of experts bring it to life. We're dedicated to creating spaces that you'll be proud to call your own.
@@ -317,47 +308,58 @@
   .font-raleway {
     font-family: 'Raleway', sans-serif;
   }
+  
+  /* Since a CSS rule was removed from the original file, we need to add it back */
+  
 
-  .animate-on-scroll {
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-  }
-  
-  .animate-on-scroll.is-visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  
-  /* About page specific fixes */
+  /* About page specific fixes with increased priority */
   .hero-section {
-    position: relative;
-    z-index: 2;
+    position: relative !important;
+    z-index: 2 !important;
   }
   
   .content-section {
-    position: relative;
-    z-index: 5;
+    position: relative !important;
+    z-index: 5 !important;
   }
   
   .value-card {
-    position: relative;
-    z-index: 5;
+    position: relative !important;
+    z-index: 5 !important;
   }
   
   .team-card {
-    position: relative;
-    z-index: 5;
-    isolation: isolate;
+    position: relative !important;
+    z-index: 5 !important;
+    isolation: isolate !important;
   }
   
   .image-container {
-    position: relative;
-    overflow: hidden;
+    position: relative !important;
+    overflow: hidden !important;
   }
   
   .image-container img {
-    position: relative;
-    z-index: 2;
+    position: relative !important;
+    z-index: 2 !important;
+  }
+  
+  /* Remove any potential overlays */
+  main::before,
+  main::after,
+  section::before,
+  section::after {
+    content: none !important;
+    display: none !important;
+  }
+  
+  /* Fix for stacking context */
+  main, section, div {
+    isolation: isolate;
+  }
+  
+  /* Stop any animations that might be causing problems */
+  * {
+    animation-play-state: paused !important;
   }
 </style> 
