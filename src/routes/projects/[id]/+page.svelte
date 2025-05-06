@@ -508,9 +508,6 @@
     background-color: var(--color-light);
   }
   
-  .text-light {
-    color: var(--color-light);
-  }
   
   .font-montserrat {
     font-family: 'Montserrat', sans-serif;
@@ -526,10 +523,7 @@
     transition: opacity 0.6s ease-out, transform 0.6s ease-out;
   }
   
-  .animate-on-scroll.is-visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  
   
   .ring-gold {
     --tw-ring-color: var(--color-gold);

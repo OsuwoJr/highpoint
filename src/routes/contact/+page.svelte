@@ -28,16 +28,7 @@
       hours: 'Monday - Friday: 8:00 AM - 5:00 PM',
       mapUrl: 'https://maps.google.com/?q=Ngong+Road+Nairobi+Kenya'
     },
-    {
-      name: 'Mombasa Office',
-      address: 'Azure Building, 2nd Floor',
-      street: 'Nyali Road',
-      city: 'Mombasa, Kenya',
-      phone: '+254 723 456 789',
-      email: 'mombasa@highpoint-construction.com',
-      hours: 'Monday - Friday: 8:00 AM - 5:00 PM',
-      mapUrl: 'https://maps.google.com/?q=Nyali+Road+Mombasa+Kenya'
-    }
+   
   ];
   
   // Handle form submission
@@ -46,18 +37,30 @@
     formError = '';
     
     try {
-      // In a real implementation, this would connect to a backend API
-      // For now, we'll simulate a successful submission after a delay
-      await new Promise(resolve => setTimeout(resolve, 1500));
+      // Submit to Formspree
+      const response = await fetch('https://formspree.io/f/xanooayv', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify(formData)
+      });
       
-      formSubmitted = true;
-      formData = {
-        name: '',
-        email: '',
-        phone: '',
-        subject: '',
-        message: ''
-      };
+      const result = await response.json();
+      
+      if (response.ok) {
+        formSubmitted = true;
+        formData = {
+          name: '',
+          email: '',
+          phone: '',
+          subject: '',
+          message: ''
+        };
+      } else {
+        formError = result.error || 'There was an error submitting your message. Please try again.';
+      }
     } catch (error) {
       formError = 'There was an error submitting your message. Please try again.';
     } finally {
@@ -261,7 +264,7 @@
           {#if formError}
             <div class="bg-black/10 text-black p-4 rounded-md mb-6">
               <p class="font-bold">There was an error sending your message.</p>
-              <p>Please try again later or contact us directly by phone.</p>
+              <p>{formError}</p>
             </div>
           {/if}
           

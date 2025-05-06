@@ -66,24 +66,36 @@
     formError = '';
     
     try {
-      // In a real implementation, this would connect to a backend API
-      // For now, we'll simulate a successful submission after a delay
-      await new Promise(resolve => setTimeout(resolve, 1500));
+      // Submit to Formspree
+      const response = await fetch('https://formspree.io/f/xanooayv', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify(formData)
+      });
       
-      formSubmitted = true;
-      formData = {
-        fullName: '',
-        email: '',
-        phone: '',
-        location: '',
-        projectType: 'residential',
-        serviceNeeded: [],
-        budget: '',
-        timeframe: '',
-        description: '',
-        hearAboutUs: '',
-        contactPreference: 'email',
-      };
+      const result = await response.json();
+      
+      if (response.ok) {
+        formSubmitted = true;
+        formData = {
+          fullName: '',
+          email: '',
+          phone: '',
+          location: '',
+          projectType: 'residential',
+          serviceNeeded: [],
+          budget: '',
+          timeframe: '',
+          description: '',
+          hearAboutUs: '',
+          contactPreference: 'email',
+        };
+      } else {
+        formError = result.error || 'There was an error submitting your request. Please try again.';
+      }
     } catch (error) {
       formError = 'There was an error submitting your request. Please try again.';
     } finally {
