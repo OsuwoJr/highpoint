@@ -1,8 +1,57 @@
 <script lang="ts">
+	import { onMount } from 'svelte';
 	import '../app.css';
 
 	let { children } = $props();
+
+	// Add global image error handling to improve user experience
+	onMount(() => {
+		// Apply cache-busting timestamp to all project images
+		const timestamp = Date.now();
+		
+		// Create a function to handle images that fail to load
+		const handleImageError = (event) => {
+			const img = event.target;
+			console.error(`Failed to load image: ${img.src}`);
+			
+			// Try to reload the image with cache busting
+			if (!img.src.includes('?v=')) {
+				img.src = `${img.src}?v=${timestamp}`;
+			}
+			
+			// Add error class for styling
+			img.classList.add('image-load-error');
+		};
+		
+		// Apply global image error handler
+		document.addEventListener('error', (event) => {
+			if (event.target.tagName.toLowerCase() === 'img') {
+				handleImageError(event);
+			}
+		}, true);
+		
+		// Preload critical project images
+		const criticalImages = [
+			'/images/projects/skyline-house.jpg',
+			'/images/projects/kagundo-mansion.jpg',
+			'/images/projects/la-finca.jpg',
+			'/images/projects/kiambu-center.jpg',
+			'/images/projects/projects-hero.jpg'
+		];
+		
+		criticalImages.forEach(src => {
+			const img = new Image();
+			img.src = `${src}?v=${timestamp}`;
+		});
+	});
 </script>
+
+<svelte:head>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Raleway:wght@400;500;600&display=swap" rel="stylesheet">
+	<link rel="icon" href="/favicon.png" />
+</svelte:head>
 
 <a href="#main-content" class="skip-link">Skip to main content</a>
 
@@ -86,5 +135,41 @@
 
   .bg-primary {
     background-color: var(--color-primary);
+  }
+
+  :global(:root) {
+    --color-primary: #0F3457;
+    --color-secondary: #2C5282;
+    --color-gold: #FBB034;
+    --color-light: #F8F9FA;
+    --color-dark: #1A202C;
+    --color-eco-green: #81C14B;
+  }
+  
+  :global(body) {
+    font-family: 'Raleway', sans-serif;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    background-color: var(--color-light);
+  }
+  
+  :global(h1, h2, h3, h4) {
+    font-family: 'Montserrat', sans-serif;
+  }
+  
+  :global(a) {
+    text-decoration: none;
+  }
+  
+  :global(button) {
+    cursor: pointer;
+  }
+  
+  /* Add styles for image error handling */
+  :global(img.image-load-error) {
+    opacity: 0.5;
+    filter: grayscale(100%);
   }
 </style>

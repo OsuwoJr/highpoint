@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Image Test</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    .image-container {
+      margin: 20px 0;
+      border: 1px solid #ddd;
+      padding: 10px;
+    }
+    img {
+      max-width: 100%;
+      display: block;
+      margin-bottom: 10px;
+    }
+    h1 {
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <h1>Image Test Page</h1>
+  
+  <div class="image-container">
+    <h2>Project Image 1: skyline-house.jpg</h2>
+    <img src="/images/projects/skyline-house.jpg" alt="Skyline House" onerror="this.after('ERROR LOADING IMAGE!')">
+    <p>Path: /images/projects/skyline-house.jpg</p>
+  </div>
+  
+  <div class="image-container">
+    <h2>Project Image 2: kagundo-mansion.jpg</h2>
+    <img src="/images/projects/kagundo-mansion.jpg" alt="Kagundo Mansion" onerror="this.after('ERROR LOADING IMAGE!')">
+    <p>Path: /images/projects/kagundo-mansion.jpg</p>
+  </div>
+  
+  <div class="image-container">
+    <h2>Other Static Image</h2>
+    <img src="/favicon.png" alt="Favicon" onerror="this.after('ERROR LOADING IMAGE!')">
+    <p>Path: /favicon.png</p>
+  </div>
+  
+  <div id="results"></div>
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const results = document.getElementById('results');
+      results.innerHTML = '<p>Page loaded successfully!</p>';
+      
+      // Check if images loaded
+      document.querySelectorAll('img').forEach(img => {
+        img.addEventListener('load', function() {
+          results.innerHTML += `<p>✅ Image loaded: ${this.src}</p>`;
+        });
+        
+        img.addEventListener('error', function() {
+          results.innerHTML += `<p>❌ Failed to load: ${this.src}</p>`;
+        });
+      });
+    });
+  </script>
+</body>
+</html> 

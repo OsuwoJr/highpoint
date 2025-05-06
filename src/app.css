@@ -5,12 +5,13 @@
 /* Global Color Variables */
 :root {
   /* Color palette */
-  --color-primary: #121212; /* Black - primary color for headers, CTAs */
-  --color-secondary: #000000; /* Pure Black - accents/hovers (was Dark Grey) */
-  --color-gold: #FF8C00; /* Golden Orange - luxury accents */
-  --color-light: #FFFFFF; /* White - backgrounds (was Light Grey) */
-  --color-dark: #000000; /* Pure Black - text/dark sections (was Deeper Black) */
+  --color-primary: #0F3457; /* Black - primary color for headers, CTAs */
+  --color-secondary: #2C5282; /* Pure Black - accents/hovers (was Dark Grey) */
+  --color-gold: #FBB034; /* Golden Orange - luxury accents */
+  --color-light: #F8F9FA; /* White - backgrounds (was Light Grey) */
+  --color-dark: #1A202C; /* Pure Black - text/dark sections (was Deeper Black) */
   --color-grey: #000000; /* Changed to Black - secondary text (was Medium Grey) */
+  --color-eco-green: #81C14B;
   
   /* Previous palette for reference */
   --color-gold-old: #D4AF37;
@@ -30,6 +31,21 @@ body {
   margin: 0;
   padding: 0;
   line-height: 1.6;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+main {
+  flex: 1;
+  position: relative;
+  z-index: 1;
+}
+
+footer {
+  z-index: 1;
+  position: relative;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -41,6 +57,7 @@ h1, h2, h3, h4, h5, h6 {
 img {
   max-width: 100%;
   height: auto;
+  display: block;
 }
 
 /* Accessibility */
@@ -54,10 +71,11 @@ img {
   position: absolute;
   top: -40px;
   left: 0;
-  background: var(--color-dark);
-  color: var(--color-light);
+  background: var(--color-primary);
+  color: white;
   padding: 8px;
   z-index: 100;
+  transition: top 0.3s;
 }
 
 .skip-link:focus {
@@ -144,4 +162,78 @@ a:hover {
 
 .text-white a:hover:not(.btn-primary):not([class*="bg-"]) {
   color: var(--color-gold);
+}
+
+/* Project specific fixes */
+.project-card {
+  position: relative;
+  z-index: 5 !important;
+  isolation: isolate;
+}
+
+.project-card img {
+  position: relative;
+  z-index: 2;
+}
+
+.project-card-loading {
+  z-index: 5;
+}
+
+.project-card-error {
+  z-index: 6;
+}
+
+/* Fix for image loading issues */
+.image-container {
+  position: relative;
+  overflow: hidden;
+  background-color: #f5f5f5;
+}
+
+.image-container img {
+  transition: opacity 0.3s ease;
+}
+
+img.image-load-error {
+  opacity: 0.5;
+  filter: grayscale(100%);
+}
+
+/* Animation utilities */
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.animate-on-scroll.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Hide scrollbar for carousel but allow scrolling */
+.hide-scrollbar {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;  /* Chrome, Safari, Opera */
+}
+
+/* Fix for various z-index related issues */
+.grid {
+  position: relative;
+  z-index: 2;
+}
+
+.filter-buttons {
+  position: relative;
+  z-index: 10;
+}
+
+/* Make sure absolute positioned elements don't get covered */
+.absolute {
+  z-index: 3;
 }

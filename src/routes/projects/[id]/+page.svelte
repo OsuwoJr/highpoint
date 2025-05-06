@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import Header from '$lib/components/Header.svelte';
   import { onMount } from 'svelte';
   import { page } from '$app/stores';
@@ -12,8 +12,8 @@
       category: 'Residential',
       images: [
         '/images/projects/skyline-house.jpg',
-        '/images/projects/skyline-house-2.jpg',
-        '/images/projects/skyline-house-3.jpg'
+        '/images/projects/skyline-house1.jpg',
+        '/images/projects/skyline-house2.jpg'
       ],
       description: 'A modern 4-bedroom family home with panoramic views of the Ngong Hills. This project exemplifies our commitment to integrating contemporary architecture with the natural landscape. The large windows and open floor plan maximize the breathtaking views while maintaining energy efficiency through strategic design.',
       challenge: 'The sloping terrain presented initial challenges for foundation work, requiring specialized engineering solutions to ensure structural integrity while preserving the natural landscape.',
@@ -31,8 +31,8 @@
       category: 'Residential',
       images: [
         '/images/projects/kagundo-mansion.jpg',
-        '/images/projects/kagundo-mansion-2.jpg',
-        '/images/projects/kagundo-mansion-3.jpg'
+        '/images/projects/kagundo-mansion1.jpg',
+        '/images/projects/kagundo-mansion2.jpg'
       ],
       description: 'Elegant 5-bedroom mansionette built with sustainability in mind. This family home combines luxury living with eco-friendly features, creating a comfortable and environmentally responsible dwelling.',
       challenge: 'The client requested a spacious family home that would maintain low energy consumption despite its size and the local climate conditions.',
@@ -50,8 +50,8 @@
       category: 'Residential',
       images: [
         '/images/projects/la-finca.jpg',
-        '/images/projects/la-finca-2.jpg',
-        '/images/projects/la-finca-3.jpg'
+        '/images/projects/la-finca1.jpg',
+        '/images/projects/la-finca2.jpg'
       ],
       description: 'A countryside retreat with modern amenities and traditional Kenyan influences. This project blends contemporary living with rural charm, creating a peaceful sanctuary that honors local architectural heritage.',
       challenge: 'Creating a home that would function as both a working farm property and a comfortable residence with modern amenities, while respecting the rural context and traditional building practices.',
@@ -62,34 +62,16 @@
       client: 'The Wainaina Family',
       duration: '7 months'
     },
+    
     {
       id: 4,
-      title: 'Casa del Bosco',
-      location: 'Runda, Nairobi',
-      category: 'Residential',
-      images: [
-        '/images/projects/casa-bosco.jpg',
-        '/images/projects/casa-bosco-2.jpg',
-        '/images/projects/casa-bosco-3.jpg'
-      ],
-      description: 'Luxury forest-side home with extensive use of natural materials. This premium residence seamlessly integrates with its wooded surroundings while providing state-of-the-art amenities for comfortable family living.',
-      challenge: 'The densely wooded site required careful planning to preserve mature trees while creating a spacious, light-filled home with modern luxury amenities.',
-      solution: 'We conducted a detailed arborist survey and designed the home around existing trees, incorporating them as natural features of the property. The multi-level design follows the natural topography, with floor-to-ceiling windows that bring the forest indoors.',
-      features: ['6 Bedrooms', 'Swimming Pool', 'Home Theatre', 'Smart Home System', 'Wine Cellar', 'Outdoor Kitchen'],
-      materials: ['Natural Stone', 'Hardwood Timber', 'Granite Countertops', 'Glass Walls'],
-      completionDate: 'January 2023',
-      client: 'The Odhiambo Family',
-      duration: '14 months'
-    },
-    {
-      id: 5,
       title: 'Kiambu Business Center',
       location: 'Kiambu Town',
       category: 'Commercial',
       images: [
         '/images/projects/kiambu-center.jpg',
-        '/images/projects/kiambu-center-2.jpg',
-        '/images/projects/kiambu-center-3.jpg'
+        '/images/projects/kiambu-center1.jpg',
+        '/images/projects/kiambu-center2.jpg'
       ],
       description: 'Modern office complex with retail spaces on the ground floor. This mixed-use development provides versatile commercial space with contemporary design that stands out in the growing Kiambu business district.',
       challenge: 'Creating a versatile commercial building in a rapidly developing area that would meet the needs of diverse businesses while establishing a strong architectural identity.',
@@ -100,25 +82,7 @@
       client: 'Kiambu Investments Ltd.',
       duration: '11 months'
     },
-    {
-      id: 6,
-      title: 'Riverside Apartments',
-      location: 'Thika Road, Nairobi',
-      category: 'Residential',
-      images: [
-        '/images/projects/riverside-apartments.jpg',
-        '/images/projects/riverside-apartments-2.jpg',
-        '/images/projects/riverside-apartments-3.jpg'
-      ],
-      description: 'Contemporary apartment complex with 24 units of varying sizes. This project delivers modern urban living with shared amenities and efficient use of space, catering to professionals and small families in the growing Thika Road corridor.',
-      challenge: 'Maximizing the number of units while creating comfortable living spaces with adequate natural light, ventilation and privacy on a constrained urban site.',
-      solution: 'We employed a thoughtful layout that optimizes space usage while ensuring each unit receives natural light from multiple directions. The building incorporates communal areas on the rooftop and ground floor to enhance resident experience and build community.',
-      features: ['24 Units', 'Rooftop Garden', 'Gym', 'Security System', 'Underground Parking', 'Children\'s Play Area'],
-      materials: ['Reinforced Concrete', 'Ceramic Tiles', 'Soundproof Walls', 'Stainless Steel Accents'],
-      completionDate: 'December 2021',
-      client: 'Nairobi Urban Developments',
-      duration: '18 months'
-    },
+    
     {
       id: 7,
       title: 'Athi River Warehouse',
@@ -126,8 +90,8 @@
       category: 'Commercial',
       images: [
         '/images/projects/warehouse.jpg',
-        '/images/projects/warehouse-2.jpg',
-        '/images/projects/warehouse-3.jpg'
+        '/images/projects/warehouse1.jpg',
+        '/images/projects/warehouse2.jpg'
       ],
       description: 'State-of-the-art warehouse facility with offices and loading docks. This industrial project provides efficient logistics operations with modern management facilities and strategic location for distribution.',
       challenge: 'Designing an industrial facility that would accommodate heavy machinery and goods movement while maintaining an efficient workflow and comfortable working conditions in a hot climate.',
@@ -139,14 +103,14 @@
       duration: '9 months'
     },
     {
-      id: 8,
+      id: 5,
       title: 'Karen Bungalow Renovation',
       location: 'Karen, Nairobi',
       category: 'Renovation',
       images: [
         '/images/projects/karen-renovation.jpg',
-        '/images/projects/karen-renovation-2.jpg',
-        '/images/projects/karen-renovation-3.jpg'
+        '/images/projects/karen-renovation1.jpg',
+        '/images/projects/karen-renovation2.jpg'
       ],
       description: 'Complete renovation of a 1970s bungalow, modernizing while preserving character. This project demonstrates how thoughtful renovation can transform an outdated home into a contemporary living space without losing its original charm.',
       challenge: 'Updating a 50-year-old home to modern standards and contemporary aesthetics while preserving its historical character and addressing structural issues.',
@@ -158,14 +122,14 @@
       duration: '6 months'
     },
     {
-      id: 9,
-      title: 'Gigiri Guest House',
+      id: 6,
+      title: 'Embassy Guest House',
       location: 'Gigiri, Nairobi',
-      category: 'Residential',
+      category: 'Institutional',
       images: [
         '/images/projects/guest-house.jpg',
-        '/images/projects/guest-house-2.jpg',
-        '/images/projects/guest-house-3.jpg'
+        '/images/projects/guest-house1.jpg',
+        '/images/projects/guest-house2.jpg'
       ],
       description: 'Compact but luxurious guest house built for diplomatic visitors. This project showcases how thoughtful design can maximize functionality and comfort in a limited footprint, creating a private retreat for international guests.',
       challenge: 'Creating a fully-featured luxury accommodation in a limited space that would meet the expectations of international diplomatic visitors and provide privacy within a larger compound.',
@@ -182,6 +146,46 @@
   $: currentProject = projects.find(p => p.id.toString() === $page.params.id);
   $: currentImageIndex = 0;
   
+  // Image loading tracking
+  let imagesLoaded = false;
+  let imageErrors: Record<string, boolean> = {};
+  let loadedImages: Record<string, boolean> = {};
+  let timestamp = Date.now(); // Use timestamp for cache busting
+  
+  function handleImageError(src: string): void {
+    console.error(`Failed to load image: ${src}`);
+    imageErrors = { ...imageErrors, [src]: true };
+  }
+  
+  function handleImageLoad(src: string): void {
+    console.log(`Image loaded successfully: ${src}`);
+    loadedImages = { ...loadedImages, [src]: true };
+    
+    // Check if all images are loaded
+    if (currentProject) {
+      const allLoaded = currentProject.images.every(img => loadedImages[img]);
+      if (allLoaded) {
+        imagesLoaded = true;
+      }
+    }
+  }
+  
+  // Preload images
+  function preloadImage(src: string) {
+    return new Promise((resolve, reject) => {
+      const img = new Image();
+      img.src = `${src}?v=${timestamp}`;
+      img.onload = () => {
+        handleImageLoad(src);
+        resolve(src);
+      };
+      img.onerror = () => {
+        handleImageError(src);
+        reject(src);
+      };
+    });
+  }
+  
   function nextImage() {
     if (currentProject) {
       currentImageIndex = (currentImageIndex + 1) % currentProject.images.length;
@@ -196,6 +200,16 @@
   
   // Animation on scroll
   onMount(() => {
+    // Preload all project images if we have a current project
+    if (currentProject) {
+      Promise.all(currentProject.images.map(src => preloadImage(src)))
+        .then(() => {
+          console.log('All project detail images preloaded');
+          imagesLoaded = true;
+        })
+        .catch(err => console.error('Failed to preload some images:', err));
+    }
+
     if (typeof IntersectionObserver !== 'undefined') {
       const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
@@ -231,17 +245,55 @@
     <!-- Image Gallery -->
     <section class="py-16 px-4 bg-light">
       <div class="max-w-6xl mx-auto">
-        <div class="relative overflow-hidden h-[60vh] mb-4">
+        <div class="relative overflow-hidden h-[60vh] mb-4 border border-gray-200">
+          <!-- Loading indicator -->
+          {#if !imagesLoaded}
+            <div class="absolute inset-0 z-20 flex items-center justify-center bg-gray-200">
+              <div class="text-center">
+                <div class="w-16 h-16 border-4 border-gray-300 border-t-gold rounded-full animate-spin mx-auto mb-4"></div>
+                <p class="text-gray-600">Loading project images...</p>
+              </div>
+            </div>
+          {/if}
+          
           {#each currentProject.images as image, i}
             <div 
               class="absolute inset-0 w-full h-full transition-opacity duration-500 ease-in-out"
               style="opacity: {currentImageIndex === i ? '1' : '0'};"
             >
               <img 
-                src={image} 
+                src={`${image}?v=${timestamp}`}
                 alt="{currentProject.title} - Image {i+1}" 
                 class="w-full h-full object-cover"
+                width="1200"
+                height="800"
+                loading="eager"
+                on:error={() => handleImageError(image)}
+                on:load={() => handleImageLoad(image)}
               />
+              
+              <!-- Fallback if image fails to load -->
+              {#if imageErrors[image]}
+                <div class="absolute inset-0 flex items-center justify-center bg-gray-100 text-gray-500 text-center p-4">
+                  <div>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mx-auto mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                    </svg>
+                    <p class="text-lg font-bold">{currentProject.title}</p>
+                    <p>Image could not be loaded</p>
+                    <button 
+                      class="mt-4 px-4 py-2 bg-primary text-white hover:bg-primary/80 transition-colors"
+                      on:click={() => {
+                        timestamp = Date.now();
+                        imageErrors[image] = false;
+                        preloadImage(image);
+                      }}
+                    >
+                      Try Again
+                    </button>
+                  </div>
+                </div>
+              {/if}
             </div>
           {/each}
           
@@ -275,7 +327,25 @@
               on:click={() => currentImageIndex = i}
               aria-label="View image {i+1}"
             >
-              <img src={image} alt="{currentProject.title} thumbnail {i+1}" class="w-full h-full object-cover"/>
+              <div class="w-full h-full relative">
+                <img 
+                  src={`${image}?v=${timestamp}`} 
+                  alt="{currentProject.title} thumbnail {i+1}" 
+                  class="w-full h-full object-cover"
+                  width="128"
+                  height="80"
+                  loading="eager"
+                  on:error={() => handleImageError(image)}
+                />
+                
+                {#if imageErrors[image]}
+                  <div class="absolute inset-0 flex items-center justify-center bg-gray-100">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                  </div>
+                {/if}
+              </div>
             </button>
           {/each}
         </div>
@@ -318,14 +388,14 @@
               </div>
               
               <!-- Materials -->
-              <div class="animate-on-scroll" style="opacity: 0; transform: translateY(20px); transition: all 0.6s ease-out; transition-delay: 0.2s;">
+              <div class="animate-on-scroll" style="opacity: 0; transform: translateY(20px); transition: all 0.6s ease-out; transition-delay: 200ms;">
                 <h3 class="text-xl font-bold mb-4 text-primary font-montserrat">Materials Used</h3>
                 <ul class="space-y-2">
                   {#each currentProject.materials as material}
                     <li class="flex items-start">
                       <span class="text-gold mr-2">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5">
-                          <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.393A9.065 9.065 0 0112 15a9.065 9.065 0 00-6.23-.693L5 14.5m14.8.8l1.402 1.402c1.232 1.232.65 3.318-1.067 3.611A48.309 48.309 0 0112 21c-2.773 0-5.491-.235-8.135-.687-1.718-.293-2.3-2.379-1.067-3.61L5 14.5" />
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
                         </svg>
                       </span>
                       <span>{material}</span>
@@ -337,43 +407,40 @@
           </div>
           
           <!-- Right Column - Project Info -->
-          <div class="lg:col-span-1">
-            <div class="bg-gray-50 p-6 rounded-lg mb-8 shadow-sm">
-              <h3 class="text-xl font-bold mb-4 text-primary font-montserrat">Project Details</h3>
+          <div class="bg-light p-8 animate-on-scroll" style="opacity: 0; transform: translateY(20px); transition: all 0.6s ease-out; transition-delay: 400ms;">
+            <h3 class="text-xl font-bold mb-6 text-primary font-montserrat">Project Details</h3>
+            
+            <div class="space-y-4">
+              <div>
+                <p class="text-gold font-semibold">Client</p>
+                <p>{currentProject.client}</p>
+              </div>
               
-              <div class="space-y-4">
-                <div>
-                  <p class="text-sm text-gray-500">Client</p>
-                  <p class="font-medium">{currentProject.client}</p>
-                </div>
-                
-                <div>
-                  <p class="text-sm text-gray-500">Location</p>
-                  <p class="font-medium">{currentProject.location}</p>
-                </div>
-                
-                <div>
-                  <p class="text-sm text-gray-500">Project Type</p>
-                  <p class="font-medium">{currentProject.category}</p>
-                </div>
-                
-                <div>
-                  <p class="text-sm text-gray-500">Completion Date</p>
-                  <p class="font-medium">{currentProject.completionDate}</p>
-                </div>
-                
-                <div>
-                  <p class="text-sm text-gray-500">Duration</p>
-                  <p class="font-medium">{currentProject.duration}</p>
-                </div>
+              <div>
+                <p class="text-gold font-semibold">Location</p>
+                <p>{currentProject.location}</p>
+              </div>
+              
+              <div>
+                <p class="text-gold font-semibold">Project Type</p>
+                <p>{currentProject.category}</p>
+              </div>
+              
+              <div>
+                <p class="text-gold font-semibold">Completion Date</p>
+                <p>{currentProject.completionDate}</p>
+              </div>
+              
+              <div>
+                <p class="text-gold font-semibold">Duration</p>
+                <p>{currentProject.duration}</p>
               </div>
             </div>
             
-            <!-- CTA -->
-            <div class="bg-primary p-6 rounded-lg text-white animate-on-scroll" style="opacity: 0; transform: translateY(20px); transition: all 0.6s ease-out; transition-delay: 0.4s;">
-              <h3 class="text-xl font-bold mb-4 font-montserrat">Want a similar project?</h3>
-              <p class="mb-6">Contact us today to discuss your construction needs and get a free consultation.</p>
-              <a href="/contact" class="block text-center bg-gold hover:bg-white hover:text-primary transition-colors py-3 px-6 rounded-md font-medium">Contact Us</a>
+            <div class="mt-8">
+              <a href="/contact" class="block w-full bg-gold text-black text-center py-3 font-bold hover:bg-black hover:text-white transition-colors">
+                Discuss Your Project
+              </a>
             </div>
           </div>
         </div>
@@ -425,10 +492,38 @@
 </main>
 
 <style>
+  .text-gold {
+    color: var(--color-gold);
+  }
+  
+  .bg-gold {
+    background-color: var(--color-gold);
+  }
+  
+  .bg-primary {
+    background-color: var(--color-primary);
+  }
+  
+  .bg-light {
+    background-color: var(--color-light);
+  }
+  
+  .text-light {
+    color: var(--color-light);
+  }
+  
+  .font-montserrat {
+    font-family: 'Montserrat', sans-serif;
+  }
+  
+  .font-raleway {
+    font-family: 'Raleway', sans-serif;
+  }
+  
   .animate-on-scroll {
     opacity: 0;
     transform: translateY(20px);
-    transition: all 0.6s ease-out;
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
   }
   
   .animate-on-scroll.is-visible {
@@ -436,10 +531,23 @@
     transform: translateY(0);
   }
   
-  .line-clamp-3 {
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+  .ring-gold {
+    --tw-ring-color: var(--color-gold);
+  }
+
+  /* Add more explicit styles to ensure image container displays properly */
+  .relative {
+    position: relative;
+  }
+  
+  .absolute {
+    position: absolute;
+  }
+  
+  .inset-0 {
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
   }
 </style> 

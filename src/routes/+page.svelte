@@ -6,7 +6,34 @@
   
   let isIntersecting = {};
   
+  // Preload images
+  function preloadImage(src) {
+    return new Promise((resolve, reject) => {
+      const img = new Image();
+      img.src = src;
+      img.onload = () => resolve(src);
+      img.onerror = () => reject(src);
+    });
+  }
+  
   onMount(() => {
+    // Preload project images
+    const projectImages = [
+      '/images/projects/skyline-house.jpg',
+      '/images/projects/skyline-house-2.jpg',
+      '/images/projects/skyline-house-3.jpg',
+      '/images/projects/kagundo-mansion.jpg',
+      '/images/projects/la-finca.jpg',
+      '/images/projects/kiambu-center.jpg',
+      '/images/projects/karen-renovation.jpg',
+      '/images/projects/guest-house.jpg',
+      '/images/projects/warehouse.jpg'
+    ];
+    
+    Promise.all(projectImages.map(src => preloadImage(src)))
+      .then(() => console.log('All project images preloaded'))
+      .catch(err => console.error('Failed to preload some images:', err));
+      
     if (typeof IntersectionObserver !== 'undefined') {
       const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {

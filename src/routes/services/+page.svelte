@@ -283,34 +283,32 @@
     }
   ];
   
-  // For filtering
+  // Initialize state
   let activeCategory = serviceCategories[0];
-  let activeService = serviceCategories[0].services[0];
+  let activeService = activeCategory.services[0];
+  let imageLoadErrors: Record<string, boolean> = {};
   
   function setCategory(category: ServiceCategory) {
     activeCategory = category;
     activeService = category.services[0];
-    scrollToServices();
   }
   
-  function setService(service: Service) {
+  function selectService(service: Service) {
     activeService = service;
   }
   
-  function scrollToServices() {
-    const servicesElement = document.getElementById('services-section');
-    if (servicesElement) {
-      servicesElement.scrollIntoView({ behavior: 'smooth' });
-    }
+  function handleImageError(imagePath: string) {
+    console.error(`Failed to load image: ${imagePath}`);
+    imageLoadErrors = { ...imageLoadErrors, [imagePath]: true };
   }
   
   onMount(() => {
-    // Make all animation elements visible immediately
+    // Fix: Make all animation elements visible immediately
     document.querySelectorAll('.animate-on-scroll').forEach(el => {
       el.classList.add('is-visible');
     });
     
-    // Animation for elements when they come into view
+    // Also set up the intersection observer for future scrolling
     if (typeof IntersectionObserver !== 'undefined') {
       const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
@@ -328,473 +326,229 @@
 </script>
 
 <svelte:head>
-  <title>Construction Services | Highpoint Construction Kenya</title>
-  <meta name="description" content="Comprehensive construction services in Kenya including architectural design, home building, renovation, project management and more. Trusted by Kenyans worldwide.">
+  <title>Our Services | Highpoint Construction</title>
+  <meta name="description" content="Explore our comprehensive construction and architectural services, from custom home design to full project management for Kenyan residents and diaspora.">
 </svelte:head>
 
 <Header />
 
-<main id="main-content" class="pt-24 pb-20">
-  <!-- Hero Section -->
-  <section class="relative py-24 px-4 bg-primary text-light hero-section">
+<main id="main-content" class="relative z-1">
+  <!-- Hero Banner -->
+  <section class="bg-primary text-white py-16 px-4 relative">
     <div class="max-w-6xl mx-auto text-center">
       <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 font-montserrat">Our Services</h1>
       <p class="text-xl md:text-2xl max-w-3xl mx-auto font-raleway mb-8">
-        Everything You Need Under One Roof
+        Comprehensive construction and design solutions for your dream project
       </p>
       <div class="w-24 h-1 bg-gold mx-auto"></div>
     </div>
   </section>
   
-  <!-- Services Overview -->
-  <section class="py-16 px-4 bg-light">
+  <!-- Services Section -->
+  <section class="py-16 px-4 bg-light relative z-2">
     <div class="max-w-6xl mx-auto">
-      <div class="text-center mb-16 animate-on-scroll">
-        <span class="text-gold uppercase tracking-wider font-montserrat text-sm font-bold">What We Do</span>
-        <h2 class="text-3xl md:text-4xl font-bold mt-2 mb-4 font-montserrat">End-to-End Building Solutions</h2>
-        <div class="w-24 h-1 bg-gold mx-auto mb-6"></div>
-        <p class="text-secondary max-w-3xl mx-auto font-raleway">
-          From architectural design to construction completion, our comprehensive services ensure a seamless building experience. We handle every aspect of your project, so you don't have to.
+      <!-- Service Categories -->
+      <div class="text-center mb-12 animate-on-scroll">
+        <span class="text-gold uppercase tracking-wider font-montserrat text-sm font-bold">What We Offer</span>
+        <h2 class="text-3xl md:text-4xl font-bold mt-2 mb-6 font-montserrat text-primary">Our Specialized Services</h2>
+        <p class="text-gray-700 max-w-3xl mx-auto mb-10 font-raleway">
+          We provide a full range of construction and architectural services to meet your every need, 
+          from initial concept to project completion.
         </p>
       </div>
       
-      <!-- Service Categories -->
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+      <!-- Category Selection -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-12 filter-buttons relative z-10">
         {#each serviceCategories as category, i}
           <div class="animate-on-scroll" style="transition-delay: {i * 100}ms">
             <div 
-              class="bg-white p-6 shadow-lg border-b-4 h-full flex flex-col transition-all hover:shadow-xl cursor-pointer {activeCategory.id === category.id ? 'border-gold' : 'border-transparent hover:border-gold'}"
+              class="service-card bg-white p-6 shadow-lg border-b-4 h-full flex flex-col transition-all hover:shadow-xl cursor-pointer {activeCategory.id === category.id ? 'border-gold' : 'border-transparent hover:border-gold'}"
               on:click={() => setCategory(category)}
+              on:keydown={(e) => e.key === 'Enter' && setCategory(category)}
+              tabindex="0"
+              role="button"
+              aria-pressed={activeCategory.id === category.id}
             >
-              <h3 class="text-xl font-bold mb-2 font-montserrat">{category.name}</h3>
-              <p class="text-secondary font-raleway mb-4 flex-grow">{category.description}</p>
-              <div class="flex justify-end">
-                <button 
-                  class="text-gold hover:text-primary flex items-center font-medium"
-                  aria-label="View {category.name} services"
-                >
-                  <span>View Services</span>
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                  </svg>
-                </button>
-              </div>
+              <h3 class="text-xl font-bold mb-3 font-montserrat text-primary">{category.name}</h3>
+              <p class="text-gray-600 font-raleway flex-grow">{category.description}</p>
             </div>
           </div>
         {/each}
       </div>
-    </div>
-  </section>
-  
-  <!-- Featured Services Showcase -->
-  <section class="py-16 px-4 bg-white">
-    <div class="max-w-6xl mx-auto">
-      <div class="text-center mb-16 animate-on-scroll">
-        <span class="text-gold uppercase tracking-wider font-montserrat text-sm font-bold">Our Expertise</span>
-        <h2 class="text-3xl md:text-4xl font-bold mt-2 mb-4 font-montserrat">Specialized Services</h2>
-        <div class="w-24 h-1 bg-gold mx-auto mb-6"></div>
-      </div>
       
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        <!-- Architectural Design -->
-        <div class="group relative overflow-hidden bg-white shadow-lg animate-on-scroll" style="transition-delay: 100ms">
-          <div class="relative h-64 overflow-hidden">
-            <img src="/images/services/architectural-design.jpg" alt="Architectural Design in Kenya" class="w-full h-full object-cover group-hover:scale-105 transition-all duration-500" on:error={(e) => { (e.target as HTMLImageElement).src = '/images/services/placeholder.jpg'; }} />
-            <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
-            <div class="absolute bottom-0 left-0 p-6 text-white">
-              <h3 class="text-xl font-bold mb-2 font-montserrat">Architectural Design</h3>
-            </div>
-          </div>
-          <div class="p-6">
-            <p class="text-gray-700 mb-4 font-raleway">Innovative and functional designs that blend modern aesthetics with Kenyan heritage.</p>
-            <a href="/quote?service=architectural-design" class="text-gold hover:text-primary flex items-center font-semibold transition-colors">
-              <span>Learn More</span>
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-              </svg>
-            </a>
-          </div>
-        </div>
+      <!-- Service Listings -->
+      <div class="mb-12 relative z-5">
+        <h3 class="text-2xl font-bold mb-6 font-montserrat text-primary">{activeCategory.name}</h3>
         
-        <!-- Home Construction -->
-        <div class="group relative overflow-hidden bg-white shadow-lg animate-on-scroll" style="transition-delay: 200ms">
-          <div class="relative h-64 overflow-hidden">
-            <img src="/images/services/home-construction.jpg" alt="Home building in Kenya" class="w-full h-full object-cover group-hover:scale-105 transition-all duration-500" on:error={(e) => { (e.target as HTMLImageElement).src = '/images/services/placeholder.jpg'; }} />
-            <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
-            <div class="absolute bottom-0 left-0 p-6 text-white">
-              <h3 class="text-xl font-bold mb-2 font-montserrat">Home Construction</h3>
-            </div>
-          </div>
-          <div class="p-6">
-            <p class="text-gray-700 mb-4 font-raleway">We build beautiful, durable homes with quality materials and craftsmanship.</p>
-            <a href="/quote?service=home-construction" class="text-gold hover:text-primary flex items-center font-semibold transition-colors">
-              <span>Learn More</span>
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-              </svg>
-            </a>
-          </div>
-        </div>
-        
-        <!-- Home Renovation -->
-        <div class="group relative overflow-hidden bg-white shadow-lg animate-on-scroll" style="transition-delay: 300ms">
-          <div class="relative h-64 overflow-hidden">
-            <img src="/images/services/home-renovation.jpg" alt="Home renovation experts in Kenya" class="w-full h-full object-cover group-hover:scale-105 transition-all duration-500" on:error={(e) => { (e.target as HTMLImageElement).src = '/images/services/placeholder.jpg'; }} />
-            <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
-            <div class="absolute bottom-0 left-0 p-6 text-white">
-              <h3 class="text-xl font-bold mb-2 font-montserrat">Home Renovation</h3>
-            </div>
-          </div>
-          <div class="p-6">
-            <p class="text-gray-700 mb-4 font-raleway">Breathe new life into your existing home with modern upgrades.</p>
-            <a href="/quote?service=home-renovation" class="text-gold hover:text-primary flex items-center font-semibold transition-colors">
-              <span>Learn More</span>
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-              </svg>
-            </a>
-          </div>
-        </div>
-        
-        <!-- Project Management -->
-        <div class="group relative overflow-hidden bg-white shadow-lg animate-on-scroll" style="transition-delay: 400ms">
-          <div class="relative h-64 overflow-hidden">
-            <img src="/images/services/project-management.jpg" alt="Construction Project Management" class="w-full h-full object-cover group-hover:scale-105 transition-all duration-500" on:error={(e) => { (e.target as HTMLImageElement).src = '/images/services/placeholder.jpg'; }} />
-            <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
-            <div class="absolute bottom-0 left-0 p-6 text-white">
-              <h3 class="text-xl font-bold mb-2 font-montserrat">Project Management</h3>
-            </div>
-          </div>
-          <div class="p-6">
-            <p class="text-gray-700 mb-4 font-raleway">Relax while we handle the details and ensure everything stays on track.</p>
-            <a href="/quote?service=project-management" class="text-gold hover:text-primary flex items-center font-semibold transition-colors">
-              <span>Learn More</span>
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-              </svg>
-            </a>
-          </div>
-        </div>
-        
-        <!-- Structural Design -->
-        <div class="group relative overflow-hidden bg-white shadow-lg animate-on-scroll" style="transition-delay: 500ms">
-          <div class="relative h-64 overflow-hidden">
-            <img src="/images/services/structural-design.jpg" alt="Structural Design in Kenya" class="w-full h-full object-cover group-hover:scale-105 transition-all duration-500" on:error={(e) => { (e.target as HTMLImageElement).src = '/images/services/placeholder.jpg'; }} />
-            <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
-            <div class="absolute bottom-0 left-0 p-6 text-white">
-              <h3 class="text-xl font-bold mb-2 font-montserrat">Structural Design</h3>
-            </div>
-          </div>
-          <div class="p-6">
-            <p class="text-gray-700 mb-4 font-raleway">Precision engineering for a solid foundation and durable construction.</p>
-            <a href="/quote?service=structural-design" class="text-gold hover:text-primary flex items-center font-semibold transition-colors">
-              <span>Learn More</span>
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-              </svg>
-            </a>
-          </div>
-        </div>
-        
-        <!-- Valuation Services -->
-        <div class="group relative overflow-hidden bg-white shadow-lg animate-on-scroll" style="transition-delay: 600ms">
-          <div class="relative h-64 overflow-hidden">
-            <img src="/images/services/valuation.jpg" alt="Construction Valuation in Kenya" class="w-full h-full object-cover group-hover:scale-105 transition-all duration-500" on:error={(e) => { (e.target as HTMLImageElement).src = '/images/services/placeholder.jpg'; }} />
-            <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
-            <div class="absolute bottom-0 left-0 p-6 text-white">
-              <h3 class="text-xl font-bold mb-2 font-montserrat">Valuation Services</h3>
-            </div>
-          </div>
-          <div class="p-6">
-            <p class="text-gray-700 mb-4 font-raleway">Accurate property assessments to guide your investments.</p>
-            <a href="/quote?service=valuation-services" class="text-gold hover:text-primary flex items-center font-semibold transition-colors">
-              <span>Learn More</span>
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-              </svg>
-            </a>
-          </div>
-        </div>
-        
-        <!-- MEP Design & Installation -->
-        <div class="group relative overflow-hidden bg-white shadow-lg animate-on-scroll" style="transition-delay: 700ms">
-          <div class="relative h-64 overflow-hidden">
-            <img src="/images/services/mep-design.jpg" alt="MEP Design & Installation in Kenya" class="w-full h-full object-cover group-hover:scale-105 transition-all duration-500" on:error={(e) => { (e.target as HTMLImageElement).src = '/images/services/placeholder.jpg'; }} />
-            <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
-            <div class="absolute bottom-0 left-0 p-6 text-white">
-              <h3 class="text-xl font-bold mb-2 font-montserrat">MEP Design & Installation</h3>
-            </div>
-          </div>
-          <div class="p-6">
-            <p class="text-gray-700 mb-4 font-raleway">Integrated mechanical, electrical, and plumbing solutions for optimal performance and efficiency.</p>
-            <a href="/quote?service=mep-design" class="text-gold hover:text-primary flex items-center font-semibold transition-colors">
-              <span>Learn More</span>
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-              </svg>
-            </a>
-          </div>
-        </div>
-        
-        <!-- Interior Design -->
-        <div class="group relative overflow-hidden bg-white shadow-lg animate-on-scroll" style="transition-delay: 800ms">
-          <div class="relative h-64 overflow-hidden">
-            <img src="/images/services/interior-design.jpg" alt="Interior Design in Kenya" class="w-full h-full object-cover group-hover:scale-105 transition-all duration-500" on:error={(e) => { (e.target as HTMLImageElement).src = '/images/services/placeholder.jpg'; }} />
-            <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
-            <div class="absolute bottom-0 left-0 p-6 text-white">
-              <h3 class="text-xl font-bold mb-2 font-montserrat">Interior Design</h3>
-            </div>
-          </div>
-          <div class="p-6">
-            <p class="text-gray-700 mb-4 font-raleway">Crafting stunning, functional interiors that reflect your personal style and enhance your living space.</p>
-            <a href="/quote?service=interior-design" class="text-gold hover:text-primary flex items-center font-semibold transition-colors">
-              <span>Learn More</span>
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-              </svg>
-            </a>
-          </div>
-        </div>
-        
-        <!-- Quantity Surveying -->
-        <div class="group relative overflow-hidden bg-white shadow-lg animate-on-scroll" style="transition-delay: 900ms">
-          <div class="relative h-64 overflow-hidden">
-            <img src="/images/services/quantity-surveying.jpg" alt="Quantity Surveying in Kenya" class="w-full h-full object-cover group-hover:scale-105 transition-all duration-500" on:error={(e) => { (e.target as HTMLImageElement).src = '/images/services/placeholder.jpg'; }} />
-            <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
-            <div class="absolute bottom-0 left-0 p-6 text-white">
-              <h3 class="text-xl font-bold mb-2 font-montserrat">Quantity Surveying</h3>
-            </div>
-          </div>
-          <div class="p-6">
-            <p class="text-gray-700 mb-4 font-raleway">Expert cost management and measurement services to keep your project financially on track.</p>
-            <a href="/quote?service=quantity-surveying" class="text-gold hover:text-primary flex items-center font-semibold transition-colors">
-              <span>Learn More</span>
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-              </svg>
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  
-  <!-- Detailed Services Section -->
-  <section id="services-section" class="py-16 px-4 bg-white">
-    <div class="max-w-6xl mx-auto">
-      <div class="text-center mb-12 animate-on-scroll">
-        <span class="text-gold uppercase tracking-wider font-montserrat text-sm font-bold">{activeCategory.name}</span>
-        <h2 class="text-3xl md:text-4xl font-bold mt-2 mb-4 font-montserrat">Our {activeCategory.name}</h2>
-        <div class="w-24 h-1 bg-gold mx-auto mb-6"></div>
-        <p class="text-secondary max-w-3xl mx-auto font-raleway">
-          {activeCategory.description}
-        </p>
-      </div>
-      
-      <!-- Service Selection Tabs -->
-      <div class="mb-12 overflow-x-auto">
-        <div class="flex space-x-2 min-w-max pb-2">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
           {#each activeCategory.services as service}
-            <button 
-              class="px-4 py-2 border-b-2 whitespace-nowrap transition-all {activeService.id === service.id ? 'border-gold text-gold font-bold' : 'border-transparent hover:border-gold/50 hover:text-gold'}"
-              on:click={() => setService(service)}
+            <div 
+              class="service-card bg-white shadow-lg transition-all hover:shadow-xl {activeService.id === service.id ? 'ring-2 ring-gold' : ''}"
+              on:click={() => selectService(service)}
+              on:keydown={(e) => e.key === 'Enter' && selectService(service)}
+              tabindex="0"
+              role="button"
+              aria-pressed={activeService.id === service.id}
             >
-              {service.name}
-            </button>
+              <div class="relative h-48 overflow-hidden image-container">
+                <img 
+                  src={service.image} 
+                  alt={service.name} 
+                  class="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+                  on:error={() => handleImageError(service.image)}
+                />
+                
+                {#if imageLoadErrors[service.image]}
+                  <div class="absolute inset-0 flex items-center justify-center bg-gray-100 text-gray-500 text-center z-10 p-4">
+                    <div>
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                      </svg>
+                      <p class="text-base">Image Not Available</p>
+                    </div>
+                  </div>
+                {/if}
+                
+                {#if service.popular}
+                  <div class="absolute top-0 right-0 bg-gold text-white py-1 px-3 text-sm font-medium">
+                    Popular
+                  </div>
+                {/if}
+              </div>
+              
+              <div class="p-6">
+                <h4 class="text-xl font-bold mb-2 font-montserrat text-primary">{service.name}</h4>
+                <p class="text-gray-600 mb-4 font-raleway">{service.shortDescription}</p>
+                <div class="flex justify-between items-center mt-auto">
+                  <span class="text-sm font-medium text-gold">View Details</span>
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gold" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+                  </svg>
+                </div>
+              </div>
+            </div>
           {/each}
         </div>
       </div>
       
-      <!-- Active Service Details -->
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 animate-on-scroll">
-        <div>
-          <div class="relative h-96 overflow-hidden bg-light">
+      <!-- Selected Service Details -->
+      <div class="bg-white p-8 shadow-lg animate-on-scroll service-detail-card relative z-5">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <div>
+            <h3 class="text-2xl font-bold mb-4 font-montserrat text-primary">{activeService.name}</h3>
+            <div class="w-16 h-1 bg-gold mb-6"></div>
+            <p class="text-gray-700 mb-6 font-raleway leading-relaxed">{activeService.description}</p>
+            
+            <h4 class="text-lg font-bold mb-3 font-montserrat text-primary">Key Features</h4>
+            <ul class="space-y-2 mb-6">
+              {#each activeService.features as feature}
+                <li class="flex items-start">
+                  <span class="text-gold mr-2 mt-1">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                      <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                    </svg>
+                  </span>
+                  <span>{feature}</span>
+                </li>
+              {/each}
+            </ul>
+            
+            <a href="/quote" class="inline-block bg-gold text-black font-bold py-3 px-6 hover:bg-black hover:text-white transition-colors">
+              Request a Quote
+            </a>
+          </div>
+          
+          <div class="image-container rounded-lg overflow-hidden shadow-lg h-[400px]">
             <img 
               src={activeService.image} 
               alt={activeService.name} 
               class="w-full h-full object-cover"
-              on:error={(e) => { (e.target as HTMLImageElement).src = '/images/services/placeholder.jpg'; }}
+              on:error={() => handleImageError(activeService.image)}
             />
+            
+            {#if imageLoadErrors[activeService.image]}
+              <div class="absolute inset-0 flex items-center justify-center bg-gray-100 text-gray-500 text-center p-6">
+                <div>
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mx-auto mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                  </svg>
+                  <p class="text-xl font-medium mb-2">{activeService.name}</p>
+                  <p>Image not available</p>
+                </div>
+              </div>
+            {/if}
           </div>
-        </div>
-        <div>
-          <h3 class="text-2xl font-bold mb-4 font-montserrat">{activeService.name}</h3>
-          <p class="text-secondary font-raleway mb-6">{activeService.description}</p>
-          
-          <h4 class="text-lg font-bold mb-4 font-montserrat">Key Features</h4>
-          <ul class="space-y-2 mb-8">
-            {#each activeService.features as feature}
-              <li class="flex items-start">
-                <span class="text-gold text-lg mr-2">✓</span>
-                <span class="font-raleway text-secondary">{feature}</span>
-              </li>
-            {/each}
-          </ul>
-          
-          <a href="/quote?service={encodeURIComponent(activeService.name)}" class="bg-gold text-primary px-8 py-3 inline-block font-bold hover:bg-primary hover:text-gold transition-all border border-gold">
-            Get a Quote
-          </a>
         </div>
       </div>
     </div>
   </section>
   
   <!-- Process Section -->
-  <section class="py-16 px-4 bg-light">
+  <section class="py-16 px-4 bg-primary text-white">
     <div class="max-w-6xl mx-auto">
       <div class="text-center mb-12 animate-on-scroll">
-        <span class="text-gold uppercase tracking-wider font-montserrat text-sm font-bold">Our Process</span>
-        <h2 class="text-3xl md:text-4xl font-bold mt-2 mb-4 font-montserrat">How We Work</h2>
+        <span class="text-gold uppercase tracking-wider font-montserrat text-sm font-bold">How We Work</span>
+        <h2 class="text-3xl md:text-4xl font-bold mt-2 mb-4 font-montserrat">Our Process</h2>
         <div class="w-24 h-1 bg-gold mx-auto mb-6"></div>
-        <p class="text-secondary max-w-3xl mx-auto font-raleway">
-          Our streamlined process ensures clarity, communication, and exceptional results from start to finish
-        </p>
       </div>
       
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-        <div class="bg-white p-6 shadow-lg animate-on-scroll" style="transition-delay: 100ms">
-          <div class="text-gold text-4xl font-bold mb-4 font-montserrat">01</div>
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div class="animate-on-scroll" style="transition-delay: 100ms">
+          <div class="text-gold text-4xl font-bold mb-4">01</div>
           <h3 class="text-xl font-bold mb-3 font-montserrat">Consultation</h3>
-          <p class="text-secondary font-raleway">We start by understanding your goals, requirements, budget, and timeline. This initial discussion lays the foundation for your project\'s success.</p>
+          <p class="font-raleway">
+            We begin by understanding your vision, requirements, budget, and timeline to establish a strong foundation for your project.
+          </p>
         </div>
         
-        <div class="bg-white p-6 shadow-lg animate-on-scroll" style="transition-delay: 200ms">
-          <div class="text-gold text-4xl font-bold mb-4 font-montserrat">02</div>
-          <h3 class="text-xl font-bold mb-3 font-montserrat">Design & Planning</h3>
-          <p class="text-secondary font-raleway">Our architects and designers create detailed plans and visualizations, refining them with your feedback until they perfectly match your vision.</p>
+        <div class="animate-on-scroll" style="transition-delay: 200ms">
+          <div class="text-gold text-4xl font-bold mb-4">02</div>
+          <h3 class="text-xl font-bold mb-3 font-montserrat">Design</h3>
+          <p class="font-raleway">
+            Our architects create detailed designs that align with your vision while ensuring functionality, efficiency, and compliance.
+          </p>
         </div>
         
-        <div class="bg-white p-6 shadow-lg animate-on-scroll" style="transition-delay: 300ms">
-          <div class="text-gold text-4xl font-bold mb-4 font-montserrat">03</div>
+        <div class="animate-on-scroll" style="transition-delay: 300ms">
+          <div class="text-gold text-4xl font-bold mb-4">03</div>
           <h3 class="text-xl font-bold mb-3 font-montserrat">Construction</h3>
-          <p class="text-secondary font-raleway">Our experienced team brings your plans to life with quality materials and craftsmanship, keeping you updated throughout the building process.</p>
+          <p class="font-raleway">
+            Our skilled team brings your design to life with quality materials, meticulous craftsmanship, and attention to every detail.
+          </p>
         </div>
         
-        <div class="bg-white p-6 shadow-lg animate-on-scroll" style="transition-delay: 400ms">
-          <div class="text-gold text-4xl font-bold mb-4 font-montserrat">04</div>
+        <div class="animate-on-scroll" style="transition-delay: 400ms">
+          <div class="text-gold text-4xl font-bold mb-4">04</div>
           <h3 class="text-xl font-bold mb-3 font-montserrat">Handover</h3>
-          <p class="text-secondary font-raleway">We complete final inspections and deliver your finished project, ensuring everything meets our high standards and your expectations.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-  
-  <!-- Quote Section -->
-  <section class="py-16 px-4 bg-primary">
-    <div class="max-w-4xl mx-auto text-center text-white">
-      <blockquote class="mb-6">
-        <p class="text-2xl md:text-3xl font-light italic font-raleway leading-relaxed">
-          "A house is not a home unless it contains food and fire for the mind as well as the body."
-        </p>
-        <footer class="mt-4 text-gold font-montserrat font-medium">— Benjamin Franklin</footer>
-      </blockquote>
-      <div class="mt-10">
-        <a href="/contact" class="bg-gold text-primary px-8 py-3 font-bold hover:bg-white uppercase">Book A Consultation</a>
-      </div>
-    </div>
-  </section>
-  
-  <!-- Testimonials Section -->
-  <section class="py-16 px-4 bg-white">
-    <div class="max-w-6xl mx-auto">
-      <div class="text-center mb-12 animate-on-scroll">
-        <h2 class="text-3xl md:text-4xl font-bold mb-4 font-montserrat">Homes Built, Dreams Fulfilled</h2>
-        <div class="w-24 h-1 bg-gold mx-auto mb-6"></div>
-        <p class="text-xl max-w-3xl mx-auto font-raleway mb-12">
-          Trusted by Kenyans Everywhere Around the World.
-        </p>
-        <p class="text-gray-700 max-w-3xl mx-auto font-raleway">
-          Living abroad doesn't mean you can't build the home of your dreams back in Kenya. Hear from our clients in the diaspora who trusted Highpoint Construction to bring their vision to life—seamlessly and stress-free.
-        </p>
-      </div>
-      
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <!-- Testimonial 1 -->
-        <div class="bg-gray-50 p-6 shadow-lg animate-on-scroll" style="transition-delay: 100ms">
-          <div class="text-gold mb-4">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M9.983 3v7.391c0 5.704-3.731 9.57-8.983 10.609l-.995-2.151c2.432-.917 3.995-3.638 3.995-5.849h-4v-10h9.983zm14.017 0v7.391c0 5.704-3.748 9.571-9 10.609l-.996-2.151c2.433-.917 3.996-3.638 3.996-5.849h-3.983v-10h9.983z"/>
-            </svg>
-          </div>
-          <p class="text-gray-700 mb-6 font-raleway">I trusted Highpoint Builders with my project while living in Canada, and they didn't disappoint. They respected my budget, timeline, and vision. Seeing my home completed was a dream come true.</p>
-          <div class="flex items-center">
-            <img src="/images/testimonials/john-doe.jpg" alt="John Doe" class="w-12 h-12 rounded-full mr-4 object-cover" on:error={(e) => { (e.target as HTMLImageElement).src = '/images/team/placeholder.jpg'; }} />
-            <div>
-              <h4 class="font-bold font-montserrat">John Doe</h4>
-              <p class="text-gray-600 text-sm">Toronto, Canada</p>
-            </div>
-          </div>
-        </div>
-        
-        <!-- Testimonial 2 -->
-        <div class="bg-gray-50 p-6 shadow-lg animate-on-scroll" style="transition-delay: 200ms">
-          <div class="text-gold mb-4">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M9.983 3v7.391c0 5.704-3.731 9.57-8.983 10.609l-.995-2.151c2.432-.917 3.995-3.638 3.995-5.849h-4v-10h9.983zm14.017 0v7.391c0 5.704-3.748 9.571-9 10.609l-.996-2.151c2.433-.917 3.996-3.638 3.996-5.849h-3.983v-10h9.983z"/>
-            </svg>
-          </div>
-          <p class="text-gray-700 mb-6 font-raleway">Being in Qatar, I worried about overseeing my renovation project back home. Highpoint Builders delivered beyond my expectations. They were transparent, reliable, and made the whole process smooth.</p>
-          <div class="flex items-center">
-            <img src="/images/testimonials/jane-m.jpg" alt="Jane M." class="w-12 h-12 rounded-full mr-4 object-cover" on:error={(e) => { (e.target as HTMLImageElement).src = '/images/team/placeholder.jpg'; }} />
-            <div>
-              <h4 class="font-bold font-montserrat">Jane M.</h4>
-              <p class="text-gray-600 text-sm">Doha, Qatar</p>
-            </div>
-          </div>
-        </div>
-        
-        <!-- Testimonial 3 -->
-        <div class="bg-gray-50 p-6 shadow-lg animate-on-scroll" style="transition-delay: 300ms">
-          <div class="text-gold mb-4">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M9.983 3v7.391c0 5.704-3.731 9.57-8.983 10.609l-.995-2.151c2.432-.917 3.995-3.638 3.995-5.849h-4v-10h9.983zm14.017 0v7.391c0 5.704-3.748 9.571-9 10.609l-.996-2.151c2.433-.917 3.996-3.638 3.996-5.849h-3.983v-10h9.983z"/>
-            </svg>
-          </div>
-          <p class="text-gray-700 mb-6 font-raleway">I wanted to build a modern house in Kisumu while working in the US. Highpoint Builders took care of everything, from design to construction. Their communication was excellent, and the final result blew me away!</p>
-          <div class="flex items-center">
-            <img src="/images/testimonials/david-w.jpg" alt="David W." class="w-12 h-12 rounded-full mr-4 object-cover" on:error={(e) => { (e.target as HTMLImageElement).src = '/images/team/placeholder.jpg'; }} />
-            <div>
-              <h4 class="font-bold font-montserrat">David W.</h4>
-              <p class="text-gray-600 text-sm">Houston, USA</p>
-            </div>
-          </div>
+          <p class="font-raleway">
+            We complete final inspections, address any concerns, and proudly hand over your finished project, ready for you to enjoy.
+          </p>
         </div>
       </div>
     </div>
   </section>
   
   <!-- CTA Section -->
-  <section class="py-16 px-4 bg-primary text-white">
-    <div class="max-w-4xl mx-auto text-center">
-      <h2 class="text-3xl md:text-4xl font-bold mb-6 font-montserrat">Ready to Start Your Project?</h2>
-      <p class="mb-8 text-lg font-raleway">
-        Contact us today to discuss your vision and how our services can help bring it to life.
+  <section class="py-16 px-4 bg-light">
+    <div class="max-w-4xl mx-auto text-center animate-on-scroll">
+      <h2 class="text-3xl md:text-4xl font-bold mb-6 font-montserrat text-primary">Ready to Start Your Project?</h2>
+      <p class="text-gray-700 mb-8 font-raleway">
+        Contact us today for a consultation and let's bring your vision to life. Whether you're in Kenya or abroad, 
+        we're here to make your construction journey smooth and successful.
       </p>
-      <div class="flex flex-col sm:flex-row gap-4 justify-center">
-        <a href="/quote" class="bg-gold hover:bg-opacity-90 text-primary px-8 py-3 font-bold">Get A Quote</a>
-        <a href="/contact" class="border-2 border-white hover:border-gold hover:text-gold px-8 py-3 font-bold">Contact Us</a>
+      <div class="flex flex-col sm:flex-row justify-center gap-4">
+        <a href="/quote" class="bg-gold text-black font-bold py-3 px-8 hover:bg-black hover:text-white transition-colors">
+          Get a Quote
+        </a>
+        <a href="/contact" class="bg-primary text-white font-bold py-3 px-8 hover:bg-gold hover:text-black transition-colors">
+          Contact Us
+        </a>
       </div>
     </div>
   </section>
 </main>
 
 <style>
-  .bg-primary {
-    background-color: var(--color-primary);
-  }
-  
-  .bg-light {
-    background-color: var(--color-light);
-  }
-  
-  .text-primary {
-    color: var(--color-primary);
-  }
-  
-  .text-secondary {
-    color: var(--color-secondary);
-  }
-  
   .text-gold {
     color: var(--color-gold);
   }
@@ -803,20 +557,16 @@
     background-color: var(--color-gold);
   }
   
-  .border-gold {
-    border-color: var(--color-gold);
+  .text-primary {
+    color: var(--color-primary);
   }
   
-  .hover\:border-gold:hover {
-    border-color: var(--color-gold);
+  .bg-primary {
+    background-color: var(--color-primary);
   }
   
-  .hover\:text-gold:hover {
-    color: var(--color-gold);
-  }
-  
-  .hover\:bg-gold:hover {
-    background-color: var(--color-gold);
+  .bg-light {
+    background-color: var(--color-light);
   }
   
   .font-montserrat {
@@ -825,6 +575,14 @@
   
   .font-raleway {
     font-family: 'Raleway', sans-serif;
+  }
+  
+  .ring-gold {
+    --tw-ring-color: var(--color-gold);
+  }
+  
+  .border-gold {
+    border-color: var(--color-gold);
   }
   
   .animate-on-scroll {
@@ -838,37 +596,25 @@
     transform: translateY(0);
   }
   
-  /* Make animations visible immediately for reduced motion preference */
-  @media (prefers-reduced-motion) {
-    .animate-on-scroll {
-      opacity: 1;
-      transform: translateY(0);
-      transition: none;
-    }
+  /* Service card specific styles */
+  .service-card {
+    position: relative;
+    z-index: 5;
+    isolation: isolate;
   }
   
-  /* Hero section styles */
-  .hero-section {
+  .service-card img {
+    position: relative;
+    z-index: 2;
+  }
+  
+  .service-detail-card {
+    position: relative;
+    z-index: 5;
+  }
+  
+  .image-container {
     position: relative;
     overflow: hidden;
-    background-image: url('/images/services/services-hero.jpg');
-    background-size: cover;
-    background-position: center;
-  }
-  
-  .hero-section::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.7);
-    z-index: 0;
-  }
-  
-  .hero-section > div {
-    position: relative;
-    z-index: 1;
   }
 </style>

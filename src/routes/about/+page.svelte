@@ -24,6 +24,9 @@
     }
   ];
   
+  // Track image loading errors
+  let imageErrors: Record<string, boolean> = {};
+  
   onMount(() => {
     // Fix: Make all animation elements visible immediately
     document.querySelectorAll('.animate-on-scroll').forEach(el => {
@@ -49,6 +52,9 @@
   // Handle image loading errors
   function handleImageError(event: Event): void {
     const imgElement = event.target as HTMLImageElement;
+    const imageSrc = imgElement.src;
+    console.error(`Failed to load image: ${imageSrc}`);
+    imageErrors[imageSrc] = true;
     imgElement.src = '/images/team/placeholder.jpg';
   }
 </script>
@@ -60,10 +66,10 @@
 
 <Header />
 
-<main id="main-content" class="pt-24 pb-20">
+<main id="main-content" class="relative z-1">
   <!-- Hero Banner -->
-  <div class="bg-primary text-light py-16 px-4 hero-section">
-    <div class="max-w-6xl mx-auto text-center">
+  <div class="bg-primary text-light py-16 px-4 hero-section relative">
+    <div class="max-w-6xl mx-auto text-center relative z-2">
       <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 font-montserrat">Building Kenya's Future</h1>
       <p class="text-xl md:text-2xl max-w-3xl mx-auto font-raleway mb-8">
         Creating exceptional homes and buildings that stand the test of time
@@ -73,10 +79,10 @@
   </div>
   
   <!-- About Us Section -->
-  <section class="py-16 px-4 bg-light">
+  <section class="py-16 px-4 bg-light relative z-2">
     <div class="max-w-6xl mx-auto">
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-        <div class="animate-on-scroll">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center relative z-5">
+        <div class="animate-on-scroll content-section">
           <div class="text-gold uppercase tracking-wider font-montserrat text-sm font-bold mb-3">About Us</div>
           <h2 class="text-3xl md:text-4xl font-bold mb-6 font-montserrat text-primary">Your Trusted Construction Partner in Kenya</h2>
           <p class="text-gray-700 mb-6 font-raleway leading-relaxed">
@@ -91,13 +97,24 @@
         </div>
         
         <div class="animate-on-scroll" style="transition-delay: 200ms">
-          <div class="w-full rounded-lg shadow-xl overflow-hidden" style="height: 400px;">
+          <div class="w-full rounded-lg shadow-xl overflow-hidden image-container" style="height: 400px;">
             <img 
               src="/images/projects/project1.jpg" 
               alt="Highpoint Construction Project" 
               class="w-full h-full object-cover"
-              on:error={(e) => { (e.target as HTMLImageElement).src = '/images/projects/placeholder.jpg'; }}
+              on:error={handleImageError}
             />
+            
+            {#if imageErrors['/images/projects/project1.jpg']}
+              <div class="absolute inset-0 flex items-center justify-center bg-gray-100 text-gray-500 text-center z-10 p-4">
+                <div>
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                  </svg>
+                  <p class="text-base">Image Not Available</p>
+                </div>
+              </div>
+            {/if}
           </div>
         </div>
       </div>
@@ -105,7 +122,7 @@
   </section>
   
   <!-- Our Mission -->
-  <section class="py-16 px-4 bg-primary text-light">
+  <section class="py-16 px-4 bg-primary text-light relative z-2">
     <div class="max-w-4xl mx-auto text-center">
       <div class="animate-on-scroll">
         <span class="text-gold uppercase tracking-wider font-montserrat text-sm font-bold">Our Mission</span>
@@ -122,7 +139,7 @@
   </section>
   
   <!-- Values Section -->
-  <section class="py-16 px-4 bg-light">
+  <section class="py-16 px-4 bg-light relative z-2">
     <div class="max-w-6xl mx-auto">
       <div class="text-center mb-12 animate-on-scroll">
         <span class="text-gold uppercase tracking-wider font-montserrat text-sm font-bold">Our Principles</span>
@@ -133,8 +150,8 @@
         </p>
       </div>
       
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-        <div class="bg-white p-6 shadow-lg animate-on-scroll" style="transition-delay: 100ms">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 relative z-5">
+        <div class="bg-white p-6 shadow-lg animate-on-scroll value-card" style="transition-delay: 100ms">
           <div class="text-gold text-4xl font-bold mb-4">01</div>
           <h3 class="text-xl font-bold mb-3 font-montserrat text-primary">Quality</h3>
           <p class="text-gray-700 font-raleway">
@@ -142,7 +159,7 @@
           </p>
         </div>
         
-        <div class="bg-white p-6 shadow-lg animate-on-scroll" style="transition-delay: 200ms">
+        <div class="bg-white p-6 shadow-lg animate-on-scroll value-card" style="transition-delay: 200ms">
           <div class="text-gold text-4xl font-bold mb-4">02</div>
           <h3 class="text-xl font-bold mb-3 font-montserrat text-primary">Integrity</h3>
           <p class="text-gray-700 font-raleway">
@@ -150,7 +167,7 @@
           </p>
         </div>
         
-        <div class="bg-white p-6 shadow-lg animate-on-scroll" style="transition-delay: 300ms">
+        <div class="bg-white p-6 shadow-lg animate-on-scroll value-card" style="transition-delay: 300ms">
           <div class="text-gold text-4xl font-bold mb-4">03</div>
           <h3 class="text-xl font-bold mb-3 font-montserrat text-primary">Innovation</h3>
           <p class="text-gray-700 font-raleway">
@@ -158,7 +175,7 @@
           </p>
         </div>
         
-        <div class="bg-white p-6 shadow-lg animate-on-scroll" style="transition-delay: 400ms">
+        <div class="bg-white p-6 shadow-lg animate-on-scroll value-card" style="transition-delay: 400ms">
           <div class="text-gold text-4xl font-bold mb-4">04</div>
           <h3 class="text-xl font-bold mb-3 font-montserrat text-primary">Client Focus</h3>
           <p class="text-gray-700 font-raleway">
@@ -170,7 +187,7 @@
   </section>
   
   <!-- Team Section -->
-  <section class="py-16 px-4 bg-white">
+  <section class="py-16 px-4 bg-white relative z-2">
     <div class="max-w-6xl mx-auto">
       <div class="text-center mb-12 animate-on-scroll">
         <span class="text-gold uppercase tracking-wider font-montserrat text-sm font-bold">Meet Our Experts</span>
@@ -181,16 +198,27 @@
         </p>
       </div>
       
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 relative z-5">
         {#each teamMembers as member, i}
-          <div class="bg-light overflow-hidden shadow-lg animate-on-scroll" style="transition-delay: {i * 100}ms">
-            <div class="h-64 overflow-hidden">
+          <div class="bg-light overflow-hidden shadow-lg animate-on-scroll team-card" style="transition-delay: {i * 100}ms">
+            <div class="h-64 overflow-hidden image-container">
               <img 
                 src={member.image} 
                 alt={member.name} 
                 class="w-full h-full object-cover"
                 on:error={handleImageError}
               />
+              
+              {#if imageErrors[member.image]}
+                <div class="absolute inset-0 flex items-center justify-center bg-gray-100 text-gray-500 text-center z-10 p-4">
+                  <div>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                    </svg>
+                    <p class="text-base">{member.name}</p>
+                  </div>
+                </div>
+              {/if}
             </div>
             <div class="p-6">
               <h3 class="text-xl font-bold mb-1 font-montserrat text-primary">{member.name}</h3>
@@ -203,137 +231,83 @@
     </div>
   </section>
   
-  <!-- Why Choose Us -->
-  <section class="py-16 px-4 bg-light">
+  <!-- Stats Section -->
+  <section class="py-16 px-4 bg-primary text-white relative z-2">
     <div class="max-w-6xl mx-auto">
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
-        <div class="animate-on-scroll">
-          <div class="text-gold uppercase tracking-wider font-montserrat text-sm font-bold mb-3">Why Choose Us</div>
-          <h2 class="text-3xl md:text-4xl font-bold mb-6 font-montserrat text-primary">Building Excellence in Kenya</h2>
-          
-          <div class="mb-6">
-            <div class="flex items-start mb-3">
-              <div class="text-gold text-lg mr-3 mt-1">✓</div>
-              <div>
-                <h3 class="text-lg font-bold mb-1 font-montserrat text-primary">Experienced Team</h3>
-                <p class="text-gray-700 font-raleway">Our team brings decades of combined experience in construction, architecture, and project management.</p>
-              </div>
-            </div>
-          </div>
-          
-          <div class="mb-6">
-            <div class="flex items-start mb-3">
-              <div class="text-gold text-lg mr-3 mt-1">✓</div>
-              <div>
-                <h3 class="text-lg font-bold mb-1 font-montserrat text-primary">Quality Craftsmanship</h3>
-                <p class="text-gray-700 font-raleway">We use only the highest quality materials and employ skilled craftsmen to ensure exceptional results.</p>
-              </div>
-            </div>
-          </div>
-          
-          <div class="mb-6">
-            <div class="flex items-start mb-3">
-              <div class="text-gold text-lg mr-3 mt-1">✓</div>
-              <div>
-                <h3 class="text-lg font-bold mb-1 font-montserrat text-primary">Transparent Process</h3>
-                <p class="text-gray-700 font-raleway">We keep you informed throughout your project with regular updates and clear communication.</p>
-              </div>
-            </div>
-          </div>
-          
-          <div>
-            <div class="flex items-start">
-              <div class="text-gold text-lg mr-3 mt-1">✓</div>
-              <div>
-                <h3 class="text-lg font-bold mb-1 font-montserrat text-primary">Diaspora Specialists</h3>
-                <p class="text-gray-700 font-raleway">We specialize in helping Kenyans living abroad build their dream homes back home with complete peace of mind.</p>
-              </div>
-            </div>
-          </div>
+      <div class="text-center mb-12 animate-on-scroll">
+        <span class="text-gold uppercase tracking-wider font-montserrat text-sm font-bold">Our Impact</span>
+        <h2 class="text-3xl md:text-4xl font-bold mt-2 mb-6 font-montserrat">By the Numbers</h2>
+        <div class="w-24 h-1 bg-gold mx-auto mb-6"></div>
+      </div>
+      
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div class="text-center animate-on-scroll" style="transition-delay: 100ms">
+          <div class="text-gold text-4xl md:text-5xl font-bold mb-2">10+</div>
+          <p class="text-lg font-raleway">Years in Business</p>
         </div>
         
-        <div class="animate-on-scroll" style="transition-delay: 200ms">
-          <div class="grid grid-cols-2 gap-4">
-            <div class="aspect-square overflow-hidden rounded-lg shadow-lg">
-              <img 
-                src="/images/about/about-1.jpg" 
-                alt="Highpoint Construction team at work" 
-                class="w-full h-full object-cover"
-                on:error={(e) => { (e.target as HTMLImageElement).src = '/images/projects/placeholder.jpg'; }}
-              />
-            </div>
-            <div class="aspect-square overflow-hidden rounded-lg shadow-lg">
-              <img 
-                src="/images/about/about-2.jpg" 
-                alt="Highpoint Construction project" 
-                class="w-full h-full object-cover"
-                on:error={(e) => { (e.target as HTMLImageElement).src = '/images/projects/placeholder.jpg'; }}
-              />
-            </div>
-            <div class="aspect-square overflow-hidden rounded-lg shadow-lg">
-              <img 
-                src="/images/about/about-3.jpg" 
-                alt="Highpoint Construction design process" 
-                class="w-full h-full object-cover"
-                on:error={(e) => { (e.target as HTMLImageElement).src = '/images/projects/placeholder.jpg'; }}
-              />
-            </div>
-            <div class="aspect-square overflow-hidden rounded-lg shadow-lg">
-              <img 
-                src="/images/about/about-4.jpg" 
-                alt="Highpoint Construction completed home" 
-                class="w-full h-full object-cover"
-                on:error={(e) => { (e.target as HTMLImageElement).src = '/images/projects/placeholder.jpg'; }}
-              />
-            </div>
-          </div>
+        <div class="text-center animate-on-scroll" style="transition-delay: 200ms">
+          <div class="text-gold text-4xl md:text-5xl font-bold mb-2">200+</div>
+          <p class="text-lg font-raleway">Projects Completed</p>
+        </div>
+        
+        <div class="text-center animate-on-scroll" style="transition-delay: 300ms">
+          <div class="text-gold text-4xl md:text-5xl font-bold mb-2">150+</div>
+          <p class="text-lg font-raleway">Satisfied Clients</p>
+        </div>
+        
+        <div class="text-center animate-on-scroll" style="transition-delay: 400ms">
+          <div class="text-gold text-4xl md:text-5xl font-bold mb-2">45+</div>
+          <p class="text-lg font-raleway">Skilled Team Members</p>
         </div>
       </div>
     </div>
   </section>
   
   <!-- CTA Section -->
-  <section class="py-16 px-4 bg-primary text-light">
+  <section class="py-16 px-4 bg-light relative z-2">
     <div class="max-w-4xl mx-auto text-center">
-      <h2 class="text-3xl md:text-4xl font-bold mb-6 font-montserrat">Ready to Start Your Building Journey?</h2>
-      <p class="mb-8 text-lg max-w-2xl mx-auto font-raleway">
-        Whether you're in Kenya or abroad, our team is ready to help you bring your construction vision to life with expertise and care.
-      </p>
-      <div class="flex flex-col sm:flex-row gap-4 justify-center">
-        <a href="/quote" class="bg-gold text-primary px-8 py-3 font-bold hover:bg-opacity-90">Get A Quote</a>
-        <a href="/contact" class="border-2 border-white hover:border-gold hover:text-gold px-8 py-3 font-bold">Contact Us</a>
+      <div class="animate-on-scroll">
+        <h2 class="text-3xl md:text-4xl font-bold mb-6 font-montserrat text-primary">Ready to Build Your Dream?</h2>
+        <p class="text-gray-700 mb-8 font-raleway">
+          Contact us today to discuss your vision, and let our team of experts bring it to life. We're dedicated to creating spaces that you'll be proud to call your own.
+        </p>
+        <div class="flex flex-col sm:flex-row justify-center gap-4">
+          <a href="/quote" class="bg-gold text-black font-bold py-3 px-8 hover:bg-black hover:text-white transition-colors">
+            Get a Quote
+          </a>
+          <a href="/contact" class="bg-primary text-white font-bold py-3 px-8 hover:bg-gold hover:text-black transition-colors">
+            Contact Us
+          </a>
+        </div>
       </div>
     </div>
   </section>
 </main>
 
 <style>
-  .bg-light {
-    background-color: var(--color-light);
+  .text-gold {
+    color: var(--color-gold);
   }
   
-  .bg-primary {
-    background-color: var(--color-primary);
+  .bg-gold {
+    background-color: var(--color-gold);
   }
   
   .text-primary {
     color: var(--color-primary);
   }
   
-  .text-gold {
-    color: var(--color-gold);
+  .bg-primary {
+    background-color: var(--color-primary);
+  }
+  
+  .bg-light {
+    background-color: var(--color-light);
   }
   
   .text-light {
     color: var(--color-light);
-  }
-  
-  .text-dark {
-    color: var(--color-dark);
-  }
-  
-  .bg-gold {
-    background-color: var(--color-gold);
   }
   
   .font-montserrat {
@@ -343,33 +317,7 @@
   .font-raleway {
     font-family: 'Raleway', sans-serif;
   }
-  
-  /* Hero section styles */
-  .hero-section {
-    position: relative;
-    overflow: hidden;
-    background-image: url('/images/about/hero-background.jpg');
-    background-size: cover;
-    background-position: center;
-  }
-  
-  .hero-section::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.7);
-    z-index: 0;
-  }
-  
-  .hero-section > div {
-    position: relative;
-    z-index: 1;
-  }
-  
-  /* Animation styles */
+
   .animate-on-scroll {
     opacity: 0;
     transform: translateY(20px);
@@ -380,13 +328,36 @@
     opacity: 1;
     transform: translateY(0);
   }
-
-  /* Fix: Apply immediate visibility to all animation elements on page load for browsers without JS */
-  @media (prefers-reduced-motion) {
-    .animate-on-scroll {
-      opacity: 1;
-      transform: translateY(0);
-      transition: none;
-    }
+  
+  /* About page specific fixes */
+  .hero-section {
+    position: relative;
+    z-index: 2;
+  }
+  
+  .content-section {
+    position: relative;
+    z-index: 5;
+  }
+  
+  .value-card {
+    position: relative;
+    z-index: 5;
+  }
+  
+  .team-card {
+    position: relative;
+    z-index: 5;
+    isolation: isolate;
+  }
+  
+  .image-container {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .image-container img {
+    position: relative;
+    z-index: 2;
   }
 </style> 
