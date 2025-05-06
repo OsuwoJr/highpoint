@@ -6,6 +6,23 @@
   
   let isIntersecting = {};
   
+  // Media toggle state
+  let showVideo = false;
+  let mediaTimer;
+  
+  // Function to toggle between image and video at intervals
+  function startMediaToggle() {
+    // Initial toggle
+    toggleMedia();
+    
+    // Set up interval to toggle every 15 seconds
+    mediaTimer = setInterval(toggleMedia, 15000);
+  }
+  
+  function toggleMedia() {
+    showVideo = !showVideo;
+  }
+  
   // Preload images
   function preloadImage(src) {
     return new Promise((resolve, reject) => {
@@ -54,6 +71,14 @@
         observer.observe(el);
       });
     }
+    
+    // Start the media toggle
+    startMediaToggle();
+    
+    // Clear interval when component is destroyed
+    return () => {
+      if (mediaTimer) clearInterval(mediaTimer);
+    };
   });
   
   const services = [
@@ -149,8 +174,40 @@
   <!-- Value Proposition -->
   <section class="py-16 px-4 bg-light">
     <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-8">
-      <div class="md:w-1/2 mb-8 md:mb-0">
-        <img src="/images/construction-team.jpg" alt="Highpoint construction team" class="rounded shadow-lg" />
+      <div class="md:w-1/2 mb-8 md:mb-0 relative">
+        {#if showVideo}
+          <video 
+            src="/videos/construction-team.mp4" 
+            autoplay 
+            muted
+            class="rounded shadow-lg w-full h-full object-cover"
+            style="min-height: 300px;"
+          ></video>
+        {:else}
+          <img 
+            src="/images/construction-team.jpg" 
+            alt="Highpoint construction team" 
+            class="rounded shadow-lg w-full h-full object-cover"
+          />
+        {/if}
+        
+        <!-- Toggle Button -->
+        <button 
+          class="absolute bottom-4 right-4 bg-primary/70 text-white p-2 rounded-full hover:bg-primary transition-colors"
+          on:click={toggleMedia}
+          aria-label={showVideo ? "Show image" : "Play video"}
+        >
+          {#if showVideo}
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            </svg>
+          {:else}
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          {/if}
+        </button>
       </div>
       <div class="md:w-1/2">
         <h2 class="text-3xl md:text-4xl font-bold mb-6 font-montserrat">We Handle Everything, So You Don't Have To.</h2>

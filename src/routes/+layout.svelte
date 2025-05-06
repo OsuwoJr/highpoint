@@ -10,8 +10,10 @@
 		const timestamp = Date.now();
 		
 		// Create a function to handle images that fail to load
-		const handleImageError = (event) => {
-			const img = event.target;
+		const handleImageError = (event: Event) => {
+			const img = event.target as HTMLImageElement;
+			if (!img) return;
+			
 			console.error(`Failed to load image: ${img.src}`);
 			
 			// Try to reload the image with cache busting
@@ -24,8 +26,9 @@
 		};
 		
 		// Apply global image error handler
-		document.addEventListener('error', (event) => {
-			if (event.target.tagName.toLowerCase() === 'img') {
+		document.addEventListener('error', (event: Event) => {
+			const target = event.target as HTMLElement;
+			if (target && target.tagName && target.tagName.toLowerCase() === 'img') {
 				handleImageError(event);
 			}
 		}, true);
@@ -48,7 +51,7 @@
 
 <svelte:head>
 	<link rel="preconnect" href="https://fonts.googleapis.com">
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
 	<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Raleway:wght@400;500;600&display=swap" rel="stylesheet">
 	<link rel="icon" href="/favicon.png" />
 </svelte:head>
