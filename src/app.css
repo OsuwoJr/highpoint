@@ -1,20 +1,21 @@
 @import 'tailwindcss';
 @plugin '@tailwindcss/typography';
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lato:wght@300;400;700&family=Cormorant+Garamond:ital@0;1&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Raleway:wght@300;400;600&display=swap');
 
 /* Global Color Variables */
 :root {
   /* Color palette */
-  --color-primary: #2A2D7C; /* Royal blue - primary color for headers, CTAs */
-  --color-secondary: #FFB6C1; /* Pink - accents/hovers */
-  --color-gold: #D4AF37; /* Gold - luxury accents */
-  --color-light: #E5E4E2; /* Light silver - backgrounds */
-  --color-dark: #0A0A23; /* Dark blue - text/dark sections */
+  --color-primary: #121212; /* Black - primary color for headers, CTAs */
+  --color-secondary: #000000; /* Pure Black - accents/hovers (was Dark Grey) */
+  --color-gold: #FF8C00; /* Golden Orange - luxury accents */
+  --color-light: #FFFFFF; /* White - backgrounds (was Light Grey) */
+  --color-dark: #000000; /* Pure Black - text/dark sections (was Deeper Black) */
+  --color-grey: #000000; /* Changed to Black - secondary text (was Medium Grey) */
   
   /* Previous palette for reference */
   --color-gold-old: #D4AF37;
-  --color-eco-green: #5D8C66;
-  --color-light-gray: #F5F5F5;
+  --color-primary-old: #2A2D7C;
+  --color-secondary-old: #FFB6C1;
 }
 
 /* Base Styles */
@@ -23,7 +24,7 @@ html {
 }
 
 body {
-  font-family: 'Lato', sans-serif;
+  font-family: 'Raleway', sans-serif;
   color: var(--color-dark);
   background-color: var(--color-light);
   margin: 0;
@@ -32,7 +33,7 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Montserrat', sans-serif;
   font-weight: 700;
   color: var(--color-primary);
 }
@@ -86,28 +87,30 @@ img {
 
 /* Global typography settings */
 h3.subheading {
-  font-family: 'Cormorant Garamond', serif;
-  font-style: italic;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
   color: var(--color-gold);
 }
 
 /* Global button styles */
 .btn-primary {
-  background-color: var(--color-primary);
-  color: var(--color-light);
+  background-color: var(--color-gold);
+  color: var(--color-dark);
   padding: 0.75rem 1.5rem;
-  border-radius: 9999px;
+  border-radius: 0;
   font-weight: bold;
   transition: all 0.3s ease;
   text-align: center;
   display: inline-block;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 .btn-primary:hover {
-  background-color: var(--color-secondary);
-  color: var(--color-primary);
-  transform: scale(1.1);
-  box-shadow: 0 0 15px rgba(255, 182, 193, 0.5);
+  background-color: var(--color-primary);
+  color: var(--color-light);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 /* Gold accent elements */
@@ -123,5 +126,22 @@ a {
 }
 
 a:hover {
-  color: var(--color-secondary);
+  color: var(--color-gold);
+}
+
+/* Context-aware link colors */
+.bg-primary a {
+  color: var(--color-light);
+}
+
+.bg-primary a:hover {
+  color: var(--color-gold);
+}
+
+.text-white a:not(.btn-primary):not([class*="bg-"]) {
+  color: var(--color-light);
+}
+
+.text-white a:hover:not(.btn-primary):not([class*="bg-"]) {
+  color: var(--color-gold);
 }

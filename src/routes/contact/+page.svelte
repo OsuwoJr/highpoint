@@ -2,243 +2,215 @@
   import { onMount } from 'svelte';
   import Header from '$lib/components/Header.svelte';
   
-  // Contact form state
+  // Form data
   let formData = {
     name: '',
     email: '',
     phone: '',
-    message: '',
-    service: ''
+    subject: '',
+    message: ''
   };
   
+  // Form state
+  let isSubmitting = false;
   let formSubmitted = false;
-  let formError = false;
-  let whatsappNumber = "+254704800614";
-  let formspreeId = "xnndpjbk"; // Replace this with your actual Formspree form ID
-  let currentUrl = '';
+  let formError = '';
   
-  onMount(() => {
-    // Set current URL for redirect after form submission
-    currentUrl = window.location.href;
-  });
-  
-  // Available services grouped by categories
-  const serviceCategories = [
+  // Office locations
+  const officeLocations = [
     {
-      name: "Cuts & Styling",
-      services: [
-        { id: 'precision-cut', name: 'Precision Cut' },
-        { id: 'bridal-style', name: 'Bridal Style' },
-        { id: 'blowout', name: 'Luxury Blowout' }
-      ]
+      name: 'Nairobi Headquarters',
+      address: 'Highpoint Tower, 5th Floor',
+      street: 'Ngong Road',
+      city: 'Nairobi, Kenya',
+      phone: '+254 712 345 678',
+      email: 'info@highpoint-construction.com',
+      hours: 'Monday - Friday: 8:00 AM - 5:00 PM',
+      mapUrl: 'https://maps.google.com/?q=Ngong+Road+Nairobi+Kenya'
     },
     {
-      name: "Braiding",
-      services: [
-        { id: 'normal-braids', name: 'Normal Braids' },
-        { id: 'knotless-braids', name: 'Knotless Braids' },
-        { id: 'goddess-braids', name: 'Goddess Braids' },
-        { id: 'boho-braids', name: 'Boho Braids' },
-        { id: 'loose-braids', name: 'Loose Braids' }
-      ]
-    },
-    {
-      name: "Twists & Coils",
-      services: [
-        { id: 'marley-twist', name: 'Marley Twist' },
-        { id: 'coco-twists', name: 'Coco Twists' },
-        { id: 'spring-twist', name: 'Spring Twist' },
-        { id: 'passion-twist', name: 'Passion Twist' },
-        { id: 'twist-outs', name: 'Twist Outs' }
-      ]
-    },
-    {
-      name: "Cornrows & Lines",
-      services: [
-        { id: 'ghanaians', name: 'Ghanaians' },
-        { id: 'half-liners', name: 'Half Liners' }
-      ]
-    },
-    {
-      name: "Hair Treatments",
-      services: [
-        { id: 'deep-conditioning', name: 'Deep Conditioning' },
-        { id: 'hair-treatment', name: 'Hair Treatment' },
-        { id: 'keratin', name: 'Keratin/Botox Treatment' },
-        { id: 'scalp-treatment', name: 'Scalp Treatment' }
-      ]
-    },
-    {
-      name: "Coloring Services",
-      services: [
-        { id: 'balayage', name: 'Balayage' },
-        { id: 'eco-color', name: 'Eco Color' },
-        { id: 'color-correction', name: 'Color Correction' },
-        { id: 'hair-dyeing', name: 'Hair Coloring/Dyeing' }
-      ]
-    },
-    {
-      name: "Styling Tools & Enhancements",
-      services: [
-        { id: 'washing', name: 'Hair Washing & Conditioning' },
-        { id: 'blowdry-iron', name: 'Blow-Dry & Flat Ironing' },
-        { id: 'silk-press', name: 'Silk Press' },
-        { id: 'extensions', name: 'Hair Extensions/Weaves' },
-        { id: 'dreadlocks', name: 'Dreadlocks/Retwisting' }
-      ]
+      name: 'Mombasa Office',
+      address: 'Azure Building, 2nd Floor',
+      street: 'Nyali Road',
+      city: 'Mombasa, Kenya',
+      phone: '+254 723 456 789',
+      email: 'mombasa@highpoint-construction.com',
+      hours: 'Monday - Friday: 8:00 AM - 5:00 PM',
+      mapUrl: 'https://maps.google.com/?q=Nyali+Road+Mombasa+Kenya'
     }
   ];
-  
-  // Flat list of all services for WhatsApp link generation
-  const services = [
-    { id: '', name: 'Select a service (optional)' },
-    ...serviceCategories.flatMap(category => category.services)
-  ];
-  
-  // Generate WhatsApp message
-  function createWhatsAppLink() {
-    let message = `Hello Belle Royale, my name is ${formData.name}`;
-    
-    if (formData.service) {
-      const serviceObj = services.find(s => s.id === formData.service);
-      if (serviceObj) {
-        message += ` and I'm interested in ${serviceObj.name}`;
-      }
-    }
-    
-    message += ". Here's my message: " + formData.message;
-    
-    if (formData.email) {
-      message += ` (My email: ${formData.email})`;
-    }
-    
-    if (formData.phone) {
-      message += ` (My phone: ${formData.phone})`;
-    }
-    
-    return `https://wa.me/${whatsappNumber.replace(/\D/g, '')}?text=${encodeURIComponent(message)}`;
-  }
   
   // Handle form submission
-  async function handleSubmit(event: Event) {
-    // Prevent default form submission
-    event.preventDefault();
+  async function handleSubmit() {
+    isSubmitting = true;
+    formError = '';
     
-    // Get form element
-    const form = event.target as HTMLFormElement;
-    
-    // For Formspree, we'll send the form data as FormData
     try {
-      const response = await fetch(`https://formspree.io/f/${formspreeId}`, {
-        method: "POST",
-        body: new FormData(form),
-        headers: {
-          Accept: "application/json"
-        }
-      });
+      // In a real implementation, this would connect to a backend API
+      // For now, we'll simulate a successful submission after a delay
+      await new Promise(resolve => setTimeout(resolve, 1500));
       
-      if (response.ok) {
-        formSubmitted = true;
-        formData = {
-          name: '',
-          email: '',
-          phone: '',
-          message: '',
-          service: ''
-        };
-      } else {
-        formError = true;
-      }
+      formSubmitted = true;
+      formData = {
+        name: '',
+        email: '',
+        phone: '',
+        subject: '',
+        message: ''
+      };
     } catch (error) {
-      formError = true;
+      formError = 'There was an error submitting your message. Please try again.';
+    } finally {
+      isSubmitting = false;
     }
   }
 </script>
 
 <svelte:head>
-  <title>Contact Us | Belle Royale</title>
-  <meta name="description" content="Get in touch with Belle Royale salon. Contact us for appointments, questions about our services, or to join our team.">
+  <title>Contact Us | Highpoint Construction</title>
+  <meta name="description" content="Get in touch with Highpoint Construction for your building and renovation needs in Kenya. We're here to answer your questions and help you start your project.">
 </svelte:head>
 
 <Header />
 
 <main id="main-content" class="pt-24 pb-20">
   <!-- Hero Banner -->
-  <div class="bg-black text-white py-16 px-4">
-    <div class="max-w-4xl mx-auto text-center">
-      <h1 class="text-4xl md:text-5xl font-bold font-playfair mb-4">Contact <span class="text-gold">Us</span></h1>
-      <p class="text-lg font-lato font-light max-w-2xl mx-auto">
-        Have questions or want to book an appointment? Reach out to our team.
+  <div class="bg-primary text-light py-16 px-4 relative">
+    <div class="absolute inset-0 bg-black opacity-50"></div>
+    <div class="max-w-4xl mx-auto text-center relative z-10">
+      <h1 class="text-4xl md:text-5xl font-bold font-montserrat mb-4">Contact <span class="text-gold">Us</span></h1>
+      <p class="text-xl max-w-2xl mx-auto font-raleway">
+        Have questions about your construction project? Get in touch with our team of experts.
       </p>
     </div>
   </div>
   
-  <!-- Contact Info & Form Section -->
+  <!-- Office Locations Section -->
+  <section class="py-16 px-4 bg-light">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-bold font-montserrat mb-4">Our Offices</h2>
+        <p class="text-black max-w-3xl mx-auto font-raleway">
+          Visit us at one of our locations to discuss your project in person, or reach out through our contact channels.
+        </p>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        {#each officeLocations as office}
+          <div class="bg-white p-6 shadow-lg">
+            <h3 class="text-xl font-bold font-montserrat mb-3">{office.name}</h3>
+            <div class="mb-4">
+              <p class="font-raleway text-black">{office.address}</p>
+              <p class="font-raleway text-black">{office.street}</p>
+              <p class="font-raleway text-black">{office.city}</p>
+            </div>
+            
+            <div class="space-y-2 mb-4">
+              <div class="flex items-center text-black">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gold mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                </svg>
+                <a href="tel:{office.phone}" class="hover:text-gold transition-colors font-raleway">{office.phone}</a>
+              </div>
+              
+              <div class="flex items-center text-black">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gold mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                </svg>
+                <a href="mailto:{office.email}" class="hover:text-gold transition-colors font-raleway">{office.email}</a>
+              </div>
+              
+              <div class="flex items-center text-black">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gold mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <span class="font-raleway">{office.hours}</span>
+              </div>
+            </div>
+            
+            <a 
+              href={office.mapUrl} 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              class="inline-flex items-center text-gold hover:underline font-montserrat font-semibold"
+            >
+              View on Map
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+              </svg>
+            </a>
+          </div>
+        {/each}
+      </div>
+    </div>
+  </section>
+  
+  <!-- Contact Form Section -->
   <section class="py-16 px-4">
     <div class="max-w-5xl mx-auto">
       <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
         <!-- Contact Information -->
         <div>
-          <h2 class="text-3xl font-bold font-playfair mb-6">Get In Touch</h2>
+          <h2 class="text-3xl font-bold font-montserrat mb-6">Get In Touch</h2>
           
           <div class="space-y-8">
             <div class="flex items-start">
-              <div class="bg-gold/20 rounded-full p-3 mr-4">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <div class="bg-gold p-3 mr-4 rounded-full">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                 </svg>
               </div>
               <div>
-                <h3 class="text-xl font-bold font-playfair mb-2">Location</h3>
-                <p class="text-gray-600 font-lato">
-                  Nairobi, Kenya<br>
-                  Khetias Supermarket, Mirema<br>
-                  Zimmerman
+                <h3 class="text-xl font-bold font-montserrat mb-2">Headquarters</h3>
+                <p class="text-black font-raleway">
+                  Highpoint Tower, 5th Floor<br>
+                  Ngong Road<br>
+                  Nairobi, Kenya
                 </p>
               </div>
             </div>
             
             <div class="flex items-start">
-              <div class="bg-gold/20 rounded-full p-3 mr-4">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <div class="bg-gold p-3 mr-4 rounded-full">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
               </div>
               <div>
-                <h3 class="text-xl font-bold font-playfair mb-2">Hours</h3>
-                <p class="text-gray-600 font-lato">
-                  Monday - Friday: 9:00 AM - 8:00 PM<br>
-                  Saturday: 9:00 AM - 6:00 PM<br>
-                  Sunday: 10:00 AM - 4:00 PM
+                <h3 class="text-xl font-bold font-montserrat mb-2">Business Hours</h3>
+                <p class="text-black font-raleway">
+                  Monday - Friday: 8:00 AM - 5:00 PM<br>
+                  Saturday: 9:00 AM - 1:00 PM<br>
+                  Sunday: Closed
                 </p>
               </div>
             </div>
             
             <div class="flex items-start">
-              <div class="bg-gold/20 rounded-full p-3 mr-4">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <div class="bg-gold p-3 mr-4 rounded-full">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                 </svg>
               </div>
               <div>
-                <h3 class="text-xl font-bold font-playfair mb-2">Phone</h3>
-                <p class="text-gray-600 font-lato">
-                  <a href="tel:+254704800614" class="hover:text-gold transition-colors">(254) 704-800-614</a>
+                <h3 class="text-xl font-bold font-montserrat mb-2">Phone</h3>
+                <p class="text-black font-raleway">
+                  <a href="tel:+254712345678" class="hover:text-gold transition-colors">+254 712 345 678</a>
                 </p>
               </div>
             </div>
             
             <div class="flex items-start">
-              <div class="bg-gold/20 rounded-full p-3 mr-4">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <div class="bg-gold p-3 mr-4 rounded-full">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                 </svg>
               </div>
               <div>
-                <h3 class="text-xl font-bold font-playfair mb-2">Email</h3>
-                <p class="text-gray-600 font-lato">
-                  <a href="mailto:info@belleroyale.com" class="hover:text-gold transition-colors">infobelleroyale@gmail.com</a>
+                <h3 class="text-xl font-bold font-montserrat mb-2">Email</h3>
+                <p class="text-black font-raleway">
+                  <a href="mailto:info@highpoint-construction.com" class="hover:text-gold transition-colors">info@highpoint-construction.com</a>
                 </p>
               </div>
             </div>
@@ -246,33 +218,29 @@
           
           <!-- Social Media Links -->
           <div class="mt-10">
-            <h3 class="text-xl font-bold font-playfair mb-4">Follow Us</h3>
+            <h3 class="text-xl font-bold font-montserrat mb-4">Connect With Us</h3>
             <div class="flex space-x-4">
-              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="bg-gold/20 p-3 rounded-full text-gold hover:bg-gold hover:text-white transition-colors">
-                <span class="sr-only">Instagram</span>
+              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="bg-gold p-3 rounded-full text-white hover:bg-black transition-colors" aria-label="Instagram">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
                 </svg>
               </a>
               
-              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" class="bg-gold/20 p-3 rounded-full text-gold hover:bg-gold hover:text-white transition-colors">
-                <span class="sr-only">Facebook</span>
+              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" class="bg-gold p-3 rounded-full text-white hover:bg-black transition-colors" aria-label="Facebook">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"/>
                 </svg>
               </a>
               
-              <a href="https://pinterest.com" target="_blank" rel="noopener noreferrer" class="bg-gold/20 p-3 rounded-full text-gold hover:bg-gold hover:text-white transition-colors">
-                <span class="sr-only">Pinterest</span>
+              <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" class="bg-gold p-3 rounded-full text-white hover:bg-black transition-colors" aria-label="Twitter">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M12 0c-6.627 0-12 5.372-12 12 0 5.084 3.163 9.426 7.627 11.174-.105-.949-.2-2.405.042-3.441.218-.937 1.407-5.965 1.407-5.965s-.359-.719-.359-1.782c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.69 0 1.029-.655 2.568-.994 3.995-.283 1.194.599 2.169 1.777 2.169 2.133 0 3.772-2.249 3.772-5.495 0-2.873-2.064-4.882-5.012-4.882-3.414 0-5.418 2.561-5.418 5.207 0 1.031.397 2.138.893 2.738.098.119.112.224.083.345l-.333 1.36c-.053.22-.174.267-.402.161-1.499-.698-2.436-2.889-2.436-4.649 0-3.785 2.75-7.262 7.929-7.262 4.163 0 7.398 2.967 7.398 6.931 0 4.136-2.607 7.464-6.227 7.464-1.216 0-2.359-.631-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146 1.124.347 2.317.535 3.554.535 6.627 0 12-5.373 12-12 0-6.628-5.373-12-12-12z"/>
+                  <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/>
                 </svg>
               </a>
               
-              <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer" class="bg-gold/20 p-3 rounded-full text-gold hover:bg-gold hover:text-white transition-colors">
-                <span class="sr-only">TikTok</span>
+              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="bg-gold p-3 rounded-full text-white hover:bg-black transition-colors" aria-label="LinkedIn">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/>
+                  <path d="M4.98 3.5c0 1.381-1.11 2.5-2.48 2.5s-2.48-1.119-2.48-2.5c0-1.38 1.11-2.5 2.48-2.5s2.48 1.12 2.48 2.5zm.02 4.5h-5v16h5v-16zm7.982 0h-4.968v16h4.969v-8.399c0-4.67 6.029-5.052 6.029 0v8.399h4.988v-10.131c0-7.88-8.922-7.593-11.018-3.714v-2.155z"/>
                 </svg>
               </a>
             </div>
@@ -280,18 +248,18 @@
         </div>
         
         <!-- Contact Form -->
-        <div class="bg-light-gray p-8 rounded-lg shadow-md">
-          <h2 class="text-2xl font-bold font-playfair mb-6">Send Us a Message</h2>
+        <div class="bg-white p-8 shadow-lg">
+          <h2 class="text-2xl font-bold font-montserrat mb-6">Send Us a Message</h2>
           
           {#if formSubmitted}
-            <div class="bg-eco-green/20 text-eco-green p-4 rounded-md mb-6">
+            <div class="bg-gold/20 text-black p-4 rounded-md mb-6">
               <p class="font-bold">Thank you for your message!</p>
               <p>We'll get back to you as soon as possible.</p>
             </div>
           {/if}
           
           {#if formError}
-            <div class="bg-red-100 text-red-700 p-4 rounded-md mb-6">
+            <div class="bg-black/10 text-black p-4 rounded-md mb-6">
               <p class="font-bold">There was an error sending your message.</p>
               <p>Please try again later or contact us directly by phone.</p>
             </div>
@@ -299,105 +267,71 @@
           
           <form on:submit|preventDefault={handleSubmit} class="space-y-4">
             <div>
-              <label for="name" class="block text-gray-700 font-bold mb-2">Name *</label>
+              <label for="name" class="block text-black font-bold mb-2 font-montserrat">Name *</label>
               <input 
                 type="text" 
                 id="name" 
                 name="name"
                 bind:value={formData.name} 
                 required
-                class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gold"
+                class="w-full px-4 py-2 border border-black focus:outline-none focus:border-gold font-raleway"
               />
             </div>
             
             <div>
-              <label for="email" class="block text-gray-700 font-bold mb-2">Email *</label>
+              <label for="email" class="block text-black font-bold mb-2 font-montserrat">Email *</label>
               <input 
                 type="email" 
                 id="email" 
                 name="email"
                 bind:value={formData.email} 
                 required
-                class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gold"
+                class="w-full px-4 py-2 border border-black focus:outline-none focus:border-gold font-raleway"
               />
-              <!-- Hidden field for Formspree reply-to feature -->
-              <input type="hidden" name="_replyto" value={formData.email} />
             </div>
             
             <div>
-              <label for="phone" class="block text-gray-700 font-bold mb-2">Phone</label>
+              <label for="phone" class="block text-black font-bold mb-2 font-montserrat">Phone</label>
               <input 
                 type="tel" 
                 id="phone" 
                 name="phone"
                 bind:value={formData.phone}
-                class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gold"
+                class="w-full px-4 py-2 border border-black focus:outline-none focus:border-gold font-raleway"
               />
             </div>
             
             <div>
-              <label for="service" class="block text-gray-700 font-bold mb-2">Service of Interest</label>
-              <select 
-                id="service" 
-                name="service"
-                bind:value={formData.service}
-                class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gold"
-              >
-                <option value="">Select a service (optional)</option>
-                
-                {#each serviceCategories as category}
-                  <optgroup label={category.name}>
-                    {#each category.services as service}
-                      <option value={service.id}>{service.name}</option>
-                    {/each}
-                  </optgroup>
-                {/each}
-              </select>
+              <label for="subject" class="block text-black font-bold mb-2 font-montserrat">Subject *</label>
+              <input 
+                type="text" 
+                id="subject" 
+                name="subject"
+                bind:value={formData.subject} 
+                required
+                class="w-full px-4 py-2 border border-black focus:outline-none focus:border-gold font-raleway"
+              />
             </div>
             
             <div>
-              <label for="message" class="block text-gray-700 font-bold mb-2">Message *</label>
+              <label for="message" class="block text-black font-bold mb-2 font-montserrat">Message *</label>
               <textarea 
                 id="message" 
                 name="message"
                 bind:value={formData.message} 
                 required
                 rows="5"
-                class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gold"
+                class="w-full px-4 py-2 border border-black focus:outline-none focus:border-gold font-raleway"
               ></textarea>
             </div>
             
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <button 
-                type="submit" 
-                class="bg-gold hover:bg-gold-dark text-black font-bold py-3 px-6 rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-gold focus:ring-opacity-50 flex items-center justify-center"
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                </svg>
-                Send via Email
-              </button>
-              
-              <a 
-                href={createWhatsAppLink()}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="bg-[#25D366] hover:bg-[#128C7E] text-white font-bold py-3 px-6 rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-[#25D366] focus:ring-opacity-50 flex items-center justify-center disabled:opacity-50 disabled:pointer-events-none"
-                class:pointer-events-none={!formData.name || !formData.message}
-                aria-disabled={!formData.name || !formData.message}
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="mr-2" viewBox="0 0 16 16">
-                  <path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z"/>
-                </svg>
-                Send via WhatsApp
-              </a>
-            </div>
-            
-            <!-- Hidden field to help prevent spam -->
-            <input type="text" name="_gotcha" style="display:none" />
-            
-            <!-- Redirect after form submission -->
-            <input type="hidden" name="_next" value={currentUrl} />
+            <button 
+              type="submit" 
+              class="bg-gold text-white px-6 py-3 font-bold hover:bg-black transition-all uppercase font-montserrat {isSubmitting ? 'opacity-75 cursor-not-allowed' : ''}"
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? 'Sending...' : 'Send Message'}
+            </button>
           </form>
         </div>
       </div>
@@ -405,99 +339,95 @@
   </section>
   
   <!-- Map Section -->
-  <section class="py-16 px-4 bg-light-gray">
-    <div class="max-w-5xl mx-auto">
+  <section class="py-16 px-4 bg-light">
+    <div class="max-w-6xl mx-auto">
       <div class="text-center mb-12">
-        <span class="text-gold uppercase tracking-wider font-lato text-sm font-bold">Find Us</span>
-        <h2 class="text-3xl font-bold mt-2 mb-4 font-playfair">Our Location</h2>
-        <div class="w-24 h-1 bg-gold mx-auto"></div>
+        <h2 class="text-3xl font-bold font-montserrat mb-4">Find Us</h2>
+        <p class="text-black max-w-3xl mx-auto font-raleway">
+          Visit our headquarters in Nairobi to discuss your construction project in person.
+        </p>
       </div>
       
-      <div class="bg-white p-4 rounded-lg shadow-md">
-        <!-- Google Maps embed of Khetias Supermarket Mirema -->
+      <div class="h-[400px] bg-gold/10">
+        <!-- In a real implementation, this would be replaced with an actual map component -->
         <iframe 
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3988.9238010317245!2d36.89060977486707!3d-1.2132883987751213!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x182f3f607f74d0f1%3A0xf31b117875d8099e!2sKHETIAS%20SUPERMARKET%20Mirema!5e0!3m2!1sen!2ske!4v1746178665935!5m2!1sen!2ske" 
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15955.35739631423!2d36.805943!3d-1.290270!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x182f109996536c39%3A0x4eb6d6e1e16b4153!2sNgong%20Rd%2C%20Nairobi!5e0!3m2!1sen!2ske!4v1625123456789!5m2!1sen!2ske" 
           width="100%" 
-          height="400" 
+          height="100%" 
           style="border:0;" 
           allowFullScreen={true}
-          loading="lazy" 
-          referrerpolicy="no-referrer-when-downgrade"
-          title="Belle Royale Salon Location"
-          class="rounded-lg"
+          loading="lazy"
+          title="Highpoint Construction Headquarters Location"
         ></iframe>
       </div>
     </div>
   </section>
   
-  <!-- Join Our Team CTA -->
-  <section class="py-16 px-4">
+  <!-- CTA Section -->
+  <section class="py-16 px-4 bg-primary text-white">
     <div class="max-w-4xl mx-auto text-center">
-      <div class="bg-black text-white p-12 rounded-xl relative overflow-hidden">
-        <!-- Decorative background pattern -->
-        <div class="absolute inset-0 opacity-10">
-          <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
-                <path d="M 0 20 L 40 20 M 20 0 L 20 40" stroke="white" stroke-width="1"/>
-              </pattern>
-            </defs>
-            <rect width="100%" height="100%" fill="url(#grid)" />
-          </svg>
-        </div>
-        
-        <div class="relative z-10">
-          <h2 class="text-3xl font-bold font-playfair mb-4">Join Our Team</h2>
-          <p class="text-lg font-lato font-light max-w-2xl mx-auto mb-8">
-            Are you a passionate stylist committed to sustainable beauty? We're always looking for 
-            talented individuals to join our team. Send us your portfolio and resume.
-          </p>
-          
-          <a 
-            href="mailto:infobelleroyale@gmail.com" 
-            class="bg-gold hover:bg-gold-dark text-black font-bold py-3 px-8 rounded-full transition-colors inline-flex items-center"
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-            </svg>
-            infobelleroyale@gmail.com
-          </a>
-        </div>
-      </div>
+      <h2 class="text-3xl font-bold mb-4 font-montserrat">Ready to Start Your Project?</h2>
+      <p class="text-lg mb-8 font-raleway">
+        Whether you're building a new home, renovating an existing property, or planning a commercial project, 
+        we're here to help turn your vision into reality.
+      </p>
+      <a href="/quote" class="bg-gold text-black px-8 py-3 font-bold hover:bg-white transition-colors uppercase font-montserrat">
+        Get a Quote
+      </a>
     </div>
   </section>
 </main>
 
 <style>
-  .bg-light-gray {
-    background-color: #F5F5F5;
+  .bg-light {
+    background-color: var(--color-light);
+  }
+  
+  .bg-primary {
+    background-color: var(--color-primary);
+  }
+  
+  .text-primary {
+    color: var(--color-primary);
   }
   
   .text-gold {
-    color: #D4AF37;
+    color: var(--color-gold);
+  }
+  
+  .text-light {
+    color: var(--color-light);
   }
   
   .bg-gold {
-    background-color: #D4AF37;
+    background-color: var(--color-gold);
+  }
+  
+  .bg-gold-dark {
+    background-color: #E67E00;
   }
   
   .hover\:bg-gold-dark:hover {
-    background-color: #B8860B;
+    background-color: #E67E00;
   }
   
-  .bg-eco-green {
-    background-color: #5D8C66;
+  .border-gold {
+    border-color: var(--color-gold);
   }
   
-  .text-eco-green {
-    color: #5D8C66;
+  .focus\:border-gold:focus {
+    border-color: var(--color-gold);
   }
   
-  .font-playfair {
-    font-family: 'Playfair Display', serif;
+  .hover\:text-gold:hover {
+    color: var(--color-gold);
   }
   
-  .font-lato {
-    font-family: 'Lato', sans-serif;
+  .font-montserrat {
+    font-family: 'Montserrat', sans-serif;
+  }
+  
+  .font-raleway {
+    font-family: 'Raleway', sans-serif;
   }
 </style> 

@@ -1,17 +1,17 @@
-<script>
+<script lang="ts">
     import { fade } from 'svelte/transition';
     import { onMount } from 'svelte';
   
     let videoLoaded = false;
     let videoError = false;
     let currentSlide = 0;
-    let intervalId;
+    let intervalId: number;
     let isMobile = false;
     
     // Images array for the slideshow
     const backgroundImages = [
-      '/images/gallery/salon.jpg',
-      '/images/gallery/salon1.jpg'
+      '/images/construction1.jpg',
+      '/images/construction2.jpg'
     ];
   
     onMount(() => {
@@ -55,7 +55,7 @@
     >
       <img 
         src={image} 
-        alt="Belle Royale Salon" 
+        alt="Highpoint Construction Site" 
         class="w-full h-full object-cover"
         style="object-position: center center;"
       />
@@ -67,24 +67,45 @@
     <div class="absolute inset-0 bg-black"></div>
   {/if}
 
+  <!-- Construction animated overlay elements -->
+  <div class="construction-overlay z-[1]">
+    <div class="blueprint-grid"></div>
+    <div class="beam beam-1"></div>
+    <div class="beam beam-2"></div>
+    <div class="beam beam-3"></div>
+    <div class="compass"></div>
+  </div>
+
   <!-- Overlay to enhance text readability -->
-  <div class="absolute inset-0 bg-gradient-to-b from-black/50 via-black/40 to-black/60 z-[2]"></div>
+  <div class="absolute inset-0 bg-gradient-to-b from-black/70 via-black/60 to-black/70 z-[2]"></div>
 
   <!-- Content -->
   <div class="relative z-10 h-full flex flex-col justify-center items-center text-center px-4" in:fade={{ duration: 800 }}>
-    <h1 class="text-4xl sm:text-5xl md:text-7xl font-bold text-white mb-4 md:mb-6 font-playfair leading-tight">
-      <span class="text-gold">Belle</span> Royale
+    <h1 class="text-4xl sm:text-5xl md:text-7xl font-bold text-white mb-4 md:mb-6 font-montserrat leading-tight">
+      <span class="text-gold">Exceptional Homes</span>
     </h1>
-    <p class="text-white text-base sm:text-lg md:text-xl mb-6 md:mb-8 max-w-xl md:max-w-2xl font-lato font-light">
-      Luxury sustainable haircare for the modern individual
+    <p class="text-white text-base sm:text-lg md:text-2xl mb-6 md:mb-8 max-w-xl md:max-w-2xl font-raleway font-light">
+      Creating beautiful buildings that stand the test of time.
     </p>
-    <a 
-      href="/book" 
-      class="bg-gold hover:bg-gold-dark text-black px-6 py-3 md:px-8 md:py-4 rounded-full text-base md:text-lg font-bold transition-all transform hover:scale-105 focus:ring-2 focus:ring-gold focus:ring-opacity-50 focus:outline-none shadow-lg"
-      aria-label="Book your appointment now"
-    >
-      Claim Your Throne
-    </a>
+    <p class="text-white text-base sm:text-base md:text-xl mb-10 max-w-xl md:max-w-2xl font-raleway font-light">
+      From architectural design to construction, we help you build a beautiful, affordable home in the Kenyan countryside—stress-free and on time.
+    </p>
+    <div class="flex flex-col sm:flex-row gap-4">
+      <a 
+        href="/quote" 
+        class="bg-gold hover:bg-black text-black px-6 py-3 md:px-8 md:py-4 rounded-none text-base md:text-lg font-bold transition-all transform hover:translate-y-[-2px] focus:ring-2 focus:ring-gold focus:ring-opacity-50 focus:outline-none shadow-lg uppercase tracking-wider"
+        aria-label="Get a quote for your project"
+      >
+        Get A Quote
+      </a>
+      <a 
+        href="/projects" 
+        class="bg-transparent border-2 border-white hover:border-gold text-white hover:text-gold px-6 py-3 md:px-8 md:py-4 rounded-none text-base md:text-lg font-bold transition-all transform hover:translate-y-[-2px] focus:ring-2 focus:ring-gold focus:ring-opacity-50 focus:outline-none shadow-lg uppercase tracking-wider"
+        aria-label="View our portfolio"
+      >
+        See Our Work
+      </a>
+    </div>
   </div>
   
   <!-- Slideshow Navigation Dots -->
@@ -122,11 +143,143 @@
     object-fit: cover;
   }
   
-  .font-playfair {
-    font-family: 'Playfair Display', serif;
+  /* Construction animations */
+  .construction-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    opacity: 1;
   }
-  .font-lato {
-    font-family: 'Lato', sans-serif;
+  
+  .blueprint-grid {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+      linear-gradient(rgba(255, 140, 0, 0.4) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 140, 0, 0.4) 1px, transparent 1px);
+    background-size: 50px 50px;
+    animation: gridMove 40s linear infinite;
+  }
+  
+  @keyframes gridMove {
+    0% {
+      background-position: 0 0;
+    }
+    100% {
+      background-position: 50px 50px;
+    }
+  }
+  
+  .beam {
+    position: absolute;
+    background-color: rgba(255, 152, 0, 0.9);
+    border: 3px solid rgba(255, 204, 0, 1);
+    box-shadow: 0 0 15px rgba(255, 204, 0, 0.8);
+  }
+  
+  .beam-1 {
+    width: 200px;
+    height: 25px;
+    top: 35%;
+    left: -200px;
+    transform: rotate(45deg);
+    animation: beamSlide1 15s linear infinite;
+  }
+  
+  .beam-2 {
+    width: 250px;
+    height: 25px;
+    top: 60%;
+    right: -250px;
+    transform: rotate(-30deg);
+    animation: beamSlide2 18s linear infinite;
+    animation-delay: 2s;
+  }
+  
+  .beam-3 {
+    width: 180px;
+    height: 25px;
+    bottom: 25%;
+    left: -180px;
+    transform: rotate(15deg);
+    animation: beamSlide3 12s linear infinite;
+    animation-delay: 5s;
+  }
+  
+  @keyframes beamSlide1 {
+    0% { left: -200px; }
+    50% { left: 100%; }
+    50.01% { left: -200px; }
+    100% { left: -200px; }
+  }
+  
+  @keyframes beamSlide2 {
+    0% { right: -250px; }
+    50% { right: 100%; }
+    50.01% { right: -250px; }
+    100% { right: -250px; }
+  }
+  
+  @keyframes beamSlide3 {
+    0% { left: -180px; }
+    50% { left: 100%; }
+    50.01% { left: -180px; }
+    100% { left: -180px; }
+  }
+  
+  .compass {
+    position: absolute;
+    bottom: 15%;
+    right: 10%;
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    border: 4px solid rgba(255, 255, 255, 0.9);
+    background: radial-gradient(circle, rgba(255, 140, 0, 0.3) 0%, rgba(255, 140, 0, 0) 70%);
+    animation: rotate 20s linear infinite;
+    box-shadow: 0 0 20px rgba(255, 140, 0, 0.7);
+  }
+  
+  .compass::before, .compass::after {
+    content: '';
+    position: absolute;
+    background-color: rgba(255, 204, 0, 1);
+  }
+  
+  .compass::before {
+    top: 50%;
+    left: 10%;
+    right: 10%;
+    height: 4px;
+    transform-origin: center;
+    animation: rotate 10s linear infinite;
+  }
+  
+  .compass::after {
+    top: 10%;
+    bottom: 10%;
+    left: 50%;
+    width: 4px;
+    transform-origin: center;
+    animation: rotate 15s linear infinite reverse;
+  }
+  
+  @keyframes rotate {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
+  .font-montserrat {
+    font-family: 'Montserrat', sans-serif;
+  }
+  .font-raleway {
+    font-family: 'Raleway', sans-serif;
   }
   .text-gold {
     color: var(--color-gold);
@@ -134,10 +287,19 @@
   .bg-gold {
     background-color: var(--color-gold);
   }
-  .bg-gold-dark {
-    background-color: #B79526;
+  .hover\:bg-gold-dark:hover {
+    background-color: #E67E00;
   }
   .focus\:ring-gold:focus {
     --tw-ring-color: var(--color-gold);
+  }
+  .hover\:text-gold:hover {
+    color: var(--color-gold);
+  }
+  .hover\:border-gold:hover {
+    border-color: var(--color-gold);
+  }
+  .hover\:bg-black:hover {
+    background-color: #000000;
   }
 </style>

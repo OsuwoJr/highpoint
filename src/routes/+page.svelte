@@ -31,78 +31,60 @@
   
   const services = [
     {
-      name: "Normal Braids",
-      price: 1200,
-      description: "Classic three-strand braids that are neat, durable, and perfect for everyday wear. Ideal for a clean and protective look.",
-      image: "/images/normal.jpeg"
+      name: "Architectural Design",
+      description: "Innovative and functional designs that blend modern aesthetics with Kenyan heritage.",
+      image: "/images/architectural-design.jpg"
     },
     {
-      name: "Knotless Braids",
-      price: 1500,
-      description: "Pain-free, natural-looking braids that start with your own hair, reducing tension on the scalp and offering a lightweight feel.",
-      image: "/images/knotless.jpeg"
+      name: "Home Construction",
+      description: "We build beautiful, durable homes with quality materials and craftsmanship.",
+      image: "/images/home-construction.jpg"
     },
     {
-      name: "Goddess Braids",
-      price: 2000,
-      description: "Thick, elegant cornrow-style braids that are styled close to the scalp. Perfect for a regal and stylish appearance.",
-      image: "/images/goddess.jpeg"
+      name: "Home Renovation",
+      description: "Breathe new life into your existing home with modern upgrades.",
+      image: "/images/renovation.jpg"
     },
     {
-      name: "Boho Braids",
-      price: 1700,
-      description: "Bohemian-inspired braids with curly strands left out for a soft, carefree vibe that blends neatness with natural flow.",
-      image: "/images/boho.jpeg"
+      name: "Project Management",
+      description: "Relax while we handle the details and ensure everything stays on track.",
+      image: "/images/project-management.jpg"
     },
     {
-      name: "Loose Braids",
-      price: 1500,
-      description: "Single or multiple loosely done braids for a laid-back, voluminous style that frames the face beautifully.",
-      image: "/images/loose.jpeg"
+      name: "Structural Design",
+      description: "Precision engineering for a solid foundation and durable construction.",
+      image: "/images/structural-design.jpg"
     },
     {
-      name: "Twist Outs",
-      price: 600,
-      description: "Two-strand twists undone to create defined, bouncy curls for a natural, soft afro-textured look",
-      image: "/images/twistouts.jpeg"
+      name: "Valuation Services",
+      description: "Accurate property assessments to guide your investments.",
+      image: "/images/valuation.jpg"
+    }
+  ];
+
+  const stats = [
+    { number: '50+', label: 'Homes Built Since 2020', description: "We've successfully designed and built over 50 homes across Kenya, helping families achieve their dream of modern, affordable village living." },
+    { number: '97%', label: 'Client Satisfaction Rate', description: "Our clients love our work. 97% of them rate our services as excellent, highlighting our commitment to quality and transparency." },
+    { number: '4-6 Months', label: 'Average Project Completion', description: "We deliver projects on time. Our streamlined process ensures most homes are completed within 4-6 months." },
+    { number: '20+', label: 'Years of Combined Team Experience', description: "Our team of architects, engineers, and builders brings over 20 years of combined experience to every project." }
+  ];
+
+  const testimonials = [
+    {
+      quote: "I trusted Highpoint with my project while living in Canada, and they didn't disappoint. They respected my budget, timeline, and vision. Seeing my home completed was a dream come true.",
+      name: "John Doe",
+      location: "Toronto, Canada"
     },
     {
-      name: "Marley Twist",
-      price: 1500,
-      description: "Thick, textured twists using Marley hair extensions, giving a bold, afro-inspired look full of volume and length.",
-      image: "/images/marley.jpeg"
+      quote: "Being in Qatar, I worried about overseeing my renovation project back home. Highpoint delivered beyond my expectations. They were transparent, reliable, and made the whole process smooth.",
+      name: "Jane M.",
+      location: "Doha, Qatar"
     },
     {
-      name: "Coco Twists",
-      price: 2500,
-      description: "Luxurious twists with a smooth, rope-like finish. Perfect for those who love a clean, defined protective style.",
-      image: "/images/coco.jpeg"
-    },
-    {
-      name: "Spring Twist",
-      price: 2500,
-      description: "Lightweight, springy twists with a coily texture. This low-maintenance style gives a fun and youthful look",
-      image: "/images/spring.jpeg"
-    },
-    {
-      name: "Passion Twist",
-      price: 2500,
-      description: "Soft, shiny twists with a wavy texture. A trendy and romantic look ideal for any season.",
-      image: "/images/passion.jpeg"
-    },
-    {
-      name: "Ghanaians",
-      price: 1500,
-      description: "Feed-in cornrows with intricate designs inspired by Ghanaian culture. Neat, sleek, and perfect for all occasions.",
-      image: "/images/ghanaians.jpeg"
-    },
-    {
-      name: "Half Lines",
-      price: 2000,
-      description: "A stylish combination of cornrows at the front and free-flowing braids at the back, blending structure with freedom.",
-      image: "/images/halflines.jpeg"
-    },
-    
+      quote: "I wanted to build a modern house in Kisumu while working in the US. Highpoint took care of everything, from design to construction. Their communication was excellent, and the final result blew me away!",
+      name: "David W.",
+      location: "Houston, USA"
+    }
   ];
 </script>
 
@@ -111,14 +93,73 @@
 <main id="main-content">
   <Hero />
   
+  <!-- Problem Statement Section -->
+  <section class="py-16 px-4 bg-light">
+    <div class="max-w-5xl mx-auto text-center">
+      <h2 class="text-3xl md:text-4xl font-bold mb-8 font-montserrat">Building a Village Home Shouldn't Be This Hard.</h2>
+      <p class="text-lg mb-10 text-black font-raleway">
+        You want a beautiful home in the village, but the process feels overwhelming. Finding reliable builders, managing costs, and ensuring quality construction can be a nightmare. What if there was a simpler way?
+      </p>
+      <a href="/contact" class="btn-primary inline-block">Talk to an Expert</a>
+    </div>
+  </section>
+  
+  <!-- Stats Section -->
+  <section class="py-16 px-4 bg-primary text-white">
+    <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+      {#each stats as stat, i}
+        <div class="animate-on-scroll" id="stat-{i}">
+          <div class="text-center p-6">
+            <h3 class="text-gold text-4xl md:text-5xl font-bold mb-2 font-montserrat">{stat.number}</h3>
+            <p class="text-xl font-semibold mb-4 font-montserrat">{stat.label}</p>
+            <p class="text-sm text-white font-raleway">{stat.description}</p>
+          </div>
+        </div>
+      {/each}
+    </div>
+  </section>
+  
+  <!-- Value Proposition -->
+  <section class="py-16 px-4 bg-light">
+    <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-8">
+      <div class="md:w-1/2 mb-8 md:mb-0">
+        <img src="/images/construction-team.jpg" alt="Highpoint construction team" class="rounded shadow-lg" />
+      </div>
+      <div class="md:w-1/2">
+        <h2 class="text-3xl md:text-4xl font-bold mb-6 font-montserrat">We Handle Everything, So You Don't Have To.</h2>
+        <p class="mb-6 text-black font-raleway">
+          At Highpoint, we take care of the entire building process—from design to handing you the keys. Our experienced team ensures your home is built to the highest standards, on time, and within budget.
+        </p>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
+          <div class="flex items-start">
+            <span class="text-gold text-2xl mr-2">✓</span>
+            <p class="font-semibold">Architectural Designs That Inspire</p>
+          </div>
+          <div class="flex items-start">
+            <span class="text-gold text-2xl mr-2">✓</span>
+            <p class="font-semibold">Affordable Construction</p>
+          </div>
+          <div class="flex items-start">
+            <span class="text-gold text-2xl mr-2">✓</span>
+            <p class="font-semibold">No hidden costs</p>
+          </div>
+          <div class="flex items-start">
+            <span class="text-gold text-2xl mr-2">✓</span>
+            <p class="font-semibold">Stress-Free Project Management</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
   <!-- Services Section -->
-  <section id="services" class="py-20 px-4 max-w-6xl mx-auto bg-light-gray">
+  <section id="services" class="py-20 px-4 max-w-6xl mx-auto">
     <div class="text-center mb-16 animate-on-scroll" id="services-heading">
-      <span class="text-gold uppercase tracking-wider font-lato text-sm font-bold">Our Expertise</span>
-      <h2 class="text-4xl font-bold mt-2 mb-4 font-playfair">Our Signature Services</h2>
+      <span class="text-gold uppercase tracking-wider font-montserrat text-sm font-bold">Our Services</span>
+      <h2 class="text-4xl font-bold mt-2 mb-4 font-montserrat">Everything You Need Under One Roof</h2>
       <div class="w-24 h-1 bg-gold mx-auto"></div>
-      <p class="mt-6 text-gray-600 max-w-2xl mx-auto font-lato font-light">
-        Experience our award-winning services delivered by expert stylists using sustainable, luxury products
+      <p class="mt-6 text-black max-w-2xl mx-auto font-raleway">
+        From architectural design to construction completion, our comprehensive services ensure a seamless building experience.
       </p>
     </div>
     
@@ -129,35 +170,120 @@
         </div>
       {/each}
     </div>
+    
+    <div class="text-center mt-12">
+      <a href="/services" class="btn-primary">View All Services</a>
+    </div>
   </section>
 
+  <!-- Process Section -->
+  <section class="py-20 px-4 bg-light">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-16">
+        <span class="text-gold uppercase tracking-wider font-montserrat text-sm font-bold">How We Work</span>
+        <h2 class="text-4xl font-bold mt-2 mb-4 font-montserrat">Our Proven 4-Step Process</h2>
+        <div class="w-24 h-1 bg-gold mx-auto"></div>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div class="bg-white p-6 shadow-lg">
+          <div class="text-gold text-4xl font-bold mb-4">01</div>
+          <h3 class="text-xl font-bold mb-3 font-montserrat">Consultation & Planning</h3>
+          <p class="text-black font-raleway">We start with a conversation to understand your goals, style, budget, and timeline. Whether you're in Kenya or abroad, we'll make sure we're on the same page.</p>
+        </div>
+        
+        <div class="bg-white p-6 shadow-lg">
+          <div class="text-gold text-4xl font-bold mb-4">02</div>
+          <h3 class="text-xl font-bold mb-3 font-montserrat">Custom Design</h3>
+          <p class="text-black font-raleway">Our architects create innovative, functional designs tailored to your needs. You'll receive detailed plans and 3D visualizations of your future home.</p>
+        </div>
+        
+        <div class="bg-white p-6 shadow-lg">
+          <div class="text-gold text-4xl font-bold mb-4">03</div>
+          <h3 class="text-xl font-bold mb-3 font-montserrat">Building & Construction</h3>
+          <p class="text-black font-raleway">Our skilled team handles the entire construction process with precision and care, using high-quality materials and keeping you updated throughout.</p>
+        </div>
+        
+        <div class="bg-white p-6 shadow-lg">
+          <div class="text-gold text-4xl font-bold mb-4">04</div>
+          <h3 class="text-xl font-bold mb-3 font-montserrat">Handover & Aftercare</h3>
+          <p class="text-black font-raleway">We hand you the keys to your completed home, ensuring every detail meets your expectations with ongoing support afterward.</p>
+        </div>
+      </div>
+    </div>
+  </section>
   
+  <!-- Testimonials Section -->
+  <section class="py-20 px-4 bg-primary">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-16">
+        <span class="text-gold uppercase tracking-wider font-montserrat text-sm font-bold">Testimonials</span>
+        <h2 class="text-4xl font-bold mt-2 mb-4 font-montserrat text-white">Homes Built, Dreams Fulfilled</h2>
+        <div class="w-24 h-1 bg-gold mx-auto"></div>
+        <p class="mt-6 text-light max-w-2xl mx-auto font-raleway">
+          Trusted by Kenyans Everywhere Around the World.
+        </p>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        {#each testimonials as testimonial, i}
+          <div class="bg-white p-8 rounded shadow-lg">
+            <div class="text-gold text-4xl mb-4">"</div>
+            <p class="mb-6 font-raleway text-black">{testimonial.quote}</p>
+            <div class="border-t border-black pt-4">
+              <p class="font-semibold font-montserrat">{testimonial.name}</p>
+              <p class="text-black font-raleway">{testimonial.location}</p>
+            </div>
+          </div>
+        {/each}
+      </div>
+    </div>
+  </section>
+  
+  <!-- CTA Section -->
+  <section class="py-16 px-4 bg-light">
+    <div class="max-w-4xl mx-auto text-center">
+      <h2 class="text-3xl md:text-4xl font-bold mb-6 font-montserrat">Your Dream Home Is Just a Click Away</h2>
+      <p class="mb-8 text-lg text-black font-raleway">
+        Let's make your dream of a beautiful village home a reality. Our team is ready to guide you every step of the way.
+      </p>
+      <a href="/quote" class="btn-primary inline-block">Get A Quote</a>
+    </div>
+  </section>
 </main>
 
 <style>
   :global(body) {
-    font-family: 'Lato', sans-serif;
-    color: #333;
+    font-family: 'Raleway', sans-serif;
+    color: #000;
   }
   
   .text-gold {
-    color: #D4AF37;
+    color: var(--color-gold);
   }
   
   .bg-gold {
-    background-color: #D4AF37;
+    background-color: var(--color-gold);
   }
   
-  .bg-light-gray {
-    background-color: #F5F5F5;
+  .bg-primary {
+    background-color: var(--color-primary);
   }
   
-  .font-playfair {
-    font-family: 'Playfair Display', serif;
+  .bg-light {
+    background-color: var(--color-light);
   }
   
-  .font-lato {
-    font-family: 'Lato', sans-serif;
+  .text-secondary {
+    color: var(--color-secondary);
+  }
+  
+  .font-montserrat {
+    font-family: 'Montserrat', sans-serif;
+  }
+  
+  .font-raleway {
+    font-family: 'Raleway', sans-serif;
   }
   
   .animate-on-scroll {
@@ -169,6 +295,24 @@
   :global(.animate-on-scroll.is-visible) {
     opacity: 1;
     transform: translateY(0);
+  }
+
+  .btn-primary {
+    background-color: var(--color-gold);
+    color: #000000;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .btn-primary:hover {
+    background-color: #000000;
+    color: #FFFFFF;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   }
 </style>
 

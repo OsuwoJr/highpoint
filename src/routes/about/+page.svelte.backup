@@ -305,11 +305,6 @@
   }
   
   onMount(() => {
-    // Make all animation elements visible immediately
-    document.querySelectorAll('.animate-on-scroll').forEach(el => {
-      el.classList.add('is-visible');
-    });
-    
     // Animation for elements when they come into view
     if (typeof IntersectionObserver !== 'undefined') {
       const observer = new IntersectionObserver((entries) => {
@@ -334,15 +329,19 @@
 
 <Header />
 
-<main id="main-content" class="pt-24 pb-20">
+<main id="main-content">
   <!-- Hero Section -->
-  <section class="relative py-24 px-4 bg-primary text-light hero-section">
-    <div class="max-w-6xl mx-auto text-center">
-      <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 font-montserrat">Our Services</h1>
-      <p class="text-xl md:text-2xl max-w-3xl mx-auto font-raleway mb-8">
-        Everything You Need Under One Roof
+  <section class="relative bg-primary py-32 px-4">
+    <div class="absolute inset-0 bg-black opacity-30"></div>
+    <div class="relative z-10 max-w-6xl mx-auto text-center text-white">
+      <h1 class="text-4xl md:text-6xl font-bold mb-4 font-montserrat">Our Services</h1>
+      <div class="w-24 h-1 bg-gold mx-auto mb-6"></div>
+      <p class="text-2xl md:text-3xl max-w-3xl mx-auto font-raleway mb-3">
+        Everything You Need Under One Roof.
       </p>
-      <div class="w-24 h-1 bg-gold mx-auto"></div>
+      <p class="text-xl max-w-3xl mx-auto font-raleway">
+        Comprehensive design, construction, and management services to bring your vision to life
+      </p>
     </div>
   </section>
   
@@ -836,39 +835,5 @@
   .animate-on-scroll.is-visible {
     opacity: 1;
     transform: translateY(0);
-  }
-  
-  /* Make animations visible immediately for reduced motion preference */
-  @media (prefers-reduced-motion) {
-    .animate-on-scroll {
-      opacity: 1;
-      transform: translateY(0);
-      transition: none;
-    }
-  }
-  
-  /* Hero section styles */
-  .hero-section {
-    position: relative;
-    overflow: hidden;
-    background-image: url('/images/services/services-hero.jpg');
-    background-size: cover;
-    background-position: center;
-  }
-  
-  .hero-section::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.7);
-    z-index: 0;
-  }
-  
-  .hero-section > div {
-    position: relative;
-    z-index: 1;
   }
 </style>
