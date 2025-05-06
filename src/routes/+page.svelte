@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import Hero from '$lib/components/Hero.svelte';
   import Header from '$lib/components/Header.svelte';
   import ServiceCard from '$lib/components/ServiceCard.svelte';
@@ -8,7 +8,7 @@
   
   // Media toggle state
   let showVideo = false;
-  let mediaTimer;
+  let mediaTimer: ReturnType<typeof setInterval>;
   
   // Function to toggle between image and video at intervals
   function startMediaToggle() {
@@ -24,7 +24,7 @@
   }
   
   // Preload images
-  function preloadImage(src) {
+  function preloadImage(src: string) {
     return new Promise((resolve, reject) => {
       const img = new Image();
       img.src = src;
@@ -124,18 +124,21 @@
   const testimonials = [
     {
       quote: "I trusted Highpoint with my project while living in Canada, and they didn't disappoint. They respected my budget, timeline, and vision. Seeing my home completed was a dream come true.",
-      name: "John Doe",
-      location: "Toronto, Canada"
+      name: "Wambui Kamau",
+      location: "Toronto, Canada",
+      image: "/images/testimonials/profile1.jpg"
     },
     {
       quote: "Being in Qatar, I worried about overseeing my renovation project back home. Highpoint delivered beyond my expectations. They were transparent, reliable, and made the whole process smooth.",
-      name: "Jane M.",
-      location: "Doha, Qatar"
+      name: "Njoroge Maina",
+      location: "Doha, Qatar",
+      image: "/images/testimonials/profile2.jpg"
     },
     {
       quote: "I wanted to build a modern house in Kisumu while working in the US. Highpoint took care of everything, from design to construction. Their communication was excellent, and the final result blew me away!",
-      name: "David W.",
-      location: "Houston, USA"
+      name: "Atieno Odhiambo",
+      location: "Houston, USA",
+      image: "/images/testimonials/profile3.jpg"
     }
   ];
 </script>
@@ -261,38 +264,98 @@
   </section>
 
   <!-- Process Section -->
-  <section class="py-20 px-4 bg-light">
-    <div class="max-w-6xl mx-auto">
-      <div class="text-center mb-16">
+  <section class="py-20 px-4 bg-light relative overflow-hidden">
+    <!-- Background decoration elements -->
+    <div class="absolute top-0 right-0 w-64 h-64 bg-gold/5 rounded-full -mr-32 -mt-32"></div>
+    <div class="absolute bottom-0 left-0 w-96 h-96 bg-gold/5 rounded-full -ml-48 -mb-48"></div>
+    
+    <div class="max-w-6xl mx-auto relative z-10">
+      <div class="text-center mb-16 animate-on-scroll" id="process-heading">
         <span class="text-gold uppercase tracking-wider font-montserrat text-sm font-bold">How We Work</span>
         <h2 class="text-4xl font-bold mt-2 mb-4 font-montserrat">Our Proven 4-Step Process</h2>
         <div class="w-24 h-1 bg-gold mx-auto"></div>
+        <p class="mt-6 text-black max-w-2xl mx-auto font-raleway">
+          We've refined our process to ensure a seamless, stress-free experience from start to finish.
+        </p>
       </div>
       
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-        <div class="bg-white p-6 shadow-lg">
-          <div class="text-gold text-4xl font-bold mb-4">01</div>
-          <h3 class="text-xl font-bold mb-3 font-montserrat">Consultation & Planning</h3>
-          <p class="text-black font-raleway">We start with a conversation to understand your goals, style, budget, and timeline. Whether you're in Kenya or abroad, we'll make sure we're on the same page.</p>
+      <div class="relative">
+        <!-- Connection Line (Desktop) -->
+        <div class="hidden lg:block absolute top-1/2 left-0 w-full h-1 bg-gradient-to-r from-gold/10 via-gold/30 to-gold/10 -translate-y-1/2 z-0"></div>
+        
+        <!-- Connection dots between steps -->
+        <div class="hidden lg:flex absolute top-1/2 left-1/4 -translate-x-1/2 -translate-y-1/2 z-20">
+          <div class="w-4 h-4 rounded-full bg-gold"></div>
+        </div>
+        <div class="hidden lg:flex absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20">
+          <div class="w-4 h-4 rounded-full bg-gold"></div>
+        </div>
+        <div class="hidden lg:flex absolute top-1/2 left-3/4 -translate-x-1/2 -translate-y-1/2 z-20">
+          <div class="w-4 h-4 rounded-full bg-gold"></div>
         </div>
         
-        <div class="bg-white p-6 shadow-lg">
-          <div class="text-gold text-4xl font-bold mb-4">02</div>
-          <h3 class="text-xl font-bold mb-3 font-montserrat">Custom Design</h3>
-          <p class="text-black font-raleway">Our architects create innovative, functional designs tailored to your needs. You'll receive detailed plans and 3D visualizations of your future project.</p>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 relative z-10">
+          <div class="group bg-white p-8 shadow-lg rounded-sm border-t-4 border-gold hover:shadow-xl hover:-translate-y-1 transition-all duration-300 animate-on-scroll" id="process-1" style="transition-delay: 100ms">
+            <div class="flex justify-center mb-6">
+              <div class="w-20 h-20 rounded-full bg-gold/10 flex items-center justify-center border-2 border-gold group-hover:bg-gold/20 group-hover:scale-110 transition-all duration-300">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                </svg>
+              </div>
+            </div>
+            <div class="text-gold text-4xl font-bold mb-4 text-center group-hover:scale-110 transition-transform duration-300">01</div>
+            <h3 class="text-xl font-bold mb-3 font-montserrat text-center">Consultation & Planning</h3>
+            <p class="text-black font-raleway text-center">We start with a conversation to understand your goals, style, budget, and timeline. Whether you're in Kenya or abroad, we'll make sure we're on the same page.</p>
+          </div>
+          
+          <div class="group bg-white p-8 shadow-lg rounded-sm border-t-4 border-gold hover:shadow-xl hover:-translate-y-1 transition-all duration-300 animate-on-scroll" id="process-2" style="transition-delay: 200ms">
+            <div class="flex justify-center mb-6">
+              <div class="w-20 h-20 rounded-full bg-gold/10 flex items-center justify-center border-2 border-gold group-hover:bg-gold/20 group-hover:scale-110 transition-all duration-300">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7m0 10a2 2 0 002 2h2a2 2 0 002-2V7a2 2 0 00-2-2h-2a2 2 0 00-2 2" />
+                </svg>
+              </div>
+            </div>
+            <div class="text-gold text-4xl font-bold mb-4 text-center group-hover:scale-110 transition-transform duration-300">02</div>
+            <h3 class="text-xl font-bold mb-3 font-montserrat text-center">Custom Design</h3>
+            <p class="text-black font-raleway text-center">Our architects create innovative, functional designs tailored to your needs. You'll receive detailed plans and 3D visualizations of your future project.</p>
+          </div>
+          
+          <div class="group bg-white p-8 shadow-lg rounded-sm border-t-4 border-gold hover:shadow-xl hover:-translate-y-1 transition-all duration-300 animate-on-scroll" id="process-3" style="transition-delay: 300ms">
+            <div class="flex justify-center mb-6">
+              <div class="w-20 h-20 rounded-full bg-gold/10 flex items-center justify-center border-2 border-gold group-hover:bg-gold/20 group-hover:scale-110 transition-all duration-300">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                </svg>
+              </div>
+            </div>
+            <div class="text-gold text-4xl font-bold mb-4 text-center group-hover:scale-110 transition-transform duration-300">03</div>
+            <h3 class="text-xl font-bold mb-3 font-montserrat text-center">Building & Construction</h3>
+            <p class="text-black font-raleway text-center">Our skilled team handles the entire construction process with precision and care, using high-quality materials and keeping you updated throughout.</p>
+          </div>
+          
+          <div class="group bg-white p-8 shadow-lg rounded-sm border-t-4 border-gold hover:shadow-xl hover:-translate-y-1 transition-all duration-300 animate-on-scroll" id="process-4" style="transition-delay: 400ms">
+            <div class="flex justify-center mb-6">
+              <div class="w-20 h-20 rounded-full bg-gold/10 flex items-center justify-center border-2 border-gold group-hover:bg-gold/20 group-hover:scale-110 transition-all duration-300">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+                </svg>
+              </div>
+            </div>
+            <div class="text-gold text-4xl font-bold mb-4 text-center group-hover:scale-110 transition-transform duration-300">04</div>
+            <h3 class="text-xl font-bold mb-3 font-montserrat text-center">Handover & Aftercare</h3>
+            <p class="text-black font-raleway text-center">We hand you the keys to your completed property, ensuring every detail meets your expectations with ongoing support afterward.</p>
+          </div>
         </div>
-        
-        <div class="bg-white p-6 shadow-lg">
-          <div class="text-gold text-4xl font-bold mb-4">03</div>
-          <h3 class="text-xl font-bold mb-3 font-montserrat">Building & Construction</h3>
-          <p class="text-black font-raleway">Our skilled team handles the entire construction process with precision and care, using high-quality materials and keeping you updated throughout.</p>
-        </div>
-        
-        <div class="bg-white p-6 shadow-lg">
-          <div class="text-gold text-4xl font-bold mb-4">04</div>
-          <h3 class="text-xl font-bold mb-3 font-montserrat">Handover & Aftercare</h3>
-          <p class="text-black font-raleway">We hand you the keys to your completed property, ensuring every detail meets your expectations with ongoing support afterward.</p>
-        </div>
+      </div>
+      
+      <div class="text-center mt-12">
+        <a href="/services#process" class="btn-primary inline-flex items-center group">
+          <span>Learn More About Our Process</span>
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+          </svg>
+        </a>
       </div>
     </div>
   </section>
@@ -312,12 +375,25 @@
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
         {#each testimonials as testimonial, i}
           <div class="bg-white p-8 rounded shadow-lg">
+            <div class="flex items-center mb-4">
+              <div class="w-16 h-16 rounded-full overflow-hidden border-2 border-gold mr-4">
+                <img 
+                  src={testimonial.image} 
+                  alt={testimonial.name}
+                  class="w-full h-full object-cover"
+                  on:error={(e) => {
+                    const img = e.currentTarget as HTMLImageElement;
+                    img.src = '/images/testimonials/placeholder.jpg';
+                  }}
+                />
+              </div>
+              <div>
+                <p class="font-semibold font-montserrat">{testimonial.name}</p>
+                <p class="text-gray-600 font-raleway text-sm">{testimonial.location}</p>
+              </div>
+            </div>
             <div class="text-gold text-4xl mb-4">"</div>
             <p class="mb-6 font-raleway text-black">{testimonial.quote}</p>
-            <div class="border-t border-black pt-4">
-              <p class="font-semibold font-montserrat">{testimonial.name}</p>
-              <p class="text-black font-raleway">{testimonial.location}</p>
-            </div>
           </div>
         {/each}
       </div>

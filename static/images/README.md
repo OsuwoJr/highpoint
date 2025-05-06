@@ -23,9 +23,12 @@ This directory contains all the images used in the Highpoint Construction websit
 - `valuation.jpg` - Valuation services (800x600px)
 
 ### Team Member Photos
-- `team/james-mwangi.jpg` - James Mwangi profile photo (400x500px)
-- `team/sarah-odhiambo.jpg` - Sarah Odhiambo profile photo (400x500px)
-- `team/david-kariuki.jpg` - David Kariuki profile photo (400x500px)
+- `team/victor-odhiambo.jpg` - Victor Odhiambo profile photo (400x500px)
+- `team/messchack-ojowi.jpg` - Meschack Ojowi profile photo (400x500px)
+- `team/osuwojr.jpg` - OsuwoJr profile photo (400x500px)
+- `team/julius-omondi.jpg` - Julius Omondi profile photo (400x500px)
+- `team/angela-muthoni.jpg` - Angela Muthoni profile photo (400x500px)
+- `team/placeholder.jpg` - Default placeholder profile photo (400x500px)
 
 ### Project Images
 Each project should have at least three images:

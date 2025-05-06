@@ -6,7 +6,7 @@
   // Define proper types for blog post content
   type ContentItem = {
     type: 'paragraph' | 'heading' | 'subheading' | 'list' | 'quote';
-    text: string;
+    text?: string;
     items?: string[];
     author?: string;
   };
@@ -68,9 +68,9 @@
       title: 'A Guide to Building in Kenya for Diaspora Kenyans',
       excerpt: 'Navigating the challenges and opportunities of building your dream home in Kenya while living abroad. Learn about the process, challenges, and how to succeed.',
       category: 'Diaspora',
-      author: 'James Mwangi',
-      authorTitle: 'CEO & Founder',
-      authorImage: '/images/team/james-mwangi.jpg',
+      author: 'Victor Odhiambo',
+      authorTitle: 'Founder & Managing Director',
+      authorImage: '/images/team/victor-odhiambo.jpg',
       date: 'June 15, 2023',
       image: '/images/blog/diaspora-building.jpg',
       readTime: '8 min read',
@@ -90,6 +90,7 @@
         },
         {
           type: 'list',
+          text: '',
           items: [
             'Finding trustworthy professionals to oversee your project',
             'Navigating land purchase and verification processes',
@@ -122,7 +123,7 @@
         {
           type: 'quote',
           text: 'The success of a diaspora building project depends largely on having reliable eyes and ears on the ground who represent your interests as if they were their own.',
-          author: 'James Mwangi, CEO Highpoint Construction'
+          author: 'Victor Odhiambo, Founder & Managing Director, Highpoint Construction'
         },
         {
           type: 'subheading',
@@ -134,6 +135,7 @@
         },
         {
           type: 'list',
+          text: '',
           items: [
             'Video calls with your project manager while they\'re on site',
             'Drone footage of construction progress',
@@ -156,6 +158,7 @@
         },
         {
           type: 'list',
+          text: '',
           items: [
             'Set up a dedicated Kenyan bank account for your project',
             'Work with a construction company that provides detailed cost breakdowns',
@@ -178,6 +181,7 @@
         },
         {
           type: 'list',
+          text: '',
           items: [
             'Sending money to relatives without construction experience to oversee your project',
             'Choosing contractors based solely on the lowest bid',
@@ -209,9 +213,9 @@
       title: 'Sustainable Building Materials for Modern Kenyan Homes',
       excerpt: 'Explore environmentally friendly and locally sourced materials that are perfect for construction in Kenya\'s diverse climate regions.',
       category: 'Sustainability',
-      author: 'Alice Kamau',
-      authorTitle: 'Senior Architect',
-      authorImage: '/images/team/alice-kamau.jpg',
+      author: 'Meschack Ojowi',
+      authorTitle: 'Founder & Technical Director',
+      authorImage: '/images/team/messchack-ojowi.jpg',
       date: 'July 23, 2023',
       image: '/images/blog/sustainable-materials.jpg',
       readTime: '6 min read',
@@ -219,18 +223,23 @@
       content: [
         {
           type: 'paragraph',
-          text: 'As climate change concerns and environmental awareness grow, more Kenyan homeowners and builders are looking for sustainable alternatives to conventional building materials. Sustainable building goes beyond just being environmentally friendly – it also considers economic efficiency, durability, and the cultural context of materials.'
-        },
-        {
-          type: 'heading',
-          text: 'Why Choose Sustainable Building Materials?'
+          text: 'The construction industry in Kenya is experiencing a significant shift toward sustainability. As climate change concerns grow and resources become more limited, there\'s an increasing focus on building materials and methods that minimize environmental impact while maximizing efficiency and durability.'
         },
         {
           type: 'paragraph',
-          text: 'Sustainable materials offer numerous benefits for Kenyan construction projects:'
+          text: 'Sustainable building isn\'t just environmentally responsible—it makes economic sense, especially in Kenya\'s varied climate zones where appropriate material choices can dramatically reduce long-term energy costs and maintenance requirements.'
+        },
+        {
+          type: 'heading',
+          text: 'Benefits of Sustainable Building Materials'
+        },
+        {
+          type: 'paragraph',
+          text: 'Before we explore specific materials, it\'s important to understand the advantages sustainable options offer for your Kenyan construction project:'
         },
         {
           type: 'list',
+          text: '',
           items: [
             'Reduced environmental impact and carbon footprint',
             'Lower energy consumption both during production and in the finished building',
@@ -241,19 +250,21 @@
           ]
         },
         {
-          type: 'heading',
-          text: 'Locally Sourced Sustainable Materials'
+          type: 'quote',
+          text: 'When we build with materials that are adapted to our local environment, we create structures that not only last longer but also perform better while consuming fewer resources.',
+          author: 'Meschack Ojowi, Founder & Technical Director, Highpoint Construction'
         },
         {
-          type: 'subheading',
-          text: '1. Earth-Based Materials'
+          type: 'heading',
+          text: 'Earth-Based Materials'
         },
         {
           type: 'paragraph',
-          text: 'Earth has been used as a building material in Kenya for centuries, and modern techniques have improved its durability and performance:'
+          text: 'Kenya has a rich history of earth construction, and modern innovations have made these traditional materials even more effective and durable:'
         },
         {
           type: 'list',
+          text: '',
           items: [
             'Compressed Earth Blocks (CEBs): Made from soil mixed with a small amount of cement and compressed in a machine, CEBs offer excellent thermal properties and require minimal processing.',
             'Rammed Earth: This technique involves compacting earth between formwork to create solid walls with beautiful natural textures and excellent thermal mass.',
@@ -263,7 +274,7 @@
         {
           type: 'quote',
           text: 'Earth is perhaps the most versatile and locally available sustainable building material in Kenya. When properly engineered, it can last generations while providing excellent thermal comfort.',
-          author: 'Alice Kamau, Senior Architect'
+          author: 'Angela Muthoni, Interior Design Specialist'
         },
         {
           type: 'subheading',
@@ -275,6 +286,7 @@
         },
         {
           type: 'list',
+          text: '',
           items: [
             'Extremely high tensile strength (comparable to steel in some applications)',
             'Rapid renewability, with some species growing up to 1 meter per day',
@@ -296,6 +308,7 @@
         },
         {
           type: 'list',
+          text: '',
           items: [
             'Recycled plastic lumber for outdoor decking and furniture',
             'Reclaimed timber from old buildings for flooring, doors, and decorative elements',
@@ -317,6 +330,7 @@
         },
         {
           type: 'list',
+          text: '',
           items: [
             'Are made from soil stabilized with 5-10% cement',
             'Feature interlocking designs that reduce or eliminate the need for mortar',
@@ -335,6 +349,7 @@
         },
         {
           type: 'list',
+          text: '',
           items: [
             'Local production with simple equipment',
             'Excellent durability and weather resistance',
@@ -353,6 +368,7 @@
         },
         {
           type: 'list',
+          text: '',
           items: [
             'Using traditional building layouts that maximize natural ventilation but with improved materials',
             'Incorporating vernacular design elements that have proven effective for climate control',
@@ -370,6 +386,7 @@
         },
         {
           type: 'list',
+          text: '',
           items: [
             'Perception issues: Some clients associate earth materials with poverty rather than sustainability',
             'Building code compliance: Navigating regulations that may not yet fully accommodate alternative materials',
@@ -392,6 +409,122 @@
         }
       ],
       relatedPosts: ['eco-friendly-building-practices', 'cost-saving-construction', 'water-conservation-systems']
+    },
+    'cost-saving-construction': {
+      title: '10 Ways to Save Costs During Your Construction Project',
+      excerpt: 'Practical tips to help you manage your budget effectively without compromising on quality or safety during your building project.',
+      category: 'Budget',
+      author: 'OsuwoJr',
+      authorTitle: 'Construction Technology Specialist',
+      authorImage: '/images/team/osuwojr.jpg',
+      date: 'August 10, 2023',
+      image: '/images/blog/cost-saving.jpg',
+      readTime: '5 min read',
+      tags: ['Budget', 'Cost Saving', 'Planning'],
+      content: [
+        {
+          type: 'paragraph',
+          text: 'Managing your budget effectively during a construction project is crucial to ensure that you stay on track and achieve your goals without compromising on quality or safety.'
+        },
+        {
+          type: 'heading',
+          text: '1. Plan Your Budget'
+        },
+        {
+          type: 'paragraph',
+          text: 'Start by creating a detailed budget plan that includes all necessary costs such as materials, labor, permits, and equipment.'
+        },
+        {
+          type: 'heading',
+          text: '2. Choose the Right Materials'
+        },
+        {
+          type: 'paragraph',
+          text: 'Selecting cost-effective materials that meet your project requirements is essential. Research and compare prices from different suppliers and consider the long-term maintenance costs.'
+        },
+        {
+          type: 'heading',
+          text: '3. Negotiate with Suppliers'
+        },
+        {
+          type: 'paragraph',
+          text: 'Negotiating with suppliers can help you get better prices and terms. Don\'t hesitate to ask for discounts or better payment terms.'
+        },
+        {
+          type: 'heading',
+          text: '4. Manage Your Time'
+        },
+        {
+          type: 'paragraph',
+          text: 'Efficient project management can save you money. Plan your schedule, prioritize tasks, and avoid delays.'
+        },
+        {
+          type: 'heading',
+          text: '5. Use Local Labor'
+        },
+        {
+          type: 'paragraph',
+          text: 'Hiring local labor can be more cost-effective and culturally appropriate. Consider the availability of skilled workers in your area.'
+        },
+        {
+          type: 'heading',
+          text: '6. Implement Cost-Saving Techniques'
+        },
+        {
+          type: 'paragraph',
+          text: 'Implement cost-saving techniques such as lean construction methods, value engineering, and pre-fabrication.'
+        },
+        {
+          type: 'heading',
+          text: '7. Monitor Your Progress'
+        },
+        {
+          type: 'paragraph',
+          text: 'Regularly monitor your project progress and identify areas where you can make adjustments to save costs.'
+        },
+        {
+          type: 'heading',
+          text: '8. Choose the Right Location'
+        },
+        {
+          type: 'paragraph',
+          text: 'Choosing the right location for your project can significantly impact your costs. Consider factors such as accessibility, infrastructure, and local regulations.'
+        },
+        {
+          type: 'heading',
+          text: '9. Consider Permitting Costs'
+        },
+        {
+          type: 'paragraph',
+          text: 'Permitting costs can vary greatly depending on your location. Research and plan for these expenses.'
+        },
+        {
+          type: 'heading',
+          text: '10. Use Technology'
+        },
+        {
+          type: 'paragraph',
+          text: 'Utilize technology to streamline your project management, communication, and cost tracking.'
+        },
+        {
+          type: 'quote',
+          text: 'By implementing these strategies, you can effectively manage your budget and ensure that your construction project stays on track and within your financial goals.',
+          author: 'OsuwoJr, Construction Technology Specialist'
+        },
+        {
+          type: 'heading',
+          text: 'Conclusion'
+        },
+        {
+          type: 'paragraph',
+          text: 'Managing your budget effectively is a continuous process that requires attention to detail, research, and adaptation. By implementing these 10 strategies, you can save costs and ensure the success of your construction project.'
+        },
+        {
+          type: 'paragraph',
+          text: 'At Highpoint Construction, we\'re committed to helping you achieve your construction goals with expertise and care.'
+        }
+      ],
+      relatedPosts: ['land-buying-guide', 'construction-contracts', 'cost-saving-construction']
     }
   };
   
@@ -474,7 +607,7 @@
           <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">{post.title}</h1>
           <div class="flex flex-wrap items-center text-sm gap-y-2">
             <div class="flex items-center">
-              <img src={post.authorImage || '/images/team/placeholder.jpg'} alt={post.author} class="w-10 h-10 rounded-full mr-3 object-cover">
+              <img src={post.authorImage || '/images/team/placeholder.jpg'} alt={post.author} class="w-10 h-10 rounded-full mr-3 object-cover object-top">
               <div>
                 <p class="font-semibold">{post.author}</p>
                 <p class="text-light/70">{post.authorTitle}</p>
@@ -518,11 +651,23 @@
         
         <!-- Author Bio -->
         <div class="mt-12 p-6 bg-gray-100 flex items-center flex-col md:flex-row">
-          <img src={post.authorImage || '/images/team/placeholder.jpg'} alt={post.author} class="w-24 h-24 rounded-full object-cover mb-4 md:mb-0 md:mr-6">
+          <img src={post.authorImage || '/images/team/placeholder.jpg'} alt={post.author} class="w-24 h-24 rounded-full object-cover object-top mb-4 md:mb-0 md:mr-6">
           <div>
             <h3 class="text-xl font-bold mb-2">About {post.author}</h3>
             <p class="text-gray-700 mb-2">{post.authorTitle} at Highpoint Construction</p>
-            <p class="text-gray-700">James is a construction expert with over 20 years of experience in the Kenyan building industry. He specializes in helping diaspora Kenyans navigate the complexities of building back home while living abroad.</p>
+            {#if post.author === 'Victor Odhiambo'}
+              <p class="text-gray-700">Victor is a well-known contractor with a successful career in the motorcar dealing industry and founder of Vellaxdata. He has built a renowned reputation in construction and brings his business expertise to Highpoint Construction, helping clients navigate the complexities of building projects.</p>
+            {:else if post.author === 'Meschack Ojowi'}
+              <p class="text-gray-700">Meschack is a graduate engineer with vast experience and successful projects in the construction field across all sectors. His technical expertise ensures that all Highpoint projects are built to the highest standards of quality and engineering excellence.</p>
+            {:else if post.author === 'OsuwoJr'}
+              <p class="text-gray-700">OsuwoJr is a talented professional with extensive knowledge in construction technology and modern building practices. He specializes in innovative solutions for residential and commercial properties.</p>
+            {:else if post.author === 'Angela Muthoni'}
+              <p class="text-gray-700">Angela is an expert in interior design and sustainable architecture with a passion for creating beautiful, functional spaces. She brings a unique perspective to construction projects with her focus on aesthetics and eco-friendly solutions.</p>
+            {:else if post.author === 'Julius Omondi'}
+              <p class="text-gray-700">Julius specializes in construction regulations and property law. With years of experience in the Kenyan building industry, he helps clients navigate legal complexities and ensure their projects meet all regulatory requirements.</p>
+            {:else}
+              <p class="text-gray-700">An experienced member of the Highpoint Construction team with expertise in the Kenyan building industry. They are dedicated to helping clients create exceptional spaces through quality construction and innovative design.</p>
+            {/if}
           </div>
         </div>
         

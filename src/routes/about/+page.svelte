@@ -5,22 +5,16 @@
   // Team members data
   const teamMembers = [
     {
-      name: 'James Mwangi',
-      title: 'Founder & CEO',
-      bio: 'With over 25 years of experience in construction and architecture, James founded Highpoint to create modern, sustainable homes for Kenyans. His vision drives our company forward.',
-      image: '/images/team/james-mwangi.jpg'
+      name: 'Victor Odhiambo',
+      title: 'Founder & Managing Director',
+      bio: 'A well-known contractor with a very successful career in the motorcar dealing industry, Victor is also the founder of Velmaxdata, a successful company that deals with the sale of computers, laptops, printers, CCTV, cameras, biometric systems, networking, and other IT equipment globally. He has built a renowned reputation in every space he has touched, bringing his business acumen and vision to Highpoint Construction.',
+      image: '/images/team/victor-odhiambo.jpg'
     },
     {
-      name: 'Sarah Odhiambo',
-      title: 'Chief Architect',
-      bio: 'Sarah brings 15 years of architectural expertise specializing in blending modern designs with traditional Kenyan elements. Her award-winning designs are both functional and beautiful.',
-      image: '/images/team/sarah-odhiambo.jpg'
-    },
-    {
-      name: 'David Kariuki',
-      title: 'Construction Manager',
-      bio: 'David ensures all projects are completed to the highest standards of quality and safety. His attention to detail and strong leadership keep our projects on track.',
-      image: '/images/team/david-kariuki.jpg'
+      name: 'Meschack Ojowi',
+      title: 'Founder & Technical Director',
+      bio: 'Messchack is a graduate engineer with vast experience and successful projects in the construction field across all sectors. His technical expertise and practical approach to construction challenges ensure that all Highpoint projects are built to the highest standards of quality and engineering excellence.',
+      image: '/images/team/meschack-ojowi.jpg'
     }
   ];
   
@@ -75,7 +69,7 @@
           <div class="text-gold uppercase tracking-wider font-montserrat text-sm font-bold mb-3">About Us</div>
           <h2 class="text-3xl md:text-4xl font-bold mb-6 font-montserrat text-primary">Your Trusted Construction Partner in Kenya</h2>
           <p class="text-gray-700 mb-6 font-raleway leading-relaxed">
-            Founded in 2010, Highpoint Construction has established itself as a leader in Kenya's construction industry. We specialize in delivering high-quality residential and commercial buildings that combine modern design, superior craftsmanship, and sustainable building practices.
+            Founded by brothers Victor Odhiambo and Meschack Ojowi, Highpoint Construction has established itself as a leader in Kenya's construction industry. We specialize in delivering high-quality residential and commercial buildings that combine modern design, superior craftsmanship, and sustainable building practices.
           </p>
           <p class="text-gray-700 mb-6 font-raleway leading-relaxed">
             Our team brings together experts in architecture, engineering, construction, and project management to provide comprehensive building solutions that meet our clients' needs and exceed their expectations.
@@ -184,18 +178,18 @@
         <h2 class="text-3xl md:text-4xl font-bold mt-2 mb-4 font-montserrat text-primary">Our Leadership Team</h2>
         <div class="w-24 h-1 bg-gold mx-auto mb-6"></div>
         <p class="text-gray-700 max-w-3xl mx-auto font-raleway">
-          With decades of combined experience in construction and design, our team brings unparalleled expertise to every project
+          Founded by brothers Victor Odhiambo and Messchack Ojowi, Highpoint Construction combines business expertise with technical excellence to deliver exceptional construction projects across Kenya.
         </p>
       </div>
       
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 relative z-20">
         {#each teamMembers as member, i}
           <div class="bg-light overflow-hidden shadow-lg animate-on-scroll team-card opacity-100" style="transform: translateY(0); opacity: 1; transition-delay: {i * 100}ms; position: relative; z-index: 15;">
-            <div class="h-64 overflow-hidden image-container">
+            <div class="h-72 overflow-hidden image-container">
               <img 
                 src={member.image} 
                 alt={member.name} 
-                class="w-full h-full object-cover"
+                class="w-full h-full object-cover object-top"
                 on:error={handleImageError}
                 style="position: relative; z-index: 5;"
               />

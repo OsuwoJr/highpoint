@@ -9,7 +9,7 @@
       title: 'A Guide to Building in Kenya for Diaspora Kenyans',
       excerpt: 'Navigating the challenges and opportunities of building your dream home in Kenya while living abroad. Learn about the process, challenges, and how to succeed.',
       category: 'Diaspora',
-      author: 'James Mwangi',
+      author: 'Victor Odhiambo',
       date: 'June 15, 2023',
       image: '/images/blog/diaspora-building.jpg',
       readTime: '8 min read',
@@ -21,7 +21,7 @@
       title: 'Sustainable Building Materials for Modern Kenyan Homes',
       excerpt: 'Explore environmentally friendly and locally sourced materials that are perfect for construction in Kenya\'s diverse climate regions.',
       category: 'Sustainability',
-      author: 'Alice Kamau',
+      author: 'Meschack Ojowi',
       date: 'July 23, 2023',
       image: '/images/blog/sustainable-materials.jpg',
       readTime: '6 min read',
@@ -33,7 +33,7 @@
       title: '10 Ways to Save Costs During Your Construction Project',
       excerpt: 'Practical tips to help you manage your budget effectively without compromising on quality or safety during your building project.',
       category: 'Budget',
-      author: 'David Ochieng',
+      author: 'OsuwoJr',
       date: 'August 10, 2023',
       image: '/images/blog/cost-saving.jpg',
       readTime: '5 min read',
@@ -45,7 +45,7 @@
       title: 'Current Architectural Trends Shaping Kenyan Homes',
       excerpt: 'From indoor-outdoor living to smart home integration, discover the design trends that are defining modern Kenyan residential architecture.',
       category: 'Design',
-      author: 'Alice Kamau',
+      author: 'Angela Muthoni',
       date: 'September 5, 2023',
       image: '/images/blog/architecture-trends.jpg',
       readTime: '7 min read',
@@ -57,7 +57,7 @@
       title: 'Essential Guide to Buying Land for Construction in Kenya',
       excerpt: 'What you need to know before purchasing land for your building project, including legal considerations, location factors, and due diligence steps.',
       category: 'Property',
-      author: 'Sarah Njeri',
+      author: 'Julius Omondi',
       date: 'October 12, 2023',
       image: '/images/blog/land-buying.jpg',
       readTime: '9 min read',
@@ -69,7 +69,7 @@
       title: 'Modern Kitchen Renovation Ideas for Kenyan Homes',
       excerpt: 'Transform your kitchen with these contemporary design ideas that blend functionality with aesthetic appeal for the heart of your home.',
       category: 'Renovation',
-      author: 'James Mwangi',
+      author: 'Victor Odhiambo',
       date: 'November 20, 2023',
       image: '/images/blog/kitchen-renovation.jpg',
       readTime: '5 min read',
@@ -81,7 +81,7 @@
       title: 'Understanding Construction Contracts and Agreements',
       excerpt: 'A breakdown of key elements in construction contracts and what to watch for before signing with a contractor or construction company.',
       category: 'Legal',
-      author: 'David Ochieng',
+      author: 'OsuwoJr',
       date: 'December 8, 2023',
       image: '/images/blog/contracts.jpg',
       readTime: '10 min read',
@@ -93,7 +93,7 @@
       title: 'The Role of Building Inspectors in Your Construction Project',
       excerpt: 'Why building inspections matter and how they ensure the quality, safety, and compliance of your construction project in Kenya.',
       category: 'Regulations',
-      author: 'Sarah Njeri',
+      author: 'Julius Omondi',
       date: 'January 15, 2024',
       image: '/images/blog/inspections.jpg',
       readTime: '6 min read',
@@ -105,7 +105,7 @@
       title: '2024 Interior Design Trends for Kenyan Homes',
       excerpt: 'Discover the hottest interior design trends shaping Kenyan homes this year, from materials and colors to layouts and styling.',
       category: 'Design',
-      author: 'Alice Kamau',
+      author: 'Angela Muthoni',
       date: 'February 10, 2024',
       image: '/images/blog/interior-design-trends.jpg',
       readTime: '7 min read',
@@ -117,7 +117,7 @@
       title: 'Eco-Friendly Building Practices for Sustainable Kenyan Homes',
       excerpt: 'How to incorporate green building techniques and sustainable practices in your Kenyan construction project to reduce environmental impact.',
       category: 'Sustainability',
-      author: 'David Ochieng',
+      author: 'Meschack Ojowi',
       date: 'March 5, 2024',
       image: '/images/blog/eco-friendly-building.jpg',
       readTime: '8 min read',
@@ -129,7 +129,7 @@
       title: 'Modern Home Security Systems for Kenyan Properties',
       excerpt: 'The latest technologies and systems to keep your Kenyan property safe and secure, from smart security to traditional methods.',
       category: 'Technology',
-      author: 'James Mwangi',
+      author: 'OsuwoJr',
       date: 'April 12, 2024',
       image: '/images/blog/home-security.jpg',
       readTime: '6 min read',
@@ -141,7 +141,7 @@
       title: 'Water Conservation Systems for Modern Kenyan Homes',
       excerpt: 'Innovative solutions to reduce water usage and implement sustainable water management in residential properties across Kenya.',
       category: 'Sustainability',
-      author: 'Sarah Njeri',
+      author: 'Angela Muthoni',
       date: 'May 18, 2024',
       image: '/images/blog/water-conservation.jpg',
       readTime: '7 min read',
@@ -158,7 +158,9 @@
 
   // Extract all unique tags for popular tags section
   const allTags = blogPosts.flatMap(post => post.tags || []);
-  const tagFrequency = allTags.reduce((acc, tag) => {
+  
+  // Fixed type for tag frequency
+  const tagFrequency: Record<string, number> = allTags.reduce((acc: Record<string, number>, tag: string) => {
     acc[tag] = (acc[tag] || 0) + 1;
     return acc;
   }, {});
@@ -188,7 +190,7 @@
   $: featuredPosts = blogPosts.filter(post => post.featured);
 
   // Handle tag selection
-  function selectTag(tag) {
+  function selectTag(tag: string) {
     selectedTag = tag === selectedTag ? '' : tag;
     selectedCategory = 'All';
   }
