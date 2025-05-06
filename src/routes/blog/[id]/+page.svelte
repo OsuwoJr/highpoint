@@ -23,6 +23,7 @@
     readTime: string;
     content: ContentItem[];
     relatedPosts: string[];
+    tags?: string[];
   };
 
   type BlogPostCollection = {
@@ -36,7 +37,30 @@
     image: string;
     category: string;
     date: string;
+    tags?: string[];
   };
+
+  // Reading progress state
+  let readingProgress = 0;
+  
+  // Track reading progress
+  function handleScroll() {
+    const scrollPosition = window.scrollY;
+    const documentHeight = document.documentElement.scrollHeight;
+    const windowHeight = window.innerHeight;
+    const scrollableDistance = documentHeight - windowHeight;
+    
+    if (scrollableDistance > 0) {
+      readingProgress = Math.min(100, (scrollPosition / scrollableDistance) * 100);
+    }
+  }
+
+  onMount(() => {
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  });
   
   // Blog post data - in a real app this would come from a database or CMS
   const blogPosts: BlogPostCollection = {
@@ -50,6 +74,7 @@
       date: 'June 15, 2023',
       image: '/images/blog/diaspora-building.jpg',
       readTime: '8 min read',
+      tags: ['Diaspora', 'Project Management', 'Investment'],
       content: [
         {
           type: 'paragraph',
@@ -179,6 +204,194 @@
         }
       ],
       relatedPosts: ['land-buying-guide', 'construction-contracts', 'cost-saving-construction']
+    },
+    'sustainable-materials-kenya': {
+      title: 'Sustainable Building Materials for Modern Kenyan Homes',
+      excerpt: 'Explore environmentally friendly and locally sourced materials that are perfect for construction in Kenya\'s diverse climate regions.',
+      category: 'Sustainability',
+      author: 'Alice Kamau',
+      authorTitle: 'Senior Architect',
+      authorImage: '/images/team/alice-kamau.jpg',
+      date: 'July 23, 2023',
+      image: '/images/blog/sustainable-materials.jpg',
+      readTime: '6 min read',
+      tags: ['Sustainability', 'Materials', 'Environment'],
+      content: [
+        {
+          type: 'paragraph',
+          text: 'As climate change concerns and environmental awareness grow, more Kenyan homeowners and builders are looking for sustainable alternatives to conventional building materials. Sustainable building goes beyond just being environmentally friendly – it also considers economic efficiency, durability, and the cultural context of materials.'
+        },
+        {
+          type: 'heading',
+          text: 'Why Choose Sustainable Building Materials?'
+        },
+        {
+          type: 'paragraph',
+          text: 'Sustainable materials offer numerous benefits for Kenyan construction projects:'
+        },
+        {
+          type: 'list',
+          items: [
+            'Reduced environmental impact and carbon footprint',
+            'Lower energy consumption both during production and in the finished building',
+            'Cost-effectiveness through local sourcing and reduced transportation',
+            'Support for local economies and traditional building knowledge',
+            'Improved thermal comfort suited to Kenya\'s diverse climates',
+            'Potential for better indoor air quality and healthier living spaces'
+          ]
+        },
+        {
+          type: 'heading',
+          text: 'Locally Sourced Sustainable Materials'
+        },
+        {
+          type: 'subheading',
+          text: '1. Earth-Based Materials'
+        },
+        {
+          type: 'paragraph',
+          text: 'Earth has been used as a building material in Kenya for centuries, and modern techniques have improved its durability and performance:'
+        },
+        {
+          type: 'list',
+          items: [
+            'Compressed Earth Blocks (CEBs): Made from soil mixed with a small amount of cement and compressed in a machine, CEBs offer excellent thermal properties and require minimal processing.',
+            'Rammed Earth: This technique involves compacting earth between formwork to create solid walls with beautiful natural textures and excellent thermal mass.',
+            'Adobe: Traditional sun-dried mud bricks that have been improved with modern stabilization techniques for better durability.'
+          ]
+        },
+        {
+          type: 'quote',
+          text: 'Earth is perhaps the most versatile and locally available sustainable building material in Kenya. When properly engineered, it can last generations while providing excellent thermal comfort.',
+          author: 'Alice Kamau, Senior Architect'
+        },
+        {
+          type: 'subheading',
+          text: '2. Bamboo'
+        },
+        {
+          type: 'paragraph',
+          text: 'Bamboo grows abundantly in certain regions of Kenya and has exceptional properties for construction:'
+        },
+        {
+          type: 'list',
+          items: [
+            'Extremely high tensile strength (comparable to steel in some applications)',
+            'Rapid renewability, with some species growing up to 1 meter per day',
+            'Versatility for structural elements, flooring, and interior finishes',
+            'When properly treated and maintained, bamboo structures can last 30+ years'
+          ]
+        },
+        {
+          type: 'paragraph',
+          text: 'At Highpoint Construction, we\'ve incorporated bamboo in various elements from structural reinforcement to decorative features in several of our eco-focused projects.'
+        },
+        {
+          type: 'subheading',
+          text: '3. Recycled and Upcycled Materials'
+        },
+        {
+          type: 'paragraph',
+          text: 'Creative reuse of materials reduces waste while creating unique architectural elements:'
+        },
+        {
+          type: 'list',
+          items: [
+            'Recycled plastic lumber for outdoor decking and furniture',
+            'Reclaimed timber from old buildings for flooring, doors, and decorative elements',
+            'Crushed recycled concrete as aggregate for new concrete mixes',
+            'Repurposed shipping containers for modular construction'
+          ]
+        },
+        {
+          type: 'heading',
+          text: 'Modern Sustainable Systems'
+        },
+        {
+          type: 'subheading',
+          text: '1. Interlocking Stabilized Soil Blocks (ISSB)'
+        },
+        {
+          type: 'paragraph',
+          text: 'ISSB technology has revolutionized earth construction in East Africa. These blocks:'
+        },
+        {
+          type: 'list',
+          items: [
+            'Are made from soil stabilized with 5-10% cement',
+            'Feature interlocking designs that reduce or eliminate the need for mortar',
+            'Can be produced on-site with simple machinery',
+            'Reduce construction costs by 30-40% compared to conventional materials',
+            'Provide excellent thermal insulation for Kenya\'s varied climate zones'
+          ]
+        },
+        {
+          type: 'subheading',
+          text: '2. Micro-Concrete Roofing Tiles'
+        },
+        {
+          type: 'paragraph',
+          text: 'As an alternative to imported roofing materials, micro-concrete tiles offer:'
+        },
+        {
+          type: 'list',
+          items: [
+            'Local production with simple equipment',
+            'Excellent durability and weather resistance',
+            'Lower embodied energy than metal roofing',
+            'Reduced heat transfer compared to conventional metal sheets',
+            'Cost-effectiveness over the life of the building'
+          ]
+        },
+        {
+          type: 'heading',
+          text: 'Balancing Tradition and Innovation'
+        },
+        {
+          type: 'paragraph',
+          text: 'The most successful sustainable building projects in Kenya combine traditional knowledge with modern technology. For example:'
+        },
+        {
+          type: 'list',
+          items: [
+            'Using traditional building layouts that maximize natural ventilation but with improved materials',
+            'Incorporating vernacular design elements that have proven effective for climate control',
+            'Employing passive cooling techniques like strategic shading, thermal mass, and night-flush ventilation',
+            'Adapting traditional construction methods with modern structural engineering for better safety and durability'
+          ]
+        },
+        {
+          type: 'heading',
+          text: 'Implementation Challenges'
+        },
+        {
+          type: 'paragraph',
+          text: 'While sustainable materials offer many benefits, several challenges must be addressed:'
+        },
+        {
+          type: 'list',
+          items: [
+            'Perception issues: Some clients associate earth materials with poverty rather than sustainability',
+            'Building code compliance: Navigating regulations that may not yet fully accommodate alternative materials',
+            'Skilled labor: Finding artisans experienced in working with these materials',
+            'Quality control: Ensuring consistent standards when using natural materials',
+            'Maintenance requirements: Educating homeowners on proper care of sustainable materials'
+          ]
+        },
+        {
+          type: 'heading',
+          text: 'Conclusion'
+        },
+        {
+          type: 'paragraph',
+          text: 'The future of sustainable building in Kenya looks promising as more architects, developers, and homeowners recognize the multiple benefits of using locally available, environmentally friendly materials. Beyond the environmental advantages, these materials often create more comfortable, unique, and culturally relevant spaces.'
+        },
+        {
+          type: 'paragraph',
+          text: 'At Highpoint Construction, we\'re committed to guiding our clients through the many options for sustainable building, helping them select materials that meet their aesthetic preferences, performance requirements, and budget constraints while minimizing environmental impact.'
+        }
+      ],
+      relatedPosts: ['eco-friendly-building-practices', 'cost-saving-construction', 'water-conservation-systems']
     }
   };
   
@@ -200,7 +413,8 @@
             excerpt: blogPosts[id].excerpt,
             image: blogPosts[id].image,
             category: blogPosts[id].category,
-            date: blogPosts[id].date
+            date: blogPosts[id].date,
+            tags: blogPosts[id].tags
           };
         }
         return null;
@@ -243,6 +457,11 @@
 
 <Header />
 
+<!-- Reading Progress Bar -->
+<div class="fixed top-0 left-0 w-full h-1 bg-gray-200 z-50">
+  <div class="h-full bg-gold" style="width: {readingProgress}%"></div>
+</div>
+
 <div class="pt-24 bg-light">
   {#if post}
     <!-- Hero Section -->
@@ -253,7 +472,7 @@
         <div class="max-w-4xl mx-auto">
           <div class="bg-gold inline-block px-3 py-1 text-primary font-semibold text-sm mb-4">{post.category}</div>
           <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">{post.title}</h1>
-          <div class="flex items-center text-sm">
+          <div class="flex flex-wrap items-center text-sm gap-y-2">
             <div class="flex items-center">
               <img src={post.authorImage || '/images/team/placeholder.jpg'} alt={post.author} class="w-10 h-10 rounded-full mr-3 object-cover">
               <div>
@@ -265,7 +484,12 @@
             <div>
               <span>{post.date}</span>
               <span class="mx-2">•</span>
-              <span>{post.readTime}</span>
+              <span class="flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                {post.readTime}
+              </span>
             </div>
           </div>
         </div>
@@ -275,6 +499,17 @@
     <!-- Article Content -->
     <div class="py-12 md:py-16">
       <div class="max-w-4xl mx-auto px-4">
+        <!-- Tags Section -->
+        {#if post.tags && post.tags.length > 0}
+          <div class="mb-8 flex flex-wrap gap-2">
+            {#each post.tags as tag}
+              <a href="/blog?tag={tag}" class="bg-gray-100 hover:bg-gray-200 text-gray-700 px-3 py-1 rounded-full text-sm transition-colors">
+                #{tag}
+              </a>
+            {/each}
+          </div>
+        {/if}
+        
         <div class="prose prose-lg max-w-none">
           {#each post.content as item}
             {@html renderContent(item)}
@@ -329,7 +564,7 @@
           <h2 class="text-3xl font-bold mb-10">You May Also Like</h2>
           <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
             {#each relatedPostsData as relatedPost}
-              <div class="bg-white shadow-lg overflow-hidden group h-full">
+              <div class="bg-white shadow-lg overflow-hidden group h-full hover:shadow-xl transition-shadow duration-300">
                 <div class="relative overflow-hidden">
                   <img src={relatedPost.image} alt={relatedPost.title} class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-500" />
                   <div class="absolute top-0 right-0 bg-gold px-3 py-1 text-primary font-semibold text-sm">
@@ -343,6 +578,15 @@
                     </a>
                   </h3>
                   <p class="text-gray-700 mb-4 line-clamp-3">{relatedPost.excerpt}</p>
+                  {#if relatedPost.tags && relatedPost.tags.length > 0}
+                    <div class="flex flex-wrap gap-2 mb-4">
+                      {#each relatedPost.tags.slice(0, 2) as tag}
+                        <span class="bg-gray-100 text-gray-600 text-xs px-2 py-1 rounded-full">
+                          #{tag}
+                        </span>
+                      {/each}
+                    </div>
+                  {/if}
                   <a href={`/blog/${relatedPost.id}`} class="text-gold font-semibold hover:underline inline-flex items-center">
                     Read More
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">

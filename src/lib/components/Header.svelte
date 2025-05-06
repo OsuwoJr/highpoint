@@ -24,7 +24,7 @@
 <header class="fixed w-full z-50 transition-all duration-300 {isScrolled ? 'bg-primary/95 shadow-lg py-2' : 'bg-primary/80 py-4'}">
   <div class="max-w-6xl mx-auto px-4 flex justify-between items-center">
     <a href="/" class="text-white font-montserrat text-2xl font-bold flex items-center" aria-label="Home">
-      <span class="font-montserrat text-white">HIGH</span>
+      <span class="text-white font-montserrat">HIGH</span>
       <span class="text-gold font-montserrat">POINT</span>
     </a>
     
