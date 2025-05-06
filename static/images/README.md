@@ -1,54 +1,78 @@
-# LUXE Hair Website Images
+# Highpoint Construction Website Images
 
-This directory contains all the images used in the LUXE Hair salon website. Below is the organization and required files.
+This directory contains all the images used in the Highpoint Construction website. Below is the organization and required files.
 
 ## Directory Structure
 
 - `/images/` - Main images directory
-  - `/images/gallery/` - Gallery page images
-  - `/images/stylist-photos/` - Team member photos for About page
+  - `/images/projects/` - Project portfolio images
+  - `/images/team/` - Team member photos
+  - `/images/blog/` - Blog post featured images
 
 ## Required Images
 
 ### Homepage Images
-- `balayage.jpg` - Balayage service showcase (800x600px)
-- `eco-color.jpg` - Eco Color service showcase (800x600px)
-- `precision-cut.jpg` - Precision Cut service showcase (800x600px)
-- `bridal.jpg` - Bridal service showcase (800x600px)
-- `keratin.jpg` - Keratin treatment service showcase (800x600px)
-- `extensions.jpg` - Extensions service showcase (800x600px)
+- `construction1.jpg` - Hero section background image (1920x1080px)
+- `construction2.jpg` - Hero section alternate background (1920x1080px)
+- `construction-team.jpg` - Team photo for about section (800x600px)
+- `architectural-design.jpg` - Architectural Design service (800x600px)
+- `home-construction.jpg` - Home Construction service (800x600px)
+- `renovation.jpg` - Home Renovation service (800x600px)
+- `project-management.jpg` - Project Management service (800x600px)
+- `structural-design.jpg` - Structural Design service (800x600px)
+- `valuation.jpg` - Valuation services (800x600px)
 
-### Stylist Photos
-- `stylist-alex.jpg` - Alex Morgan profile photo (400x500px)
-- `stylist-taylor.jpg` - Taylor Kim profile photo (400x500px)
-- `stylist-jordan.jpg` - Jordan Smith profile photo (400x500px)
-- `stylist-casey.jpg` - Casey Brown profile photo (400x500px)
+### Team Member Photos
+- `team/james-mwangi.jpg` - James Mwangi profile photo (400x500px)
+- `team/sarah-odhiambo.jpg` - Sarah Odhiambo profile photo (400x500px)
+- `team/david-kariuki.jpg` - David Kariuki profile photo (400x500px)
+
+### Project Images
+Each project should have at least three images:
+- `projects/skyline-house.jpg` - Primary project image (800x600px)
+- `projects/skyline-house-2.jpg` - Secondary project image (800x600px)
+- `projects/skyline-house-3.jpg` - Tertiary project image (800x600px)
+
+Similar naming conventions apply for other projects:
+- `projects/kagundo-mansion.jpg`, `projects/kagundo-mansion-2.jpg`, `projects/kagundo-mansion-3.jpg`
+- `projects/la-finca.jpg`, `projects/la-finca-2.jpg`, `projects/la-finca-3.jpg`
+- `projects/casa-bosco.jpg`, `projects/casa-bosco-2.jpg`, `projects/casa-bosco-3.jpg`
+- `projects/kiambu-center.jpg`, `projects/kiambu-center-2.jpg`, `projects/kiambu-center-3.jpg`
+- `projects/riverside-apartments.jpg`, `projects/riverside-apartments-2.jpg`, `projects/riverside-apartments-3.jpg`
+- `projects/warehouse.jpg`, `projects/warehouse-2.jpg`, `projects/warehouse-3.jpg`
+- `projects/karen-renovation.jpg`, `projects/karen-renovation-2.jpg`, `projects/karen-renovation-3.jpg`
+- `projects/guest-house.jpg`, `projects/guest-house-2.jpg`, `projects/guest-house-3.jpg`
 
 ### About Page
-- `salon-interior.jpg` - Interior shot of the salon (800x600px)
+- `about/office.jpg` - Office interior (800x600px)
+- `about/hero-background.jpg` - About page hero background (1920x800px)
 
-### Gallery Images
-- `gallery/color1.jpg`, `gallery/color2.jpg`, `gallery/color3.jpg` - Hair color transformations
-- `gallery/cut1.jpg`, `gallery/cut2.jpg`, `gallery/cut3.jpg` - Haircut styles
-- `gallery/style1.jpg`, `gallery/style2.jpg`, `gallery/style3.jpg` - Hair styling examples  
-- `gallery/bridal1.jpg`, `gallery/bridal2.jpg`, `gallery/bridal3.jpg` - Bridal hairstyles
+### Blog Images
+- `blog/post1.jpg`, `blog/post2.jpg`, etc. - Blog post featured images (800x500px)
 
 ## Image Specifications
 
 - **Resolution**: All images should be high-resolution but optimized for web (72 DPI)
 - **Size**: 
-  - Service showcases: 800x600px (4:3 aspect ratio)
-  - Gallery images: 800x1000px (4:5 aspect ratio, portrait orientation)
-  - Stylist photos: 400x500px (4:5 aspect ratio, portrait orientation)
+  - Hero images: 1920x1080px (16:9 aspect ratio)
+  - Project showcases: 800x600px (4:3 aspect ratio)
+  - Team photos: 400x500px (4:5 aspect ratio, portrait orientation)
+  - Blog images: 800x500px (16:10 aspect ratio)
 - **Format**: JPG or WebP preferred
-- **File size**: Under 300KB per image for optimal loading speed
+- **File size**: Under 500KB per image for optimal loading speed
 - **Style**: Professional, high-quality photography with consistent lighting and style
+
+## Image Content Guidelines
+
+- **Project Images**: Should showcase the building exterior, interior details, and unique architectural features
+- **Team Photos**: Professional headshots with neutral backgrounds
+- **Service Images**: Should visually represent each construction service
 
 ## Placeholder Images
 
 If you're setting up the site for development and don't have all images yet, you can use placeholder services like:
 
-- https://placehold.co/800x600/D4AF37/FFFFFF?text=LUXE+Hair
+- https://placehold.co/800x600/FF8C00/FFFFFF?text=Highpoint+Construction
 - https://picsum.photos/800/600
 
-Remember to replace all placeholders with actual salon images before launching the site. 
+Remember to replace all placeholders with actual construction project images before launching the site. 

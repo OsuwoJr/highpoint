@@ -1,46 +1,46 @@
-# LUXE Hair Salon Website
+# Highpoint Construction Website
 
-A modern, responsive website for LUXE Hair salon built with SvelteKit, focusing on sustainable luxury hair services.
+A modern, professional website for Highpoint Construction, a Kenyan construction company specializing in residential and commercial construction projects, built with SvelteKit.
 
 ## Features
 
-- **Responsive Design**: Fully responsive design that works on mobile, tablet, and desktop
-- **Service Showcase**: Detailed information about salon services organized by categories
-- **Online Booking System**: 3-step booking process with service, stylist, and date/time selection
-- **Gallery**: Filterable gallery showcasing the salon's work
-- **About Section**: Team information, salon story, and values
-- **Contact Form**: Easy way for clients to reach out
-- **Error Handling**: Robust error handling for missing assets and server errors
+- **Responsive Design**: Fully responsive design that works seamlessly on mobile, tablet, and desktop
+- **Project Portfolio**: Showcase of completed construction projects with detailed case studies
+- **Service Listings**: Comprehensive information about construction and architectural services
+- **Quote Request System**: Online form for requesting project quotes
+- **Team Information**: Company leadership and expertise highlights
+- **Contact Information**: Multiple ways for clients to connect with the company
+- **Blog Section**: Construction industry insights and company news
 
 ## Pages
 
-- **Homepage**: Services overview, AR color try-on feature, and calls-to-action
-- **Services**: Detailed service information organized by category
-- **Gallery**: Filterable gallery of styles and transformations
-- **About**: Team information, salon story, timeline, and values
-- **Contact**: Contact information, form, map, and social links
-- **Booking**: 3-step booking system with confirmation
+- **Homepage**: Company overview, featured projects, services, and testimonials
+- **Projects**: Portfolio of completed projects with filterable gallery
+- **Services**: Detailed information on construction and design services
+- **About**: Company history, team, values, and mission
+- **Contact**: Office locations, contact form, and map
+- **Quote**: Custom project quote request form
+- **Blog**: Construction industry insights and company updates
 
 ## Tech Stack
 
 - **Framework**: SvelteKit
 - **Styling**: TailwindCSS
-- **Typography**: Playfair Display (headings) and Lato (body text)
+- **Typography**: Montserrat (headings) and Raleway (body text)
 - **Icons**: Heroicons (SVG)
-- **Deployment**: Adapter auto (configurable for various deployment targets)
+- **Deployment**: Vercel
 
 ## Design System
 
 - **Colors**:
-  - Gold: #D4AF37 (primary accent color)
-  - Black: #000000 (background for sections)
-  - Eco Green: #5D8C66 (sustainable branding accent)
-  - Light Gray: #F5F5F5 (section backgrounds)
-  - White: #FFFFFF (text and backgrounds)
+  - Gold: #FF8C00 (primary accent color)
+  - Primary: #121212 (dark background)
+  - Light: #FFFFFF (text and backgrounds)
+  - Black: #000000 (text and accents)
 
 - **Typography**:
-  - Headings: Playfair Display (serif)
-  - Body: Lato (sans-serif)
+  - Headings: Montserrat (sans-serif)
+  - Body: Raleway (sans-serif)
 
 ## Getting Started
 
@@ -53,7 +53,7 @@ A modern, responsive website for LUXE Hair salon built with SvelteKit, focusing 
    ```bash
    npm run dev
    ```
-4. Add required images to the `/static/images/` directory (see `/static/images/README.md` for details)
+4. Add required images to the `/static/images/` directory
 
 ## Building for Production
 
@@ -69,12 +69,40 @@ You can preview the production build with:
 npm run preview
 ```
 
+## Deployment
+
+The site is configured for deployment on Vercel. To deploy:
+
+1. Push your code to GitHub
+2. Connect your repository to Vercel
+3. Vercel will automatically build and deploy your site
+
 ## Customization
 
-- Update salon information in each component
-- Replace placeholder images with actual salon photos in `/static/images/`
-- Adjust services, team members, and pricing as needed in each page component
+- Update company information in relevant components
+- Replace placeholder images with actual project photos in `/static/images/`
+- Adjust services, projects, and team members as needed in each page component
 
-## Image Requirements
+## Project Structure
 
-See `/static/images/README.md` for detailed image requirements and organization.
+- `/src/routes`: Page components and routing
+- `/src/lib/components`: Reusable UI components
+- `/static/images`: Project images and assets
+- `/src/app.css`: Global styles and CSS variables
+
+## Accessibility and Performance
+
+The website is built with accessibility in mind, featuring:
+- Semantic HTML
+- Appropriate color contrast
+- Keyboard navigation support
+- Screen reader friendly elements
+
+Performance optimizations include:
+- Optimized images
+- Minimal JavaScript
+- Efficient CSS with Tailwind
+
+## License
+
+All rights reserved. This project is proprietary to Highpoint Construction.
