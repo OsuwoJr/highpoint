@@ -346,7 +346,7 @@
   
   <!-- Services Section -->
   <section class="py-16 px-4 bg-light relative z-2">
-    <div class="max-w-6xl mx-auto">
+    <div class="max-w-6xl mx-auto relative z-5">
       <!-- Service Categories -->
       <div class="text-center mb-12 animate-on-scroll">
         <span class="text-gold uppercase tracking-wider font-montserrat text-sm font-bold">What We Offer</span>
@@ -358,26 +358,28 @@
       </div>
       
       <!-- Category Selection -->
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-12 filter-buttons relative z-10">
-        {#each serviceCategories as category, i}
-          <div class="animate-on-scroll" style="transition-delay: {i * 100}ms">
-            <div 
-              class="service-card bg-white p-6 shadow-lg border-b-4 h-full flex flex-col transition-all hover:shadow-xl cursor-pointer {activeCategory.id === category.id ? 'border-gold' : 'border-transparent hover:border-gold'}"
-              on:click={() => setCategory(category)}
-              on:keydown={(e) => e.key === 'Enter' && setCategory(category)}
-              tabindex="0"
-              role="button"
-              aria-pressed={activeCategory.id === category.id}
-            >
-              <h3 class="text-xl font-bold mb-3 font-montserrat text-primary">{category.name}</h3>
-              <p class="text-gray-600 font-raleway flex-grow">{category.description}</p>
+      <div class="filter-buttons-container relative z-20">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-12 filter-buttons">
+          {#each serviceCategories as category, i}
+            <div class="animate-on-scroll" style="opacity: 1; transform: translateY(0);">
+              <div 
+                class="service-card bg-white p-6 shadow-lg border-b-4 h-full flex flex-col transition-all hover:shadow-xl cursor-pointer {activeCategory.id === category.id ? 'border-gold' : 'border-transparent hover:border-gold'}"
+                on:click={() => setCategory(category)}
+                on:keydown={(e) => e.key === 'Enter' && setCategory(category)}
+                tabindex="0"
+                role="button"
+                aria-pressed={activeCategory.id === category.id}
+              >
+                <h3 class="text-xl font-bold mb-3 font-montserrat text-primary">{category.name}</h3>
+                <p class="text-gray-600 font-raleway flex-grow">{category.description}</p>
+              </div>
             </div>
-          </div>
-        {/each}
+          {/each}
+        </div>
       </div>
       
       <!-- Service Listings -->
-      <div class="mb-12 relative z-5">
+      <div class="service-listings mb-12 relative z-10">
         <h3 class="text-2xl font-bold mb-6 font-montserrat text-primary">{activeCategory.name}</h3>
         
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -432,7 +434,7 @@
       </div>
       
       <!-- Selected Service Details -->
-      <div class="bg-white p-8 shadow-lg animate-on-scroll service-detail-card relative z-5">
+      <div class="bg-white p-8 shadow-lg animate-on-scroll service-detail-card relative z-5" style="opacity: 1; transform: translateY(0);">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
           <div>
             <h3 class="text-2xl font-bold mb-4 font-montserrat text-primary">{activeService.name}</h3>
@@ -484,16 +486,16 @@
   </section>
   
   <!-- Process Section -->
-  <section class="py-16 px-4 bg-primary text-white">
+  <section class="py-16 px-4 bg-primary text-white relative z-2">
     <div class="max-w-6xl mx-auto">
-      <div class="text-center mb-12 animate-on-scroll">
+      <div class="text-center mb-12 animate-on-scroll" style="opacity: 1; transform: translateY(0);">
         <span class="text-gold uppercase tracking-wider font-montserrat text-sm font-bold">How We Work</span>
         <h2 class="text-3xl md:text-4xl font-bold mt-2 mb-4 font-montserrat">Our Process</h2>
         <div class="w-24 h-1 bg-gold mx-auto mb-6"></div>
       </div>
       
       <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-        <div class="animate-on-scroll" style="transition-delay: 100ms">
+        <div class="animate-on-scroll" style="opacity: 1; transform: translateY(0); transition-delay: 100ms">
           <div class="text-gold text-4xl font-bold mb-4">01</div>
           <h3 class="text-xl font-bold mb-3 font-montserrat">Consultation</h3>
           <p class="font-raleway">
@@ -501,7 +503,7 @@
           </p>
         </div>
         
-        <div class="animate-on-scroll" style="transition-delay: 200ms">
+        <div class="animate-on-scroll" style="opacity: 1; transform: translateY(0); transition-delay: 200ms">
           <div class="text-gold text-4xl font-bold mb-4">02</div>
           <h3 class="text-xl font-bold mb-3 font-montserrat">Design</h3>
           <p class="font-raleway">
@@ -509,7 +511,7 @@
           </p>
         </div>
         
-        <div class="animate-on-scroll" style="transition-delay: 300ms">
+        <div class="animate-on-scroll" style="opacity: 1; transform: translateY(0); transition-delay: 300ms">
           <div class="text-gold text-4xl font-bold mb-4">03</div>
           <h3 class="text-xl font-bold mb-3 font-montserrat">Construction</h3>
           <p class="font-raleway">
@@ -517,7 +519,7 @@
           </p>
         </div>
         
-        <div class="animate-on-scroll" style="transition-delay: 400ms">
+        <div class="animate-on-scroll" style="opacity: 1; transform: translateY(0); transition-delay: 400ms">
           <div class="text-gold text-4xl font-bold mb-4">04</div>
           <h3 class="text-xl font-bold mb-3 font-montserrat">Handover</h3>
           <p class="font-raleway">
@@ -529,8 +531,8 @@
   </section>
   
   <!-- CTA Section -->
-  <section class="py-16 px-4 bg-light">
-    <div class="max-w-4xl mx-auto text-center animate-on-scroll">
+  <section class="py-16 px-4 bg-light relative z-2">
+    <div class="max-w-4xl mx-auto text-center animate-on-scroll" style="opacity: 1; transform: translateY(0);">
       <h2 class="text-3xl md:text-4xl font-bold mb-6 font-montserrat text-primary">Ready to Start Your Project?</h2>
       <p class="text-gray-700 mb-8 font-raleway">
         Contact us today for a consultation and let's bring your vision to life. Whether you're in Kenya or abroad, 
@@ -591,10 +593,7 @@
     transition: opacity 0.6s ease-out, transform 0.6s ease-out;
   }
   
-  .animate-on-scroll.is-visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  
   
   /* Service card specific styles */
   .service-card {
@@ -616,5 +615,38 @@
   .image-container {
     position: relative;
     overflow: hidden;
+  }
+  
+  /* Fixed visibility for services page */
+  .filter-buttons-container {
+    position: relative;
+    isolation: isolate;
+  }
+  
+  .filter-buttons {
+    position: relative;
+    z-index: 20;
+  }
+  
+  .service-listings {
+    position: relative;
+    z-index: 10;
+  }
+  
+  /* Remove any potential overlays */
+  main::before,
+  main::after,
+  section::before,
+  section::after {
+    content: none !important;
+  }
+  
+  /* Fix for z-index stacking context */
+  main {
+    isolation: isolate;
+  }
+  
+  section {
+    isolation: isolate;
   }
 </style>
